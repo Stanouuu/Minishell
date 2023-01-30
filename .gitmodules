@@ -3,4 +3,4 @@
 	url = https://github.com/Stanouuu/gnl.git
 [submodule "source/Libft"]
 	path = source/Libft
-	url = https://github.com/Stanouuu/gnl.git
+	url = https://github.com/Stanouuu/Libft.git
