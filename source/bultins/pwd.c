@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/01/30 16:02:13 by sbarrage         ###   ########.fr       */
+/*   Created: 2023/01/30 13:48:11 by sbarrage          #+#    #+#             */
+/*   Updated: 2023/01/30 14:14:05 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../minishell.h"
 
-#include <stdio.h>
-#include <signal.h>
-#include <unistd.h>
-# include "Libft/libft.h"
-# include "Printf/ft_printf.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-// # include "gnl/get_next_line.h"
+void	pwd(char *rd)
+{
+	char cwd[256];
+	int	i;
 
-void	echo(char *rd);
-void	pwd(char *rd);
-void	cd(char *rd);
-
-char	*parsing_2(char *str);
-
-
-#endif
+	i = 3;
+	while (rd[i])
+	{
+		if (rd[i] != ' ')
+		{
+			write(1, "pwd: too many arguments\n", 24);
+			return ;
+		}
+		i++;
+	}
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return ;
+	else
+		printf("%s\n", cwd);
+}

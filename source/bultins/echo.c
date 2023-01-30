@@ -6,11 +6,11 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:18:50 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/01/26 18:28:56 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:32:28 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // void	ft_printstr_mod(char *str)
 // {
