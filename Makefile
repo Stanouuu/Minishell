@@ -6,19 +6,23 @@
 #    By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/01/28 13:01:01 by gfranque         ###   ########.fr        #
+#    Updated: 2023/02/01 18:49:15 by gfranque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c echo.c
+SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c
+
+PRINTF = ./source/Printf/libftprintf.a
 
 INCLUDES = -I ./include/
 
-LIBFTINC = -I ./libft/
+LIBFTINC = -I ./source/Libft/
 
-LIBFT = ./libft/libft.a
+PRINTFINC = -I ./source/Printf
+
+LIBFT = ./source/libft/libft.a
 
 SRC_DIR = source
 
@@ -73,20 +77,21 @@ all:	$(NAME)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(MKDIR) $(OBJ_DIR)
 	$(COLORCYAN)
-	$(GCC) $(FLAGS) $(INCLUDES) $(LIBFTINC) -c $< -o $@
+	$(GCC) $(FLAGS) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) -c $< -o $@
 	$(UNCOLOR)
 	
 $(NAME):	$(OBJS)
 	@echo "$(BOLDCYAN) Minishell $(RESET)"
 	$(COLORGREEN)
-	make -C ./libft
+	make -C ./source/Libft
+	make -C ./source/Printf
 	$(UNCOLOR)
 	$(COLORCYAN)
-	$(GCC) $(FLAGS) -o $(NAME) $(INCLUDES) $(LIBFTINC) $(OBJS) $(LIBFT) $(MLX) $(LIBRARY)
+	$(GCC) $(FLAGS) -o $(NAME) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) $(OBJS) $(LIBFT) $(PRINTF)
 	$(UNCOLOR)
 	@echo "$(BOLDCYAN) Compilation completed $(RESET)"
 
-clean:
+lean:
 	$(COLORYELLOW)
 	$(RM) $(OBJ_DIR)
 	$(RM) $(OBJBONUS_DIR)
@@ -95,7 +100,8 @@ clean:
 
 fclean:	clean
 	$(COLORYELLOW)
-	@make fclean -C ./libft
+	@make fclean -C ./source/Libft
+	@make fclean -C ./source/Printf
 	$(UNCOLOR)
 	$(COLORYELLOW)
 	$(RM) $(NAME) $(NAMEBONUS)

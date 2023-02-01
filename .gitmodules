@@ -1,6 +1,0 @@
-[submodule "source/gnl"]
-	path = source/gnl
-	url = https://github.com/Stanouuu/gnl.git
-[submodule "Libft"]
-	path = Libft
-	url = https://github.com/Stanouuu/Libft.git
