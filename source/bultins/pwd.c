@@ -6,16 +6,16 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:48:11 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/01/30 14:14:05 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:57:56 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 void	pwd(char *rd)
 {
-	char cwd[256];
-	int	i;
+	char	cwd[256];
+	int		i;
 
 	i = 3;
 	while (rd[i])
