@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	action(void)
+void	action()
 {
 	write(1, "\n", 1);
 	rl_on_new_line();
