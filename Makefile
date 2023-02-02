@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/01/28 13:01:01 by gfranque         ###   ########.fr        #
+#    Updated: 2023/01/30 18:04:57 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c echo.c
+SRC = 	main.c\
+		bultins/echo.c bultins/cd.c bultins/pwd.c 
 
 INCLUDES = -I ./include/
 
