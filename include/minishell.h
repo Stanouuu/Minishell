@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/01 18:49:31 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:45:16 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	pwd(char *rd);
 void	cd(char *rd);
 
 char	*parsing_2(char *str);
+
 
 #endif
