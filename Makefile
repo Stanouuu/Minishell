@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/02/01 18:49:15 by gfranque         ###   ########.fr        #
+#    Updated: 2023/02/03 18:13:49 by gfranque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBFTINC = -I ./source/Libft/
 
 PRINTFINC = -I ./source/Printf
 
-LIBFT = ./source/libft/libft.a
+LIBFT = ./source/Libft/libft.a
 
 SRC_DIR = source
 
@@ -35,6 +35,8 @@ OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 GCC = gcc
 
 FLAGS = -Wall -Wextra -Werror -g3
+
+READLINE = -lreadline
 
 RM = rm -rf
 
@@ -76,6 +78,7 @@ all:	$(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(MKDIR) $(OBJ_DIR)
+	@$(MKDIR) $(OBJ_DIR)/bultins
 	$(COLORCYAN)
 	$(GCC) $(FLAGS) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) -c $< -o $@
 	$(UNCOLOR)
@@ -87,14 +90,13 @@ $(NAME):	$(OBJS)
 	make -C ./source/Printf
 	$(UNCOLOR)
 	$(COLORCYAN)
-	$(GCC) $(FLAGS) -o $(NAME) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) $(OBJS) $(LIBFT) $(PRINTF)
+	$(GCC) $(FLAGS) -o $(NAME) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) $(OBJS) $(LIBFT) $(PRINTF) $(READLINE)
 	$(UNCOLOR)
 	@echo "$(BOLDCYAN) Compilation completed $(RESET)"
 
-lean:
+clean:
 	$(COLORYELLOW)
 	$(RM) $(OBJ_DIR)
-	$(RM) $(OBJBONUS_DIR)
 	$(UNCOLOR)
 	@echo "$(BACKYELLOW)$(WHITE) Clean done $(RESET)"
 
