@@ -6,25 +6,21 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:05:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/01 16:59:36 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:24:24 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd(char *rd)
+void	cd(char **command)
 {
-	rd += 2;
-	printf("%s\n", rd);
-	while (*rd && *rd == ' ')
-		rd++;
-	if (!(*rd))
+	if (!command[1])
 	{
 		chdir(getenv("HOME"));
 		return ;
 	}
-	if (chdir(rd) == -1)
+	if (chdir(command[1]) == -1)
 	{
-		printf("cd: no such file or directory: %s\n", rd);
+		printf("cd: no such file or directory: %s\n", command[1]);
 	}
 }
