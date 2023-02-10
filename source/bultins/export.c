@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 13:48:11 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/10 15:38:02 by sbarrage         ###   ########.fr       */
+/*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
+/*   Updated: 2023/02/10 15:44:53 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+// void	export(char **cmd, char **envp)
+// {
+// 	int	i;
 
-void	pwd(char **cmd)
-{
-	char	cwd[256];
-	int		i;
-
-	while (cmd[0][i])
-	{
-		if (cmd[1])
-		{
-			write(1, "pwd: too many arguments\n", 24);
-			return ;
-		}
-		i++;
-	}
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return ;
-	else
-		printf("%s\n", cwd);
-}
+// 	while (envp[i])
+// 		i++;
+// }

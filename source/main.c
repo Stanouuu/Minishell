@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/08 14:33:01 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:36:04 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ void	ft_free_data(t_data *data)
 	free (data);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*rd;
 	int		i;
 	t_data	*data;
 
+	if (argc > 1 && argv)
+		return (-1);
 	data = NULL;
 	signal(SIGINT, &action);
 	signal(SIGQUIT, SIG_IGN);
@@ -62,7 +64,7 @@ int	main(void)
 			i = -1;
 		else if (rd[0])
 		{
-			i = parsing(rd, &data);
+			i = parsing(rd, &data, envp);
 			printf("action = %s\n", rd);
 			ft_free_data(data);
 		}

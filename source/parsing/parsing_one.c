@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:11:06 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/08 16:24:47 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:24:22 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@
 // }
 
 
-int	parsing(char *rd, t_data **data)
+int	parsing(char *rd, t_data **data, char **envp)
 {
-	*data = malloc(sizeof(data));
+	*data = malloc(sizeof(t_data));
 	if (!rd[0])
 		return (0);
 	(*data)->command = ft_split(rd, ' ');
@@ -93,5 +93,9 @@ int	parsing(char *rd, t_data **data)
 		pwd((*data)->command);
 	if ((*data)->command && strncmp("cd", (*data)->command[0], 3) == 0)
 		cd((*data)->command);
+	if ((*data)->command && strncmp("env", (*data)->command[0], 4) == 0)
+		env((*data)->command, envp);
+	if ((*data)->command && strncmp("unset", (*data)->command[0], 6) == 0)
+		unset((*data)->command, envp);
 	return (1);
 }

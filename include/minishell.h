@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/08 16:24:38 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:37:27 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ typedef struct s_data
 	t_files			*begin;//la liste chainnee des files a ouvrir pour toutes les redirections
 }					t_data;
 
-void	echo(char **command);
-void	pwd(char **command);
-void	cd(char **command);
+void	echo(char **cmd);
+void	pwd(char **cmd);
+void	cd(char **cmd);
+void	unset(char **cmd, char **envp);
+void	export(char **cmd, char **envp);
+void	env(char **cmd, char **envp);
 
-int		parsing(char *rd, t_data **data);
+int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);
 
 

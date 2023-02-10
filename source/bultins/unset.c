@@ -1,46 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 16:18:50 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/10 15:37:49 by sbarrage         ###   ########.fr       */
+/*   Created: 2023/02/10 13:54:17 by sbarrage          #+#    #+#             */
+/*   Updated: 2023/02/10 15:33:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(char **cmd)
+void	unset(char **cmd, char **envp)
 {
 	int	i;
 	int	j;
-	int	rall;
 
-	rall = 0;
-	i = 0;
 	j = 1;
-	if (!cmd[1])
+	while (cmd[j])
 	{
-		write(1, "\n", 1);
-		return ;
-	}
-	while (cmd[j] && cmd[j][i] && (strncmp("-n", cmd[j] , 2) == 0))
-	{
-		i++;
-		while (cmd[j][i] == 'n')
-			i++;
-		if (cmd[j][i] != 0 )
-			break ;
-		j++;
-		rall = i;
 		i = 0;
+		while (envp[i])
+		{
+			if (ft_strncmp(cmd[j], envp[i], ft_strlen(cmd[j]) + 1) == -61)
+			{
+				ft_printf("%s", envp[i]);
+				while (envp[i + 1])
+				{
+					envp[i] = envp[i + 1];
+					i++;
+				}
+				envp[i] = NULL;
+			}
+			i++;
+		}
+		j++;
 	}
-	i = 2;
-	while (cmd[j] && cmd[j + 1])
-		ft_printf("%s ",cmd[j++]);
-	ft_printf("%s",cmd[j]);
-	if (rall == 0)
-		write(1, "\n", 1);
 }
