@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:11:06 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/10 15:24:22 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:45:42 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,8 @@ int	parsing(char *rd, t_data **data, char **envp)
 		env((*data)->command, envp);
 	if ((*data)->command && strncmp("unset", (*data)->command[0], 6) == 0)
 		unset((*data)->command, envp);
+	if ((*data)->command && strncmp("export", (*data)->command[0], 8) == 0)
+		export((*data)->command, envp);
+		
 	return (1);
 }

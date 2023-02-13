@@ -6,14 +6,14 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/02/10 15:34:53 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/02/13 20:03:27 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/parsing_one.c\
-		./bultins/env.c ./bultins/unset.c ./bultins/export.c
+		./bultins/env.c ./bultins/unset.c ./bultins/export.c ./bultins/export_utils.c
 
 PRINTF = ./source/Printf/libftprintf.a
 

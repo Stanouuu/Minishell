@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/10 15:37:27 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:59:22 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	pwd(char **cmd);
 void	cd(char **cmd);
 void	unset(char **cmd, char **envp);
 void	export(char **cmd, char **envp);
+void	envp_prt_sort(char **envp);
 void	env(char **cmd, char **envp);
 
 int		parsing(char *rd, t_data **data, char **envp);
