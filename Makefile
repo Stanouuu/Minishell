@@ -6,13 +6,14 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/02/03 18:13:49 by gfranque         ###   ########.fr        #
+#    Updated: 2023/02/13 20:03:27 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c
+SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/parsing_one.c\
+		./bultins/env.c ./bultins/unset.c ./bultins/export.c ./bultins/export_utils.c
 
 PRINTF = ./source/Printf/libftprintf.a
 
@@ -27,6 +28,8 @@ LIBFT = ./source/Libft/libft.a
 SRC_DIR = source
 
 OBJ_DIR = objet
+
+MORE_DIR = $(OBJ_DIR)/bultins $(OBJ_DIR)/parsing
 
 SRCS = $(SRC:%=$(SRC_DIR)/%)
 
@@ -78,7 +81,7 @@ all:	$(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(MKDIR) $(OBJ_DIR)
-	@$(MKDIR) $(OBJ_DIR)/bultins
+	@$(MKDIR) $(MORE_DIR)
 	$(COLORCYAN)
 	$(GCC) $(FLAGS) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) -c $< -o $@
 	$(UNCOLOR)

@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 13:48:11 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/10 15:38:02 by sbarrage         ###   ########.fr       */
+/*   Created: 2023/02/10 13:54:17 by sbarrage          #+#    #+#             */
+/*   Updated: 2023/02/10 15:33:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(char **cmd)
+void	unset(char **cmd, char **envp)
 {
-	char	cwd[256];
-	int		i;
+	int	i;
+	int	j;
 
-	while (cmd[0][i])
+	j = 1;
+	while (cmd[j])
 	{
-		if (cmd[1])
+		i = 0;
+		while (envp[i])
 		{
-			write(1, "pwd: too many arguments\n", 24);
-			return ;
+			if (ft_strncmp(cmd[j], envp[i], ft_strlen(cmd[j]) + 1) == -61)
+			{
+				ft_printf("%s", envp[i]);
+				while (envp[i + 1])
+				{
+					envp[i] = envp[i + 1];
+					i++;
+				}
+				envp[i] = NULL;
+			}
+			i++;
 		}
-		i++;
+		j++;
 	}
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return ;
-	else
-		printf("%s\n", cwd);
 }
