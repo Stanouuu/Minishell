@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 19:58:17 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/13 20:12:01 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:47:33 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	envp_prt_sort(char **envp)
 	while (envp[k])
 		k++;
 	i = malloc(sizeof(int) * k);
+	if (!i)
+		ft_error("malloc");
 	j = 0;
 	while (envp[j])
 	{

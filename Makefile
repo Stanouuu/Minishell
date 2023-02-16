@@ -6,14 +6,15 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/02/13 20:03:27 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/02/16 16:22:59 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/parsing_one.c\
-		./bultins/env.c ./bultins/unset.c ./bultins/export.c ./bultins/export_utils.c
+		./bultins/env.c ./bultins/unset.c ./bultins/export.c ./bultins/export_utils.c\
+		./exec/command.c error.c
 
 PRINTF = ./source/Printf/libftprintf.a
 
@@ -29,7 +30,7 @@ SRC_DIR = source
 
 OBJ_DIR = objet
 
-MORE_DIR = $(OBJ_DIR)/bultins $(OBJ_DIR)/parsing
+MORE_DIR = $(OBJ_DIR)/bultins $(OBJ_DIR)/parsing $(OBJ_DIR)/exec
 
 SRCS = $(SRC:%=$(SRC_DIR)/%)
 

@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 13:14:18 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/16 16:48:18 by sbarrage         ###   ########.fr       */
+/*   Created: 2023/02/16 16:18:19 by sbarrage          #+#    #+#             */
+/*   Updated: 2023/02/16 16:31:45 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env(char **cmd, char **envp)
+void	ft_error(char *str)
 {
-	if (cmd[1])
-	{
-		ft_printf("env: '%s': %s\n",cmd[1], strerror(ENOENT));
-		return ;
-	}
-	while (*envp)
-		printf("%s\n", *envp++);
+	ft_printf("%s: %s\n", str, strerror(errno));
+	exit(0);
 }

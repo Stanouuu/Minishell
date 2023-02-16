@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:11:06 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/13 12:45:42 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:33:02 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,27 @@ int	parsing(char *rd, t_data **data, char **envp)
 	if (!rd[0])
 		return (0);
 	(*data)->command = ft_split(rd, ' ');
+	if (!(*data)->command)
+		ft_error("malloc");
+
+	(*data)->envp = envp;
 	// if ((*data)->pepe)
 	if ((*data)->command && strncmp("exit", (*data)->command[0], 5) == 0)
 		return (-1);
-	if ((*data)->command && strncmp("echo", (*data)->command[0], 5) == 0)
+	else if ((*data)->command && strncmp("echo", (*data)->command[0], 5) == 0)
 		echo((*data)->command);
-	if ((*data)->command && strncmp("pwd", (*data)->command[0], 4) == 0)
+	else if ((*data)->command && strncmp("pwd", (*data)->command[0], 4) == 0)
 		pwd((*data)->command);
-	if ((*data)->command && strncmp("cd", (*data)->command[0], 3) == 0)
+	else if ((*data)->command && strncmp("cd", (*data)->command[0], 3) == 0)
 		cd((*data)->command);
-	if ((*data)->command && strncmp("env", (*data)->command[0], 4) == 0)
+	else if ((*data)->command && strncmp("env", (*data)->command[0], 4) == 0)
 		env((*data)->command, envp);
-	if ((*data)->command && strncmp("unset", (*data)->command[0], 6) == 0)
+	else if ((*data)->command && strncmp("unset", (*data)->command[0], 6) == 0)
 		unset((*data)->command, envp);
-	if ((*data)->command && strncmp("export", (*data)->command[0], 8) == 0)
+	else if ((*data)->command && strncmp("export", (*data)->command[0], 8) == 0)
 		export((*data)->command, envp);
+	else
+		ft_command(*data);
 		
 	return (1);
 }
