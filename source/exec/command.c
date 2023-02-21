@@ -6,40 +6,55 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/16 16:32:02 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:16:39 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	ft_parent(void)
+{
+	while (wait(NULL) > 0)
+	{
+	}
+}
+
+void	ft_kid(t_data *data)
+{
+	char	*str;
+
+	if (data->command[3])
+		ft_printf("%s\n", data->command[3]);
+	if (data->command[0][0] == '.' && data->command[0][1] == '/')
+	{
+		execv(data->command[0], data->command + 1);
+		str = ft_strjoin("Minishell: ", data->command[0]);
+		ft_error(str);
+		free(str);
+	}
+	else
+	{
+		str = ft_strjoin("/usr/bin/", data->command[0]);
+		if (!str)
+			ft_error("malloc");
+		execv(str, data->command);
+		free(str);
+	}
+	str = ft_strjoin(data->command[0], ": command not found\n");
+	write(2, str, ft_strlen(str));
+	free(str);
+	exit(0);
+}
+
 void	ft_command(t_data *data)
 {
-	pid_t pid;
-	char *str;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
-	{
-		if (data->command[0][0] == '.' && data->command[0][1] == '/')
-			execv(data->command[0], data->command + 1);
-		else
-		{
-			str = ft_strjoin("/usr/bin/", data->command[0]);
-			if (!str)
-				ft_error("malloc");
-			execv(str, data->command);
-			free(str);
-		}
-		ft_error("malloc");
-	}
+		ft_kid(data);
 	else if (pid < 0)
 		ft_error("fork");
-	else 
-	{
-		while(wait(NULL) > 0)
-		{
-		}
-	}
-	// write(1, "through here", 12);
-
+	else
+		ft_parent();
 }

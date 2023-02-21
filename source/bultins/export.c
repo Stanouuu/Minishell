@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/16 16:49:51 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:37:54 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_add_env(char **cmd, char **envp, int j)
 	{
 		envp[i] = ft_strdup(cmd[j]);
 		if (!envp[i])
-				ft_error("malloc");
+			ft_error("malloc");
 	}
 	envp[i + 2] = NULL;
 }
