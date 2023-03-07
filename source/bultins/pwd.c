@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:48:11 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/10 15:38:02 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:58:35 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	pwd(char **cmd)
 	{
 		if (cmd[1])
 		{
-			write(1, "pwd: too many arguments\n", 24);
+			write(0, "pwd: too many arguments\n", 24);
 			return ;
 		}
 		i++;

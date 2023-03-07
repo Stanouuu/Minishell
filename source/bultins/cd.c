@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:05:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/10 15:37:41 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:36:52 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,5 @@ void	cd(char **cmd)
 		return ;
 	}
 	if (chdir(cmd[1]) == -1)
-	{
-		printf("cd: no such file or directory: %s\n", cmd[1]);
-	}
+		ft_printf("cd: %s: %s\n", strerror(errno), cmd[1]);
 }
