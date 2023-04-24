@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
+#    By: stan <stan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/02/20 13:39:00 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/04/23 20:12:18 by stan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/parsing_one.c\
+SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/controll.c\
 		./bultins/env.c ./bultins/unset.c ./bultins/export.c ./bultins/export_utils.c\
 		./exec/command.c ./exec/redirection.c error.c
 
@@ -86,7 +86,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(COLORCYAN)
 	$(GCC) $(FLAGS) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) -c $< -o $@
 	$(UNCOLOR)
-	
+
 $(NAME):	$(OBJS)
 	@echo "$(BOLDCYAN) Minishell $(RESET)"
 	$(COLORGREEN)
