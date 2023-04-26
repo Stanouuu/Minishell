@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/20 15:39:56 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:50:36 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void	envp_prt_sort(char **envp);
 void	env(char **cmd, char **envp);
 
 void	ft_command(t_data *data);
-void	controller(t_data **data);
+void	redirection(t_data *data);
+int		is_redirection(char *str);
+
 
 int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);

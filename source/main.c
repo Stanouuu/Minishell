@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/16 15:52:09 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:28:28 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,14 @@ int	main(int argc, char **argv, char **envp)
 	{
 		rd = readline("minishell> ");
 		if (!rd)
+		{
+			write(1, "out\n", 4);
 			i = -1;
+		}
 		else if (rd[0])
 		{
 			i = parsing(rd, &data, envp);
-			printf("action = %s\n", rd);
+			printf("action = %s %d\n", rd, i);
 			ft_free_data(data);
 		}
 		add_history(rd);
