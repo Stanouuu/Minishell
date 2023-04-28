@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
 /*   Updated: 2023/04/28 12:02:41 by sbarrage         ###   ########.fr       */
@@ -61,7 +61,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		rd = readline("minishell> ");
 		if (!rd)
+		{
+			write(1, "out\n", 4);
 			i = -1;
+		}
 		else if (rd[0])
 		{
 			i = parsing(rd, &data, envp);

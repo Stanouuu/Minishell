@@ -64,7 +64,6 @@ int open_file(t_data *data)
 		else if (is_redirection(data->command[i]) == 3)
 			*data->fd = open(data->command[2], O_RDONLY);
 		redirection(data);
-
 		// if (redirection(data) == 0)
 		// {
 		// 	write(1, "here", 4);
@@ -93,6 +92,7 @@ int ft_controller(t_data **data)
 	else
 		ft_command(*data);
 	return (1);
+
 }
 
 int	parsing(char *rd, t_data **data, char **envp)
@@ -109,7 +109,6 @@ int	parsing(char *rd, t_data **data, char **envp)
 		ft_error("malloc");
 	while ((*data)->command[i])
 		i++;
-
 	(*data)->envp = envp;
 	if (open_file(*data) == 1)
 	{

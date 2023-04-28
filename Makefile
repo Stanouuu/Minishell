@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
+#    By: stan <stan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
 #    Updated: 2023/04/28 11:36:15 by sbarrage         ###   ########.fr        #
@@ -86,7 +86,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(COLORCYAN)
 	$(GCC) $(FLAGS) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) -c $< -o $@
 	$(UNCOLOR)
-	
+
 $(NAME):	$(OBJS)
 	@echo "$(BOLDCYAN) Minishell $(RESET)"
 	$(COLORGREEN)
