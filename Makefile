@@ -6,13 +6,13 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/02/20 13:39:00 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/04/28 11:36:15 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/parsing_one.c\
+SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/controll.c\
 		./bultins/env.c ./bultins/unset.c ./bultins/export.c ./bultins/export_utils.c\
 		./exec/command.c ./exec/redirection.c error.c
 

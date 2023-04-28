@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/21 15:16:39 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:42:10 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	ft_kid(t_data *data)
 {
 	char	*str;
 
-	if (data->command[3])
-		ft_printf("%s\n", data->command[3]);
 	if (data->command[0][0] == '.' && data->command[0][1] == '/')
 	{
 		execv(data->command[0], data->command + 1);
@@ -37,6 +35,7 @@ void	ft_kid(t_data *data)
 		str = ft_strjoin("/usr/bin/", data->command[0]);
 		if (!str)
 			ft_error("malloc");
+		// write(1, "l\n", 2);
 		execv(str, data->command);
 		free(str);
 	}

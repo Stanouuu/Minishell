@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/16 15:52:09 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:02:41 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 		else if (rd[0])
 		{
 			i = parsing(rd, &data, envp);
-			printf("action = %s\n", rd);
+			printf("action = %s %d\n", rd, i);
 			ft_free_data(data);
 		}
 		add_history(rd);
