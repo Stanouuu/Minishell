@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 19:03:21 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 21:53:32 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	action()
 {
-	write(1, "here\n", 5);
+	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -56,11 +56,16 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1 || !av)
 		return (0);
 	i = 0;
+	signal(SIGINT, &action);
+	signal(SIGQUIT, SIG_IGN);
 	while (i != -1)
 	{
 		str = readline("\033[1;36mminishell> \033[0m");
 		if (!str)
+		{
+			write(1, "out\n", 4);
 			i = -1;
+		}
 		else
 		{
 			data = ft_datacreate(envp);

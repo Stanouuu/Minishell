@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 19:20:23 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 21:38:47 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int		ft_command(t_data *data);
 int		redirection(t_data *data);
 void	controller(t_data *data);
 void	redirect(int x, int j);
-int		ft_strcmp(char *s1, char *s2);
+int 	ft_strcmp(const char *s1, const char *s2);
+void	action();
 int		open_file(t_data *data);
 
 int		parsing(char *rd, t_data **data, char **envp);

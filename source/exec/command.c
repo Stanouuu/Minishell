@@ -6,11 +6,18 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 17:55:51 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:42:49 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	child_action(int num, siginfo_t	*info, void *content)
+{
+	if (num == SIGINT && content)
+		kill(info->si_pid, SIGTERM);
+}
+
 
 int ft_strcmp(const char *s1, const char *s2)
 {
@@ -31,11 +38,16 @@ void	ft_parent(void)
 
 void	extra_cmd(t_data *data)
 {
-	char	*str;
+	char				*str;
+	struct sigaction	sa;
 
 	// char *cat = "cat";
 	// int i = -1;
-
+	sigemptyset(&sa.sa_mask);
+	sigaddset(&sa.sa_mask, SIGINT);
+	sa.sa_flags = SA_RESTART | SA_SIGINFO;
+	sa.sa_sigaction = &child_action;
+	sigaction(SIGUSR1, &sa, NULL);
 	if (data->command[0][0] == '.' && data->command[0][1] == '/')
 	{
 		execv(data->command[0], data->command + 1);
@@ -49,8 +61,8 @@ void	extra_cmd(t_data *data)
 		str = ft_strjoin("/usr/bin/", data->command[0]);
 		if (!str)
 			ft_error("malloc");
-		// write(1, "\n\n\np\n\n\n", 7);
 		execve(str, data->command, data->envp);
+		free(str);
 	}
 	str = ft_strjoin(data->command[0], ": command not found\n");
 	write(2, str, ft_strlen(str));
@@ -74,40 +86,41 @@ int ft_controller(t_data *data)
 	else if (data->command && ft_strcmp("export", data->command[0]) == 0)
 		export(data->command, data->envp);
 	else
-		extra_cmd(data);
+		return (0);
 	return (1);
 }
 
 int	ft_command(t_data *data)
 {
 	pid_t	pid;
-	// int		j;
-	// int 	x;
-	int 	i[1];
+	int		j;
+	int 	x;
+	int 	i;
 
-	// j = dup(1);
-	// x = dup(0);
-	*i = 0;
-	pid = fork();
-	if (pid == 0)
+	j = dup(1);
+	x = dup(0);
+	i = 0;
+	if (open_file(data) == 1)
 	{
-		if (open_file(data) == 1)
-		{
-			// *i = ft_controller(data);
-			// ft_printf("here is i: %d\n", data->fd[]);
-			redirect(data->fd[0], data->fd[1]);
-			if (ft_controller(data) == -1)
-				*i = -1;
-			// redirect(x, j);
-			// ft_printf("here is i: %d\n", i);
-		}
-		exit(0);
+		redirect(data->fd[0], data->fd[1]);
+		i = ft_controller(data);
 	}
-	else if (pid < 0)
-		ft_error("fork");
-	else
-		ft_parent();
-	if (*i == -1)
+	if (i == 0)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			extra_cmd(data);
+			redirect(x, j);
+			exit(0);
+		}
+		else if (pid < 0)
+			ft_error("fork");
+		else
+			ft_parent();
+	}
+	redirect(x, j);
+	if (i == -1)
 		return (-1);
 	return (1);
 }
