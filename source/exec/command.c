@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/01 17:10:21 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:27:15 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,52 +33,34 @@ void	extra_cmd(t_data *data)
 {
 	char	*str;
 
+	// char *cat = "cat";
+	// int i = -1;
+
 	if (data->command[0][0] == '.' && data->command[0][1] == '/')
 	{
 		execv(data->command[0], data->command + 1);
 		str = ft_strjoin("Minishell: ", data->command[0]);
 		ft_error(str);
 		free(str);
+		return ;
 	}
 	else
 	{
 		str = ft_strjoin("/usr/bin/", data->command[0]);
 		if (!str)
 			ft_error("malloc");
+		// write(1, "\n\n\np\n\n\n", 7);
 		execv(str, data->command);
-		free(str);
 	}
 	str = ft_strjoin(data->command[0], ": command not found\n");
 	write(2, str, ft_strlen(str));
 	free(str);
 }
 
-int open_file(t_data *data)
-{
-	t_file	*files;
-
-	files = data->files;
-	data->fd[0] = dup(0);
-	data->fd[1] = dup(1);
-	while (files)
-	{
-		if (files->type->enu == 3)
-			data->fd[1] = open(files->name, O_WRONLY | O_APPEND);
-		else if (files->type->enu == 4)
-		{
-			fclose(fopen(files->name, "w"));
-			data->fd[1] = open(files->name, O_WRONLY);
-		}
-		else if (files->type->enu == 3)
-			data->fd[0] = open(files->name, O_RDONLY);
-	}
-	return (1);
-}
-
 int ft_controller(t_data *data)
 {
 	if (data->command && ft_strcmp("exit", data->command[0]) == 0)
-		return (0);
+		return (-1);
 	else if (data->command && ft_strcmp("echo", data->command[0]) == 0)
 		echo(data->command);
 	else if (data->command && ft_strcmp("pwd", data->command[0]) == 0)
@@ -99,23 +81,24 @@ int ft_controller(t_data *data)
 int	ft_command(t_data *data)
 {
 	pid_t	pid;
-	int	j;
-	int x;
-	int i;
+	int		j;
+	int 	x;
+	int 	i[1];
 
 	j = dup(1);
 	x = dup(0);
+	*i = 0;
 	pid = fork();
 	if (pid == 0)
 	{
 		if (open_file(data) == 1)
 		{
-			dup2(data->fd[1], 1);
-			dup2(data->fd[0], 0);
-			if (ft_controller(data) == 0)
-				i = -1;
-			dup2(j, 1);
-			dup2(x, 0);
+			redirect(data->fd[0], data->fd[1]);
+			// *i = ft_controller(data);
+			if (ft_controller(data) == -1)
+				*i = -1;
+			redirect(x, j);
+			// ft_printf("here is i: %d\n", i);
 		}
 		exit(0);
 	}
@@ -123,7 +106,7 @@ int	ft_command(t_data *data)
 		ft_error("fork");
 	else
 		ft_parent();
-	if (i == -1)
+	if (*i == -1)
 		return (-1);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/01 15:17:49 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:09:16 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct		s_token
 typedef struct		s_file
 {
 	char			*name;
-	struct s_token	*type;
+	enum token		enu;
 	struct s_file	*next;
 }					t_file;
 
@@ -70,10 +70,11 @@ void	export(char **cmd, char **envp);
 void	envp_prt_sort(char **envp);
 void	env(char **cmd, char **envp);
 
-void	ft_command(t_data *data);
-int		is_redirection(char *str);
+int		ft_command(t_data *data);
 int		redirection(t_data *data);
 void	controller(t_data *data);
+void	redirect(int x, int j);
+int		open_file(t_data *data);
 
 int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);

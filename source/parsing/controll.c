@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:11:06 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/01 17:09:04 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:24:06 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,36 @@ int	ft_scan_redirect(t_file *file)
 
 int	parsing(char *rd, t_data **data, char **envp)
 {
-	int	i = 0;
+	int	i = -1;
+	char *command = "cat";
+	// char *command2 = "Makefile";
+	char *fname = "here";
 
-	*data = malloc(sizeof(t_data));
+	data = malloc(sizeof(t_data *));
+	(*data) = malloc(sizeof(t_data));
+	(*data)->files = malloc(sizeof(t_file));
+	(*data)->files->name = fname;
+	(*data)->files->enu = infile;
+	(*data)->files->next = NULL;
+	(*data)->command = malloc(sizeof(char *) * 2);
+	(*data)->command[0] = command;
+	// (*data)->command[1] = command2;
+	(*data)->command[1] = NULL;
+	(*data)->envp = envp;
+	while((*data)->command[++i])
+		ft_printf("%s %d\n", (*data)->command[i], i);
+	i = 0;
 	if (!rd[0])
 		return (0);
-	(*data)->command[0] = "cd";
 	if (!(*data)->command)
 		ft_error("malloc");
 	while ((*data)->command[i])
 		i++;
-	(*data)->envp = envp;
-	if (ft_command(*data))
+	if (ft_command(*data) == -1)
 		return (-1);
-	if ((*data)->fd)
-	{
-		close(*(*data)->fd);
-		free((*data)->fd);
-	}
+	if ((*data)->fd[0] != dup(0))
+		close((*data)->fd[0]);
+	if ((*data)->fd[1] != dup(1))
+		close((*data)->fd[1]);
 	return (1);
 }
