@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/04/24 18:24:29 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:04:52 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -466,7 +466,8 @@ t_token	*is_word(char *str, int *i, int *n, t_token *begin)
 			e = 1;
 		*i = *i + 1;
 	}
-	if (e != 0 && (ft_readsometoken(begin, sinquo) % 2) == 0)
+	if (e != 0 && (ft_readsometoken(begin, sinquo) % 2) == 0
+		&& ft_readlasttoken(begin) != heredoc)
 		return (ft_tokenadd(begin, expen, n));
 	else
 		return (ft_tokenadd(begin, word, n));
@@ -518,11 +519,13 @@ int	ft_parse(t_token *begin, t_data data, int *i)
 */
 //garder un compteur du dernier token ? afin de savoir toujours ce qu'il y avait avant. Comme ca l'ajout de texte peut etre plus simple. Faire une fonction de check si il y a un quote identique est a venir (usage de static ?)
 
-t_token	*ft_lexing(char *str, t_token *begin)
+t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 {
 	int		i;
 	int		n;
 	t_pf	tmp;
+	t_data	*temp;//juste le test
+	t_file	*filetemp;//juste le test
 	
 	i = 0;
 	n = 0;
@@ -535,21 +538,40 @@ t_token	*ft_lexing(char *str, t_token *begin)
 			return (NULL);
 		i++;
 	}
-//	if (ft_parse() == NULL)
-//		return (NULL);
+	if (ft_parse(str, begin, data) == NULL)//lancer parse apres le lexing ?
+		return (NULL);
+	//juste le test
+	temp = data;
+	while (temp != NULL)
+	{
+		i = 0;
+		while (temp->command[i])
+		{
+			printf("command[%d] = [%s]\n", i, temp->command[i]);
+			i++;
+		}
+		filetemp = temp->files;
+		while (filetemp != NULL)
+		{
+			printf("redirection [%d] = [%s]\n", filetemp->type, filetemp->name);
+			filetemp = filetemp->next;
+		}
+		temp = temp->next;
+	}
+	//juste le test
 	return (begin);
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
 	int		i;
 	char	*str;
 	t_token	*begin;
+	t_data	*data;
 
 	if (ac != 1 || !av)
 		return (0);
 	i = 0;
-	begin = NULL;
 	while (i != -1)
 	{
 		str = readline("\033[1;36mminishell> \033[0m");
@@ -557,11 +579,15 @@ int	main(int ac, char **av)
 			i = -1;
 		else
 		{
-			begin = ft_lexing(str, begin);
+			data = ft_datacreate(envp);
+			if (!data)
+				return (0);
+			begin = NULL;
+			begin = ft_lexing(str, begin, data);
 			ft_tokenclear(begin);
 			add_history(str);
 			free(str);
-			begin = NULL;
+			ft_dataclear(data);
 		}
 	}
 	rl_clear_history();
