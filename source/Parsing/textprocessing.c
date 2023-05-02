@@ -1,15 +1,25 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textprocessing.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/01 15:24:49 by gfranque          #+#    #+#             */
+/*   Updated: 2023/05/01 15:46:29 by gfranque         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "dataprocessing.h"
+
+/*
 typedef struct		s_txt
 {
 	char			*str;
 	char			*expand;
 	struct s_txt	*next;
 }					t_txt;
-
+*/
 //creation d'un maillon a assembler plus tard
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
@@ -18,10 +28,9 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	j;
 
 	i = 0;
-	j = 0;
-	if (little[i] == '\0')
+	if (little == NULL || strlen(little) == 0)
 		return ((char *)big);
-	if (len == 0)
+	if (big == NULL)
 		return (NULL);
 	while (big[i] && i < len)
 	{
@@ -35,51 +44,43 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	return (NULL);
 }
 
-void	ft_txtclear(t_txt *begin)
-{
-	t_txt *temp;
 
-	if (!begin)
-		return ;
-	temp = begin;
-	while (begin->next != NULL)
-	{
-		printf("word [%s]\nexpand [%s]\n", begin->str, begin->expand);
-		begin = begin->next;
-		free(temp->str);
-		free(temp->expand);
-		free(temp);
-		temp = begin;
-	}
-	printf("word [%s]\nexpand [%s]\n", begin->str, begin->expand);
-	free(temp->str);
-	free(temp->expand);
-	free(temp);
-	return ;
-}
+// void	ft_txtclear(t_txt *begin)
+// {
+// 	t_txt *temp;
 
-int	ft_isespace(char c)
-{
-	if (9 <= c && c <= 13)
-		return (1);
-	if (c == ' ')
-		return (1);
-	return (0);
-}
+// 	if (!begin)
+// 		return ;
+// 	temp = begin;
+// 	while (begin->next != NULL)
+// 	{
+// 		printf("word [%s]\nexpand [%s]\n", begin->str, begin->expand);
+// 		begin = begin->next;
+// 		free(temp->str);
+// 		free(temp->expand);
+// 		free(temp);
+// 		temp = begin;
+// 	}
+// 	printf("word [%s]\nexpand [%s]\n", begin->str, begin->expand);
+// 	free(temp->str);
+// 	free(temp->expand);
+// 	free(temp);
+// 	return ;
+// }
 
-int	wordlen(char *str)
-{
-	int	i;
+// int	wordlen(char *str)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (ft_isespace(str[i]) == 1)
-			return (i);
-		i++;
-	}
-	return (i);
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (ft_isespace(str[i]) == 1)
+// 			return (i);
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
 char	*ft_strndup(char *str, int n)
 {
@@ -192,7 +193,7 @@ char	*ft_expand(char *str, char **envp, int len)
 	}
 	return (s);
 }
-
+/*
 t_txt	*ft_txtcreate(char *str, int len, char **envp)
 {
 	t_txt	*text;
@@ -238,6 +239,7 @@ t_txt	*textprocessing(char *str, int *i, t_txt *begin, char **envp)//just for th
 	begin = ft_txtadd(begin, str + j, len, envp);
 	return (begin);
 }
+*/
 
 
 
@@ -260,27 +262,26 @@ t_txt	*textprocessing(char *str, int *i, t_txt *begin, char **envp)//just for th
 
 
 
+// int	main(int ac, char **av, char **envp)
+// {
+// 	t_txt	*begin;
+// 	int		i;
 
-int	main(int ac, char **av, char **envp)
-{
-	t_txt	*begin;
-	int		i;
-
-	if (ac == 1)
-	{
-		printf("Please write some arguments\n");
-		return (1);
-	}
-	i = 0;
-	printf("[%s]\n", av[1]);
-	while (envp[i])
-	{
-		printf("[%s]\n", envp[i]);
-		i++;
-	}
-	i = 0;
-	begin = NULL;
-	begin = textprocessing(av[1], &i, begin, envp);
-	ft_txtclear(begin);
-	return (0);
-}
+// 	if (ac == 1)
+// 	{
+// 		printf("Please write some arguments\n");
+// 		return (1);
+// 	}
+// 	i = 0;
+// 	printf("[%s]\n", av[1]);
+// 	while (envp[i])
+// 	{
+// 		printf("[%s]\n", envp[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	begin = NULL;
+// 	begin = textprocessing(av[1], &i, begin, envp);
+// 	ft_txtclear(begin);
+// 	return (0);
+// }
