@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/02 17:04:52 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:50:08 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -559,6 +559,7 @@ t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 		temp = temp->next;
 	}
 	//juste le test
+	link(data);
 	return (begin);
 }
 
