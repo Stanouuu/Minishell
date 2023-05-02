@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dataprocessing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/02 18:50:08 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:03:18 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -559,40 +559,8 @@ t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 		temp = temp->next;
 	}
 	//juste le test
-	link(data);
+	road(data);
 	return (begin);
-}
-
-int	main(int ac, char **av, char **envp)
-{
-	int		i;
-	char	*str;
-	t_token	*begin;
-	t_data	*data;
-
-	if (ac != 1 || !av)
-		return (0);
-	i = 0;
-	while (i != -1)
-	{
-		str = readline("\033[1;36mminishell> \033[0m");
-		if (!str)
-			i = -1;
-		else
-		{
-			data = ft_datacreate(envp);
-			if (!data)
-				return (0);
-			begin = NULL;
-			begin = ft_lexing(str, begin, data);
-			ft_tokenclear(begin);
-			add_history(str);
-			free(str);
-			ft_dataclear(data);
-		}
-	}
-	rl_clear_history();
-	return (1);
 }
 
 

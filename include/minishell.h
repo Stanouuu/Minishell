@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 18:52:05 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:20:23 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,45 +24,12 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "dataprocessing.h"
+#include "dataprocessing.h"
 
-enum token {
-	infile = 1,
-	heredoc,
-	append,
-	outfile,
-	word,
-	expen,
-	sinquo,
-	douquo,
-	pip,
-	none
-};
+/*##############*/
+/*	BULT-INS	*/
+/*##############*/
 
-typedef struct		s_token
-{
-	enum token		enu;
-	struct s_token	*next;
-}					t_token;
-
-typedef struct		s_file
-{
-	char			*name;
-	enum token		enu;
-	struct s_file	*next;
-}					t_file;
-
-typedef struct		s_data
-{
-	char			**command;
-	char			**envp;
-	int				fd[2];
-	int				pipe[2];
-	struct s_file	*files;
-	struct s_data	*next;
-}					t_data;
-
-typedef t_token*(*t_pf)(char *, int *, int *, t_token *);
 void	echo(char **cmd);
 void	pwd(char **cmd);
 void	cd(char **cmd);
@@ -71,10 +38,12 @@ void	export(char **cmd, char **envp);
 void	envp_prt_sort(char **envp);
 void	env(char **cmd, char **envp);
 
+int		road(t_data *data);
 int		ft_command(t_data *data);
 int		redirection(t_data *data);
 void	controller(t_data *data);
 void	redirect(int x, int j);
+int		ft_strcmp(char *s1, char *s2);
 int		open_file(t_data *data);
 
 int		parsing(char *rd, t_data **data, char **envp);

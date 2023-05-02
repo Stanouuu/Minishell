@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stan <stan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/04/28 11:36:15 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/05/02 19:12:29 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = minishell
 
 SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/controll.c\
 		./bultins/env.c ./bultins/unset.c ./bultins/export.c ./bultins/export_utils.c\
-		./exec/command.c ./exec/redirection.c error.c
+		./exec/command.c ./exec/redirection.c error.c\
+		./Parsing/datahandling.c ./Parsing/dataprocessing.c ./Parsing/dataprocessing2.c\
+		./Parsing/textprocessing.c
 
 PRINTF = ./source/Printf/libftprintf.a
 
@@ -30,7 +32,7 @@ SRC_DIR = source
 
 OBJ_DIR = objet
 
-MORE_DIR = $(OBJ_DIR)/bultins $(OBJ_DIR)/parsing $(OBJ_DIR)/exec
+MORE_DIR = $(OBJ_DIR)/bultins $(OBJ_DIR)/parsing $(OBJ_DIR)/exec $(OBJ_DIR)/Parsing
 
 SRCS = $(SRC:%=$(SRC_DIR)/%)
 
