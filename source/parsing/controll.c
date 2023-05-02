@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:11:06 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 17:56:21 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:53:00 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ int	ft_scan_redirect(t_file *file)
 	}
 	return (0);
 } */
+
+int	link(t_data *data)
+{
+	if (ft_command(data) == -1)
+		return (-1);
+	if (data->fd[0] != dup(0))
+		close(data->fd[0]);
+	if (data->fd[1] != dup(1))
+		close(data->fd[1]);
+	return (1);
+}
 
 int	parsing(char *rd, t_data **data, char **envp)
 {
