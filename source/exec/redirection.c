@@ -6,55 +6,37 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/04/28 16:50:45 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:24:59 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	file_input(t_data *data, int i)
+int open_file(t_data *data)
 {
-	if (dup2(*data->fd, 0) < 0)
-		return (0);
-	while (data->command[i])
+	t_file	*files;
+
+	files = data->files;
+	data->fd[0] = dup(0);
+	data->fd[1] = dup(1);
+	while (files)
 	{
-		data->command[i] = NULL;
-		i++;
+		if (files->enu == 4)
+		{
+			fclose(fopen(files->name, "w"));
+			data->fd[1] = open(files->name, O_WRONLY);
+		}
+		if (files->enu == 3)
+			data->fd[1] = open(files->name, O_WRONLY | O_APPEND);
+		if (files->enu == 1)
+			data->fd[0] = open(files->name, O_RDONLY);
+		files = files->next;
 	}
 	return (1);
 }
 
-int output_file(t_data *data, int i)
+void	redirect(int x, int j)
 {
-	if (dup2(*data->fd, 1) < 0)
-		return (0);
-	while (data->command[i])
-	{
-		data->command[i] = NULL;
-		i++;
-	}
-	return (1);
-}
-
-int redirection(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->command[i] && data->command[i + 1])
-	{
-		if (is_redirection(data->command[i]) == 1 || is_redirection(data->command[i]) == 2)
-		{
-			if (output_file(data, i) == 0)
-				return (0);
-		}
-		else if (is_redirection(data->command[i]) == 3)
-		{
-			if (file_input(data, i) == 0)
-				return (0);
-
-		}
-		i++;
-	}
-	return (1);
+	dup2(j, 1);
+	dup2(x, 0);
 }

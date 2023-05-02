@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/04/28 12:02:41 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:20:35 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	action()
 {
-	write(1, "\n", 1);
+	write(1, "here\n", 5);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -30,20 +30,20 @@ void	action()
 
 // )
 
-void	ft_free_data(t_data *data)
-{
-	int i;
-	char **str;
+// void	ft_free_data(t_data *data)
+// {
+// 	int i;
+// 	char **str;
 
-	i = 0;
-	str = data->command;
-	while (str && str[i])
-	{
-		free(str[i++]);
-	}
-	free(str);
-	free (data);
-}
+// 	i = 0;
+// 	str = data->command;
+// 	while (str && str[i])
+// 	{
+// 		free(str[i++]);
+// 	}
+// 	free(str);
+// 	free (data);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			i = parsing(rd, &data, envp);
 			printf("action = %s %d\n", rd, i);
-			ft_free_data(data);
+			// ft_free_data(data);
 		}
 		add_history(rd);
 		free(rd);
