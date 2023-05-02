@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 17:27:15 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:55:51 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	extra_cmd(t_data *data)
 		if (!str)
 			ft_error("malloc");
 		// write(1, "\n\n\np\n\n\n", 7);
-		execv(str, data->command);
+		execve(str, data->command, data->envp);
 	}
 	str = ft_strjoin(data->command[0], ": command not found\n");
 	write(2, str, ft_strlen(str));
@@ -81,23 +81,24 @@ int ft_controller(t_data *data)
 int	ft_command(t_data *data)
 {
 	pid_t	pid;
-	int		j;
-	int 	x;
+	// int		j;
+	// int 	x;
 	int 	i[1];
 
-	j = dup(1);
-	x = dup(0);
+	// j = dup(1);
+	// x = dup(0);
 	*i = 0;
 	pid = fork();
 	if (pid == 0)
 	{
 		if (open_file(data) == 1)
 		{
-			redirect(data->fd[0], data->fd[1]);
 			// *i = ft_controller(data);
+			// ft_printf("here is i: %d\n", data->fd[]);
+			redirect(data->fd[0], data->fd[1]);
 			if (ft_controller(data) == -1)
 				*i = -1;
-			redirect(x, j);
+			// redirect(x, j);
 			// ft_printf("here is i: %d\n", i);
 		}
 		exit(0);

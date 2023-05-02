@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:11:06 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 17:24:06 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:56:21 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	parsing(char *rd, t_data **data, char **envp)
 	(*data) = malloc(sizeof(t_data));
 	(*data)->files = malloc(sizeof(t_file));
 	(*data)->files->name = fname;
-	(*data)->files->enu = infile;
+	(*data)->files->enu = outfile;
 	(*data)->files->next = NULL;
 	(*data)->command = malloc(sizeof(char *) * 2);
 	(*data)->command[0] = command;
-	// (*data)->command[1] = command2;
 	(*data)->command[1] = NULL;
+/* 	(*data)->command[2] = NULL; */
 	(*data)->envp = envp;
 	while((*data)->command[++i])
 		ft_printf("%s %d\n", (*data)->command[i], i);
