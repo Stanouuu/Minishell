@@ -6,48 +6,48 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/02 18:52:22 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:34:36 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATAPROCESSING_H
 # define DATAPROCESSING_H
 
-// enum token {
-// 	infile = 1,
-// 	heredoc,
-// 	append,
-// 	outfile,
-// 	word,
-// 	expen,
-// 	sinquo,
-// 	douquo,
-// 	pip,
-// 	none
-// };
+enum token {
+	infile = 1,
+	heredoc,
+	append,
+	outfile,
+	word,
+	expen,
+	sinquo,
+	douquo,
+	pip,
+	none
+};
 
-// typedef struct		s_token
-// {
-// 	enum token		enu;
-// 	struct s_token	*next;
-// }					t_token;
+typedef struct		s_token
+{
+	enum token		enu;
+	struct s_token	*next;
+}					t_token;
 
-// typedef struct		s_file
-// {
-// 	char			*name;
-// 	enum token		type;
-// 	struct s_file	*next;
-// }					t_file;
+typedef struct		s_file
+{
+	char			*name;
+	enum token		type;
+	struct s_file	*next;
+}					t_file;
 
-// typedef struct		s_data
-// {
-// 	char			**command;
-// 	char			**envp;
-// 	int				fd[2];
-// 	int				pipe[2];
-// 	struct s_file	*files;
-// 	struct s_data	*next;
-// }					t_data;
+typedef struct		s_data
+{
+	char			**command;
+	char			**envp;
+	int				fd[2];
+	int				pipe[2];
+	struct s_file	*files;
+	struct s_data	*next;
+}					t_data;
 
 typedef t_token*(*t_pf)(char *, int *, int *, t_token *);
 
@@ -125,5 +125,6 @@ void	ft_fileclear(t_file *begin);
 t_file	*ft_fileadd(char *str, enum token token, t_file *begin);
 char	**ft_newcommand(char *str);
 char	**ft_commandcreate(char **strs, char *str);
+void	ft_free_strs(char **strs);
 
 #endif

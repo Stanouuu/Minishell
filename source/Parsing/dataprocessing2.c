@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:25:06 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/02 17:04:24 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/03 12:34:53 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	ft_dataclear(t_data *data)
 	while (data != NULL)
 	{
 		data = data->next;
+		if (temp->command != NULL)
+			ft_free_strs(temp->command);
+		if (temp->files != NULL)
+			ft_fileclear(temp->files);
 		free (temp);
 		temp = data;//penser a free les commandes et free les files
 	}
@@ -118,9 +122,16 @@ char	*ft_tokenexpand(char *str, int *i, t_token **token, t_data *data)
 	len = 0;
 	while (str[j] && ft_isespace(str[j])== 1)
 		j++;
-	while (str[j + len] && ft_charnextdoor("<>|\"\'", str[j + len]) == 0
+	while (str[j + len] && ft_charnextdoor("<>|\"\'$", str[j + len]) == 0
 		&& ft_isespace(str[j + len]) == 0)
 		len++;
+	if (str[j + len] == '$')
+	{
+		len++;
+		while (str[j + len] && ft_charnextdoor("\"$", str[j + len]) == 0
+		&& ft_isespace(str[j + len]) == 0)
+		len++;
+	}
 	p = ft_findchar(str + j, '$');
 	newstr = ft_findinenvp(str + j + p, data->envp, len - p);
 	if (!newstr)
@@ -154,7 +165,7 @@ char	*ft_tokenwordindouble(char *str, int *i, t_token **token)
 	len = 0;
 	while (str[j] && ft_isespace(str[j]) == 1)
 		j++;
-	while (str[j + len] && ft_charnextdoor("<>|\"\'", str[j+ len]) == 0
+	while (str[j + len] && ft_charnextdoor("\"", str[j+ len]) == 0
 		&& ft_isespace(str[j + len]) == 0)
 		len++;
 	newstr = ft_strndup(str + j, len);
@@ -176,9 +187,16 @@ char	*ft_tokenexpandindouble(char *str, int *i, t_token **token, t_data *data)
 	len = 0;
 	while (str[j] && ft_isespace(str[j])== 1)
 		j++;
-	while (str[j + len] && ft_charnextdoor("<>|\"\'", str[j + len]) == 0
+	while (str[j + len] && ft_charnextdoor("\"$", str[j + len]) == 0
 		&& ft_isespace(str[j + len]) == 0)
 		len++;
+	if (str[j + len] == '$')
+	{
+		len++;
+		while (str[j + len] && ft_charnextdoor("\"$", str[j + len]) == 0
+		&& ft_isespace(str[j + len]) == 0)
+		len++;
+	}
 	p = ft_findchar(str + j, '$');
 	newstr = ft_findinenvp(str + j + p, data->envp, len - p);
 	if (!newstr)
@@ -422,6 +440,28 @@ int	ft_commandadd(char *str, int *i, t_token **token, t_data *data)
 	return (1);
 }
 
+int	ft_checkdata(t_data *data)
+{
+	char	*newstr;
+	t_data	*temp;
+
+	temp = data;
+	while (temp != NULL)
+	{
+		if (temp->command == NULL)
+		{
+			newstr = ft_strndup("", 0);
+			if (!newstr)
+				return (0);
+			temp->command = ft_commandcreate(temp->command, newstr);
+			if (temp->command == NULL)
+				return (0);
+		}
+		temp = temp->next;
+	}
+	return (1);
+}
+
 //gerer le token none !!!!!!!!!!!
 t_data	*ft_parse(char *str, t_token *begin, t_data *data)//malloquer le premier data et lui donner l'envp !!!!
 {
@@ -448,5 +488,6 @@ t_data	*ft_parse(char *str, t_token *begin, t_data *data)//malloquer le premier 
 			return (ft_dataclear(data), NULL);
 		// temp = temp->next;// a reverifier si il n'y a pas plusieurs incremenations de temp
 	}
+	ft_checkdata(data);
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 17:20:35 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/02 21:53:32 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	action()
 {
-	write(1, "here\n", 5);
+	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -45,35 +45,40 @@ void	action()
 // 	free (data);
 // }
 
-int	main(int argc, char **argv, char **envp)
+
+int	main(int ac, char **av, char **envp)
 {
-	char	*rd;
 	int		i;
+	char	*str;
+	t_token	*begin;
 	t_data	*data;
 
-	if (argc > 1 && argv)
-		return (-1);
-	data = NULL;
+	if (ac != 1 || !av)
+		return (0);
+	i = 0;
 	signal(SIGINT, &action);
 	signal(SIGQUIT, SIG_IGN);
-	i = 0;
 	while (i != -1)
 	{
-		rd = readline("minishell> ");
-		if (!rd)
+		str = readline("\033[1;36mminishell> \033[0m");
+		if (!str)
 		{
 			write(1, "out\n", 4);
 			i = -1;
 		}
-		else if (rd[0])
+		else
 		{
-			i = parsing(rd, &data, envp);
-			printf("action = %s %d\n", rd, i);
-			// ft_free_data(data);
+			data = ft_datacreate(envp);
+			if (!data)
+				return (0);
+			begin = NULL;
+			begin = ft_lexing(str, begin, data);
+			ft_tokenclear(begin);
+			add_history(str);
+			free(str);
+			ft_dataclear(data);
 		}
-		add_history(rd);
-		free(rd);
 	}
 	rl_clear_history();
-	write(1, "exit\n", 5);
+	return (1);
 }
