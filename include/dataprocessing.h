@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dataprocessing.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/02 19:12:51 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/03 12:33:19 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct		s_data
 
 typedef t_token*(*t_pf)(char *, int *, int *, t_token *);
 
-# include "minishell.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -125,5 +124,6 @@ void	ft_fileclear(t_file *begin);
 t_file	*ft_fileadd(char *str, enum token token, t_file *begin);
 char	**ft_newcommand(char *str);
 char	**ft_commandcreate(char **strs, char *str);
+void	ft_free_strs(char **strs);
 
 #endif

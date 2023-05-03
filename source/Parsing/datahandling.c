@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 21:12:37 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/02 14:54:54 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/03 12:38:20 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	ft_fileclear(t_file *begin)
 	temp = begin;
 	if (!begin)
 		return ;
-	while (begin->next != NULL)
+	while (begin != NULL)
 	{
 		begin = begin->next;
+		free(temp->name);
 		free(temp);
 		temp = begin;
 	}
-	free(temp);
 	return ;
 }
 
@@ -91,4 +91,19 @@ char	**ft_commandcreate(char **strs, char *str)
 	newstrs[i] = str;
 	free(strs);
 	return (newstrs);
+}
+
+void	ft_free_strs(char **strs)
+{
+	int	i;
+
+	i = 0;
+	if (!strs)
+		return ;
+	while (strs[i])
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
 }
