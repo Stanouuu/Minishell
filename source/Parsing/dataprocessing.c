@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dataprocessing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/02 19:03:18 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:52:13 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,50 +33,50 @@ void	ft_tokenclear(t_token *begin)
 		return ;
 	while (begin->next != NULL)
 	{
-		if (temp->enu == 1)
-			printf("token is a infile redirection\n");
-		else if (temp->enu == 2)
-			printf("token is a here_doc\n");
-		else if (temp->enu == 3)
-			printf("token is a append redirection\n");
-		else if (temp->enu == 4)
-			printf("token is a outfile redirection\n");
-		else if (temp->enu == 5)
-			printf("token is a word\n");
-		else if (temp->enu == 6)
-			printf("token is a expension\n");
-		else if (temp->enu == 7)
-			printf("token is a single quote\n");
-		else if (temp->enu == 8)
-			printf("token is a double quote\n");
-		else if (temp->enu == 9)
-			printf("token is a pipe\n");
-		else if (temp->enu == 10)
-			printf("token is a none\n");
+		// if (temp->enu == 1)
+		// 	printf("token is a infile redirection\n");
+		// else if (temp->enu == 2)
+		// 	printf("token is a here_doc\n");
+		// else if (temp->enu == 3)
+		// 	printf("token is a append redirection\n");
+		// else if (temp->enu == 4)
+		// 	printf("token is a outfile redirection\n");
+		// else if (temp->enu == 5)
+		// 	printf("token is a word\n");
+		// else if (temp->enu == 6)
+		// 	printf("token is a expension\n");
+		// else if (temp->enu == 7)
+		// 	printf("token is a single quote\n");
+		// else if (temp->enu == 8)
+		// 	printf("token is a double quote\n");
+		// else if (temp->enu == 9)
+		// 	printf("token is a pipe\n");
+		// else if (temp->enu == 10)
+		// 	printf("token is a none\n");
 		begin = begin->next;
 		free(temp);
 		temp = begin;
 	}
-	if (temp->enu == 1)
-		printf("token is a infile redirection\n");
-	else if (temp->enu == 2)
-		printf("token is a here_doc\n");
-	else if (temp->enu == 3)
-		printf("token is a append redirection\n");
-	else if (temp->enu == 4)
-		printf("token is a outfile redirection\n");
-	else if (temp->enu == 5)
-		printf("token is a word\n");
-	else if (temp->enu == 6)
-		printf("token is a expension\n");
-	else if (temp->enu == 7)
-		printf("token is a single quote\n");
-	else if (temp->enu == 8)
-		printf("token is a double quote\n");
-	else if (temp->enu == 9)
-		printf("token is a pipe\n");
-	else if (temp->enu == 10)
-		printf("token is a none\n");
+	// if (temp->enu == 1)
+	// 	printf("token is a infile redirection\n");
+	// else if (temp->enu == 2)
+	// 	printf("token is a here_doc\n");
+	// else if (temp->enu == 3)
+	// 	printf("token is a append redirection\n");
+	// else if (temp->enu == 4)
+	// 	printf("token is a outfile redirection\n");
+	// else if (temp->enu == 5)
+	// 	printf("token is a word\n");
+	// else if (temp->enu == 6)
+	// 	printf("token is a expension\n");
+	// else if (temp->enu == 7)
+	// 	printf("token is a single quote\n");
+	// else if (temp->enu == 8)
+	// 	printf("token is a double quote\n");
+	// else if (temp->enu == 9)
+	// 	printf("token is a pipe\n");
+	// else if (temp->enu == 10)
+	// 	printf("token is a none\n");
 	free(temp);
 	return ;
 }
@@ -337,6 +337,8 @@ t_token	*is_redir_1(char *str, int *i, int *n, t_token *begin)//pour les redirs 
 			printsyntax(str[*i + 1], n);
 		else if (str[*i] == '\0')
 			printsyntax(str[*i], n);
+		else if ((str[*i + 1] && ft_whatsnext(str + *i + 1) == 0) || str[*i + 1] == '\0')
+			ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
 		else
 			return (ft_tokenadd(begin, heredoc, n));
 	}
@@ -365,6 +367,8 @@ t_token	*is_redir_2(char *str, int *i, int *n, t_token *begin)//pour les redirs 
 			printsyntax(str[*i + 1], n);
 		else if (str[*i] == '\0')
 			printsyntax(str[*i], n);
+		else if ((str[*i + 1] && ft_whatsnext(str + *i + 1) == 0) || str[*i + 1] == '\0')
+			ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
 		else
 			return (ft_tokenadd(begin, append, n));
 	}
@@ -447,31 +451,86 @@ void	printredirerror(char *str, int i, int *n)
 	ft_putstrfd("'\n", 2);	
 }
 
+t_token	*is_expandindouble(char *str, int *i, int *n, t_token *begin)
+{
+	int	l;
+
+	l = 0;
+	if (str[*i] != '$')
+	{
+		while (str[*i + l + 1] && ft_charnextdoor("\"$", str[*i + l + 1]) == 0
+			&& ft_isespace(str[*i + l + 1]) == 0)
+			l++;
+		l++;
+	}
+	while (str[*i + l + 1] && ft_charnextdoor("\"$", str[*i + l + 1]) == 0
+		&& ft_isespace(str[*i + l + 1]) == 0)
+		l++;
+	*i = *i + l;
+	return (ft_tokenadd(begin, expen, n));
+}
+
+t_token	*is_expand(char *str, int *i, int *n, t_token *begin)
+{
+	int	l;
+
+	l = 0;
+	if (str[*i] != '$')
+	{
+		while (str[*i + l + 1] && ft_charnextdoor("<>|\"\'$", str[*i + l + 1]) == 0
+			&& ft_isespace(str[*i + l + 1]) == 0)
+			l++;
+		l++;
+	}
+	while (str[*i + l + 1] && ft_charnextdoor("<>|\"\'$", str[*i + l + 1]) == 0
+		&& ft_isespace(str[*i + l + 1]) == 0)
+		l++;
+	*i = *i + l;
+	return (ft_tokenadd(begin, expen, n));
+}
+
+t_token	*is_wordindouble(char *str, int *i, int *n, t_token *begin)
+{
+	int	l;
+
+	l = 0;
+	if (str[*i] == '$' )
+		return (is_expandindouble(str, i, n, begin));
+	while (str[*i + l + 1] && str[*i + l + 1] != '\"'
+		&& ft_isespace(str[*i + l + 1]) == 0)
+	{
+		if (str[*i + l + 1] == '$')
+			return (is_expandindouble(str, i, n, begin));
+		l++;
+	}
+	*i = *i + l;
+	return (ft_tokenadd(begin, word, n));
+}
+
 t_token	*is_word(char *str, int *i, int *n, t_token *begin)
 {
-	int	e;
+	int	l;
 
-	e = 0;
-	if (str[*i] == '$')
-		e = 1;
-	else if (is_digitredir(str, *i, begin) == 1)
+	l = 0;
+	if ((ft_readsometoken(begin, douquo) % 2) == 1)
+		return (is_wordindouble(str, i, n, begin));
+	if (str[*i] == '$' && (ft_readsometoken(begin, sinquo) % 2) == 0)
+		return (is_expand(str, i, n, begin));
+	// else if (is_digitredir(str, *i, begin) == 1)//faire un cas appart dans le paring
+	// {
+	// 	printredirerror(str, *i, n);
+	// 	return (ft_tokenclear(begin), NULL);
+	// }
+	while (str[*i + l + 1] && ft_charnextdoor("<>|\"\'", str[*i + l + 1]) == 0
+		&& ft_isespace(str[*i + l + 1]) == 0)
 	{
-		printredirerror(str, *i, n);
-		return (ft_tokenclear(begin), NULL);
+		if (str[*i + l + 1] == '$' && (ft_readsometoken(begin, sinquo) % 2) == 0
+			&& ft_readlasttoken(begin) != heredoc)
+			return (is_expand(str, i, n, begin));
+		l++;
 	}
-	while (str[*i + 1] && ft_charnextdoor("<>|\"\'", str[*i + 1]) == 0
-		&& ft_isespace(str[*i + 1]) == 0)
-	{
-		if (str[*i + 1] == '$')
-			e = 1;
-		*i = *i + 1;
-	}
-	if (e != 0 && (ft_readsometoken(begin, sinquo) % 2) == 0
-		&& ft_readlasttoken(begin) != heredoc)
-		return (ft_tokenadd(begin, expen, n));
-	else
-		return (ft_tokenadd(begin, word, n));
-	return (ft_tokenclear(begin), NULL);
+	*i = *i + l;
+	return (ft_tokenadd(begin, word, n));
 }
 
 t_pf	ft_checktoken(char c)
@@ -524,8 +583,8 @@ t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 	int		i;
 	int		n;
 	t_pf	tmp;
-	t_data	*temp;//juste le test
-	t_file	*filetemp;//juste le test
+	// t_data	*temp;//juste le test
+	// t_file	*filetemp;//juste le test
 	
 	i = 0;
 	n = 0;
@@ -541,27 +600,29 @@ t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 	if (ft_parse(str, begin, data) == NULL)//lancer parse apres le lexing ?
 		return (NULL);
 	//juste le test
-	temp = data;
-	while (temp != NULL)
-	{
-		i = 0;
-		while (temp->command[i])
-		{
-			printf("command[%d] = [%s]\n", i, temp->command[i]);
-			i++;
-		}
-		filetemp = temp->files;
-		while (filetemp != NULL)
-		{
-			printf("redirection [%d] = [%s]\n", filetemp->type, filetemp->name);
-			filetemp = filetemp->next;
-		}
-		temp = temp->next;
-	}
+	// temp = data;
+	// while (temp != NULL)
+	// {
+	// 	i = 0;
+	// 	while (temp->command[i])
+	// 	{
+	// 		printf("command[%d] = [%s]\n", i, temp->command[i]);
+	// 		i++;
+	// 	}
+	// 	filetemp = temp->files;
+	// 	while (filetemp != NULL)
+	// 	{
+	// 		printf("redirection [%d] = [%s]\n", filetemp->type, filetemp->name);
+	// 		filetemp = filetemp->next;
+	// 	}
+	// 	temp = temp->next;
+	// }
 	//juste le test
 	road(data);
 	return (begin);
 }
+
+
 
 
 

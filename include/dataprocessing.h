@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/03 12:33:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:34:36 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef t_token*(*t_pf)(char *, int *, int *, t_token *);
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
+# include "minishell.h"
 
 /*######################*/
 /*	dataprocessing.c	*/
