@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/05 14:53:43 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:59:29 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	ft_command(t_data *data)
 	x = dup(0);
 	i = 0;
 	str = NULL;
-	ft_check_error(data, &str);
 	if (open_file(data) == 1)
 	{
 		redirect(data->fd[0], data->fd[1]);
@@ -101,6 +100,7 @@ int	ft_command(t_data *data)
 	}
 	if (i == 0)
 	{
+		ft_check_error(data, &str);
 		pid = fork();
 		if (pid == 0)
 		{
