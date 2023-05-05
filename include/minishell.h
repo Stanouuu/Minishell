@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 21:38:47 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:52:52 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		open_file(t_data *data);
 int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);
 
-void	ft_error(char *str);
+int		ft_error(char *str);
+int		ft_check_error(t_data *data, char **str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 22:42:49 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:53:43 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,22 @@ void	ft_parent(void)
 	}
 }
 
-void	extra_cmd(t_data *data)
+void	extra_cmd(t_data *data, char *str)
 {
-	char				*str;
 	struct sigaction	sa;
-
-	// char *cat = "cat";
-	// int i = -1;
+	
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGINT);
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sa.sa_sigaction = &child_action;
 	sigaction(SIGUSR1, &sa, NULL);
-	if (data->command[0][0] == '.' && data->command[0][1] == '/')
+	if (!str)
 	{
 		execv(data->command[0], data->command + 1);
-		str = ft_strjoin("Minishell: ", data->command[0]);
-		ft_error(str);
-		free(str);
 		return ;
 	}
 	else
 	{
-		str = ft_strjoin("/usr/bin/", data->command[0]);
-		if (!str)
-			ft_error("malloc");
 		execve(str, data->command, data->envp);
 		free(str);
 	}
@@ -93,6 +84,7 @@ int ft_controller(t_data *data)
 int	ft_command(t_data *data)
 {
 	pid_t	pid;
+	char	*str;
 	int		j;
 	int 	x;
 	int 	i;
@@ -100,6 +92,8 @@ int	ft_command(t_data *data)
 	j = dup(1);
 	x = dup(0);
 	i = 0;
+	str = NULL;
+	ft_check_error(data, &str);
 	if (open_file(data) == 1)
 	{
 		redirect(data->fd[0], data->fd[1]);
@@ -110,7 +104,7 @@ int	ft_command(t_data *data)
 		pid = fork();
 		if (pid == 0)
 		{
-			extra_cmd(data);
+			extra_cmd(data, str);
 			redirect(x, j);
 			exit(0);
 		}
