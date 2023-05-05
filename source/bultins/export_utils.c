@@ -6,11 +6,54 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 19:58:17 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/16 16:47:33 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:29:05 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// int	has_equal(int j, int i, char **envp)
+// {
+// 	int	k;
+// 	int	l;
+
+// 	k = 0;
+// 	l = 0;
+// 	while (k != -1 && envp[i][k])
+// 	{
+// 		k++;
+// 		if (envp[i][k] == '=')
+// 			k = -1;
+// 	}
+// 	while (l != -1 && envp[j][l])
+// 	{
+// 		l++;
+// 		if (envp[i][l] == '=')
+// 			l = -1;
+// 	}
+// 	if (k == -1 && l != -1)
+// 		return (1);
+// 	return (0);
+// }
+void	printf_export(int *i, int j, char **envp)
+{
+	int	k;
+	
+	while (j > 0)
+	{
+		k = 0;
+		j--;
+		ft_printf("declare -x ");
+		while (envp[i[j]][k] && envp[i[j]][k] != '=')
+			write(1, &envp[i[j]][k++], 1);
+		if (envp[i[j]][k])
+		{
+			write(1, &envp[i[j]][k++], 1);
+			ft_printf("\"%s\"", envp[i[j]] + k);
+		}
+		write(1, "\n", 1);
+	}
+}
 
 int	ft_lowest(char **envp)
 {
@@ -26,7 +69,9 @@ int	ft_lowest(char **envp)
 		while (envp[i][l] == envp[j][l] && i != j)
 			l++;
 		if (envp[i][l] < envp[j][l])
+		{
 			j = i;
+		}
 		i++;
 	}
 	return (j);
@@ -75,6 +120,5 @@ void	envp_prt_sort(char **envp)
 			envp_prt_sort_2(envp, i, j, k++);
 		j++;
 	}
-	while (j > 0)
-		ft_printf("%s\n", envp[i[--j]]);
+	printf_export(i, j, envp);
 }
