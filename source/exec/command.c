@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/02 22:42:49 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:48:16 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	extra_cmd(t_data *data)
 	str = ft_strjoin(data->command[0], ": command not found\n");
 	write(2, str, ft_strlen(str));
 	free(str);
+	ft_dataclear(data);
+	g_exitcode = 127;
 }
 
 int ft_controller(t_data *data)
