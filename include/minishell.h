@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/05 18:46:52 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/06 16:11:27 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <errno.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include <sys/types.h>
