@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/03 13:52:13 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:33:44 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,14 @@ void	printsyntax(char c, int *n)
 	*n = 1;
 	ft_putstrfd("bash: syntax error near unexpected token `", 2);
 	ft_putcharfd(c, 2);
-	ft_putstrfd("'\n", 2);	
+	ft_putstrfd("'\n", 2);
+	g_exitcode = 2;
+}
+
+void	printsyntax1(char *str)
+{
+	ft_putstrfd(str, 2);
+	g_exitcode = 2;
 }
 
 int	ft_charnextdoor(char *charset, char c)
@@ -326,7 +333,7 @@ t_token	*is_redir_1(char *str, int *i, int *n, t_token *begin)//pour les redirs 
 	else if (ft_readlasttoken(begin) <= 4 && ft_readlasttoken(begin) != 0)
 		printsyntax(str[*i], n);
 	else if (str[*i + 1] && ft_whatsnext(str + *i + 1) == 0)
-		ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
+		printsyntax1("bash: syntax error near unexpected token `newline'\n");
 	else if (str[*i + 1] && (str[*i + 1] == '>' || str[*i + 1] == '|'))
 		printsyntax(str[*i + 1], n);
 	else if (str[*i + 1] &&	str[*i + 1] == '<')
@@ -338,12 +345,12 @@ t_token	*is_redir_1(char *str, int *i, int *n, t_token *begin)//pour les redirs 
 		else if (str[*i] == '\0')
 			printsyntax(str[*i], n);
 		else if ((str[*i + 1] && ft_whatsnext(str + *i + 1) == 0) || str[*i + 1] == '\0')
-			ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
+			printsyntax1("bash: syntax error near unexpected token `newline'\n");
 		else
 			return (ft_tokenadd(begin, heredoc, n));
 	}
 	else if (str[*i + 1] == '\0')
-		ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
+		printsyntax1("bash: syntax error near unexpected token `newline'\n");
 	else
 		return (ft_tokenadd(begin, infile, n));
 	return (ft_tokenclear(begin), NULL);
@@ -356,7 +363,7 @@ t_token	*is_redir_2(char *str, int *i, int *n, t_token *begin)//pour les redirs 
 	if (ft_readlasttoken(begin) <= 4 && ft_readlasttoken(begin) != 0)
 		printsyntax(str[*i], n);
 	else if (str[*i + 1] && ft_whatsnext(str + *i + 1) == 0)
-		ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
+		printsyntax1("bash: syntax error near unexpected token `newline'\n");
 	else if (str[*i + 1] && (str[*i + 1] == '<' || str[*i + 1] == '|'))
 		printsyntax(str[*i + 1], n);
 	else if (str[*i + 1] && str[*i + 1] == '>')
@@ -368,12 +375,12 @@ t_token	*is_redir_2(char *str, int *i, int *n, t_token *begin)//pour les redirs 
 		else if (str[*i] == '\0')
 			printsyntax(str[*i], n);
 		else if ((str[*i + 1] && ft_whatsnext(str + *i + 1) == 0) || str[*i + 1] == '\0')
-			ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
+			printsyntax1("bash: syntax error near unexpected token `newline'\n");
 		else
 			return (ft_tokenadd(begin, append, n));
 	}
 	else if (str[*i + 1] == '\0')
-		ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
+		printsyntax1("bash: syntax error near unexpected token `newline'\n");
 	else
 		return (ft_tokenadd(begin, outfile, n));
 	return (ft_tokenclear(begin), NULL);
@@ -386,12 +393,12 @@ t_token	*is_pip(char *str, int *i, int *n, t_token *begin)
 	else if (ft_readlasttoken(begin) == 9 || ft_readlasttoken(begin) <= 4)
 		printsyntax(str[*i], n);
 	else if (str[*i + 1] && ft_whatsnext(str + *i + 1) == 0)
-		ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
+		printsyntax1("bash: syntax error near unexpected token `newline'\n");
 	else if (str[*i + 1] && (str[*i + 1] == '<'
 		|| str[*i + 1] == '>' || str[*i + 1] == '|'))
 		printsyntax(str[*i + 1], n);
 	else if (str[*i + 1] == '\0')
-		ft_putstrfd("bash: syntax error near unexpected token `newline'\n", 2);
+		printsyntax1("bash: syntax error near unexpected token `newline'\n");
 	else
 		return (ft_tokenadd(begin, pip, n));
 	return (ft_tokenclear(begin), NULL);
@@ -448,7 +455,7 @@ void	printredirerror(char *str, int i, int *n)
 		ft_putcharfd(str[i], 2);
 		i++;
 	}
-	ft_putstrfd("'\n", 2);	
+	ft_putstrfd("'\n", 2);
 }
 
 t_token	*is_expandindouble(char *str, int *i, int *n, t_token *begin)
@@ -576,7 +583,6 @@ int	ft_parse(t_token *begin, t_data data, int *i)
 	return (res);
 }
 */
-//garder un compteur du dernier token ? afin de savoir toujours ce qu'il y avait avant. Comme ca l'ajout de texte peut etre plus simple. Faire une fonction de check si il y a un quote identique est a venir (usage de static ?)
 
 t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 {
@@ -588,6 +594,8 @@ t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 	
 	i = 0;
 	n = 0;
+	if (ft_strlen(str) == 0)
+		return (NULL);
 	while (str[i])
 	{
 		tmp = ft_checktoken(str[i]);
@@ -597,27 +605,10 @@ t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 			return (NULL);
 		i++;
 	}
-	if (ft_parse(str, begin, data) == NULL)//lancer parse apres le lexing ?
+	if (begin == NULL && (ft_isespacelen(str) == (int)ft_strlen(str)))
+		g_exitcode = 0;
+	if (ft_parse(str, begin, data) == NULL)
 		return (NULL);
-	//juste le test
-	// temp = data;
-	// while (temp != NULL)
-	// {
-	// 	i = 0;
-	// 	while (temp->command[i])
-	// 	{
-	// 		printf("command[%d] = [%s]\n", i, temp->command[i]);
-	// 		i++;
-	// 	}
-	// 	filetemp = temp->files;
-	// 	while (filetemp != NULL)
-	// 	{
-	// 		printf("redirection [%d] = [%s]\n", filetemp->type, filetemp->name);
-	// 		filetemp = filetemp->next;
-	// 	}
-	// 	temp = temp->next;
-	// }
-	//juste le test
 	road(data);
 	return (begin);
 }
