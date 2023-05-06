@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/05 18:52:17 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/06 16:36:37 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int	ft_command(t_data *data)
 	if (i == 0)
 	{
 		ft_check_error(data, &str);
+		if (!str)
+			return (-1);
 		pid = fork();
 		if (pid == 0)
 		{
