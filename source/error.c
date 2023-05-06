@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:18:19 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/06 12:26:56 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/06 13:34:38 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int ft_check_error(t_data *data, char **str)
 			return (ft_error("malloc"));
 		if (access(*str, X_OK) != 0)
 		{
-			write(1, "h", 1);
 			errno = ENOENT;
 			if (data->command[0][0] != '/')
 				errno = 127;
