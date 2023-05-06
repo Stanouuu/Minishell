@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/06 19:38:03 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/06 20:46:36 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,33 @@ void	extra_cmd(t_data *data, char *str)
 	g_exitcode = 127;
 }
 
+int	ft_exit(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	if (cmd[1] && cmd[2])
+		return (1);
+	while (cmd[1] && cmd[1][i])
+	{
+		if (is_digit(cmd[1][i]) == 0)
+		{
+			g_exitcode = 2;
+			return (-1);
+		}
+		i++;
+	}
+	// ft_printf("%s", cmd[1]);
+	if (cmd[1])
+		g_exitcode = ft_atoi(cmd[1]);
+	// write(1, "ll", 2);
+	return (-1);
+}
+
 int ft_controller(t_data *data)
 {
 	if (data->command && ft_strcmp("exit", data->command[0]) == 0)
-		return (-1);
+		return (ft_exit(data->command));
 	else if (data->command && ft_strcmp("echo", data->command[0]) == 0)
 		echo(data->command);
 	else if (data->command && ft_strcmp("pwd", data->command[0]) == 0)
@@ -79,8 +102,8 @@ int ft_controller(t_data *data)
 	else if (data->command && ft_strcmp("export", data->command[0]) == 0)
 		export(data->command, data->envp);
 	else
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int	ft_command(t_data *data)
@@ -102,11 +125,11 @@ int	ft_command(t_data *data)
 	}
 	if (i == -1)
 		return (-1);
-	if (i == 0)
+	else if (i == 1)
 	{
 		ft_check_error(data, &str);
 		if (!str)
-			return (-1);
+			return (0);
 		pid = fork();
 		if (pid == 0)
 		{

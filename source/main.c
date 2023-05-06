@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/04 16:46:32 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/06 20:49:23 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	main(int ac, char **av, char **envp)
 {
 	int		i;
 	char	*str;
-	t_token	*begin;
 	t_data	*data;
 
+	g_exitcode = 1;
 	if (ac != 1 || !av)
 		return (0);
 	i = 0;
@@ -73,13 +73,12 @@ int	main(int ac, char **av, char **envp)
 			data = ft_datacreate(envp);
 			if (!data)
 				return (0);
-			begin = NULL;
-			begin = ft_lexing(str, begin, data);
+			i = ft_lexing(str, NULL, data);
 			add_history(str);
 			free(str);
 			ft_dataclear(data);
 		}
 	}
 	rl_clear_history();
-	return (1);
+	return (g_exitcode);
 }

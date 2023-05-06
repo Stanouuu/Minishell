@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/06 19:36:59 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/06 20:32:33 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int open_file(t_data *data)
 			str = ft_strjoin("Minishell: ", files->name);
 			ft_error(str);
 			free(str);
-			return (-1);
+			return (0);
 		}
 		files = files->next;
 	}
