@@ -36,31 +36,22 @@ void	ft_parent(void)
 	}
 }
 
-void	extra_cmd(t_data *data)
+void	extra_cmd(t_data *data, char *str)
 {
-	char				*str;
 	struct sigaction	sa;
-
-	// char *cat = "cat";
-	// int i = -1;
+	
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGINT);
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sa.sa_sigaction = &child_action;
 	sigaction(SIGUSR1, &sa, NULL);
-	if (data->command[0][0] == '.' && data->command[0][1] == '/')
+	if (!str)
 	{
 		execv(data->command[0], data->command + 1);
-		str = ft_strjoin("Minishell: ", data->command[0]);
-		ft_error(str);
-		free(str);
 		return ;
 	}
 	else
 	{
-		str = ft_strjoin("/usr/bin/", data->command[0]);
-		if (!str)
-			ft_error("malloc");
 		execve(str, data->command, data->envp);
 		free(str);
 	}
@@ -80,7 +71,7 @@ int ft_controller(t_data *data)
 	else if (data->command && ft_strcmp("pwd", data->command[0]) == 0)
 		pwd(data->command);
 	else if (data->command && ft_strcmp("cd", data->command[0]) == 0)
-		cd(data->command);
+		cd(data->command, data->envp);
 	else if (data->command && ft_strcmp("env", data->command[0]) == 0)
 		env(data->command, data->envp);
 	else if (data->command && ft_strcmp("unset", data->command[0]) == 0)
@@ -95,6 +86,7 @@ int ft_controller(t_data *data)
 int	ft_command(t_data *data)
 {
 	pid_t	pid;
+	char	*str;
 	int		j;
 	int 	x;
 	int 	i;
@@ -102,6 +94,7 @@ int	ft_command(t_data *data)
 	j = dup(1);
 	x = dup(0);
 	i = 0;
+	str = NULL;
 	if (open_file(data) == 1)
 	{
 		redirect(data->fd[0], data->fd[1]);
@@ -109,10 +102,13 @@ int	ft_command(t_data *data)
 	}
 	if (i == 0)
 	{
+		ft_check_error(data, &str);
+		if (!str)
+			return (-1);
 		pid = fork();
 		if (pid == 0)
 		{
-			extra_cmd(data);
+			extra_cmd(data, str);
 			redirect(x, j);
 			exit(0);
 		}
