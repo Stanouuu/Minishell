@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:18:19 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/05 15:25:55 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:26:56 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,29 @@ int ft_check_error(t_data *data, char **str)
 	}
 	else
 	{
-		*str = ft_strjoin("/usr/bin/", data->command[0]);
-		if (!*str)
+		if (data->command[0][0]!= '/')
+			*str = ft_strjoin("/usr/bin/", data->command[0]);
+		else
+			*str = data->command[0];
+		if (!*str && data->command[0][0]!= '/')
 			return (ft_error("malloc"));
 		if (access(*str, X_OK) != 0)
 		{
-			free(*str);
-			*str = ft_strjoin("Minishell: ", data->command[0]);
-			if (!*str)
-				return (ft_error("malloc"));
-			ft_error(*str);
-			free(*str);
+			write(1, "h", 1);
+			errno = ENOENT;
+			if (data->command[0][0] != '/')
+				errno = 127;
+			if (errno == ENOENT)
+			{
+				free(*str);
+				*str = ft_strjoin("Minishell: ", data->command[0]);
+				if (!*str)
+					return (ft_error("malloc"));
+				ft_error(*str);
+				free(*str);
+			}
+			else
+				ft_printf("%s: command not found\n", data->command[0]);
 			*str = NULL;
 			return (errno);
 		}

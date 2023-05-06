@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:05:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/05 19:18:22 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/06 11:39:38 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,17 @@ void	change_pwd(char *str, char **envp)
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return ;
 	tmp = ft_strjoin(str, cwd);
+	if (!tmp)
+	{
+		ft_error("malloc");
+		return ;
+	}
 	tmptab = ft_split(tmp, ' ');
+	if (tmptab)
+	{
+		ft_error("malloc");
+		return ;
+	}
 	export(tmptab, envp);
 	free(tmp);
 	free(tmptab);
