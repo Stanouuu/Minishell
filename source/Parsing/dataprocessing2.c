@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:25:06 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/03 12:34:53 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:25:07 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,8 +486,8 @@ t_data	*ft_parse(char *str, t_token *begin, t_data *data)//malloquer le premier 
 			res = ft_commandadd(str, &i, &temp, data);
 		if (res == 0)
 			return (ft_dataclear(data), NULL);
-		// temp = temp->next;// a reverifier si il n'y a pas plusieurs incremenations de temp
 	}
 	ft_checkdata(data);
+	ft_tokenclear(begin);
 	return (data);
 }
