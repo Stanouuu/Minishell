@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/17 12:37:54 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/05 19:18:33 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,23 @@ void	ft_add_env(char **cmd, char **envp, int j)
 	envp[i + 2] = NULL;
 }
 
-int	export_2(char **cmd, char **envp, int i, int j)
+int	until_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	return (i);
+}
+
+int	export_2(char **cmd, char **envp, int j)
 {
 	int	k;
+	int	i;
 
 	k = 0;
+	i = until_equal(cmd[j]);
 	while (envp[k])
 	{
 		if (ft_strncmp(cmd[j], envp[k], i) == 0)
@@ -54,8 +66,21 @@ void	export(char **cmd, char **envp)
 	int	j;
 
 	j = 1;
+	i = 0;
 	if (!cmd[1])
 		envp_prt_sort(envp);
+	while (cmd[j] && cmd[j][i] && !(cmd[j][i] == '=' && i != 0))
+	{
+		if ((cmd[j][i] == '=' && i != 0))
+			ft_printf("the statement : = and i not 0 is true");
+		if (ft_isalpha(cmd[j][i]) == 0)
+		{
+			write(2, "bash: export: ", 14);
+			write(2, cmd[j], ft_strlen(cmd[j]));
+			write(2, ": not a valid identifier\n", 25);
+		}
+		i++;
+	}
 	while (cmd[j])
 	{
 		i = 0;
@@ -64,9 +89,9 @@ void	export(char **cmd, char **envp)
 		while (cmd[j][i])
 		{
 			i++;
-			if (cmd[j][i] == '=')
+			if (cmd[j][i])
 			{	
-				if (!envp[export_2(cmd, envp, i, j)])
+				if (!envp[export_2(cmd, envp, j)])
 					ft_add_env(cmd, envp, j);
 				break ;
 			}
