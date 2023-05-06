@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/04 16:48:16 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/06 19:38:03 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,15 @@ int	ft_command(t_data *data)
 
 	j = dup(1);
 	x = dup(0);
-	i = 0;
+	i = open_file(data);
 	str = NULL;
-	if (open_file(data) == 1)
+	if (i == 1)
 	{
 		redirect(data->fd[0], data->fd[1]);
 		i = ft_controller(data);
 	}
+	if (i == -1)
+		return (-1);
 	if (i == 0)
 	{
 		ft_check_error(data, &str);
@@ -118,7 +120,5 @@ int	ft_command(t_data *data)
 			ft_parent();
 	}
 	redirect(x, j);
-	if (i == -1)
-		return (-1);
 	return (1);
 }
