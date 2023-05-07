@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:05:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/07 16:52:06 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:36:17 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	change_pwd(char *str, char **envp)
 	if (!tmp)
 	{
 		ft_error("malloc");
-		g_exitcode = 101;
+		g_exitcode = 1;
 		return (-1);
 	}
 	tmptab = ft_split(tmp, ' ');
@@ -32,7 +32,7 @@ int	change_pwd(char *str, char **envp)
 	if (!tmptab)
 	{
 		ft_error("malloc");
-		g_exitcode = 102;
+		g_exitcode = 1;
 		return (-1);
 	}
 	export(tmptab, envp);

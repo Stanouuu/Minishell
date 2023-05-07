@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/07 11:50:44 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:53:42 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	redirect(int x, int j);
 int 	ft_strcmp(const char *s1, const char *s2);
 void	action();
 int		open_file(t_data *data);
+int		ft_pipe(t_data *data, int j, int x);
 
 int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);

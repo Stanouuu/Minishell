@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/07 17:28:55 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 23:22:03 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,13 @@ int ft_strcmp(const char *s1, const char *s2)
 void	ft_parent(void)
 {
 	signal(SIGINT, SIG_IGN);
-	while (wait(NULL) > 0)
-	{
-	}
+	waitpid(-1, 0, 0);
 }
 
 void	extra_cmd(t_data *data, char *str)
 {
 	struct sigaction	sa;
-	
+
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGINT);
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
@@ -106,6 +104,8 @@ int ft_controller(t_data *data)
 		return (export(data->command, data->envp));
 	else
 		return (1);
+	if (data->next)
+		return (1);
 	return (0);
 }
 
@@ -121,34 +121,38 @@ int	ft_command(t_data *data)
 		return (0);
 	j = dup(1);
 	x = dup(0);
+	if (ft_pipe(data, j, x) == -1)
+		return (-1);
 	i = open_file(data);
 	str = NULL;
-	if (i == 1)
+	while (data)
 	{
-		redirect(data->fd[0], data->fd[1]);
-		i = ft_controller(data);
-		redirect(x, j);
-	}
-	if (i == -1)
-		return (-1);
-	else if (i == 1)
-	{
-		i = ft_check_error(data, &str);
-		if (i < 1)
-			return (free(str), i);
-		pid = fork();
-		if (pid == 0)
+		if (i == 1)
 		{
 			redirect(data->fd[0], data->fd[1]);
-			extra_cmd(data, str);
+			i = ft_controller(data);
 			redirect(x, j);
-			exit(0);
 		}
-		else if (pid < 0)
-			ft_error("fork");
-		else
-			ft_parent();
+		if (i == 1)
+		{
+			i = ft_check_error(data, &str);
+			if (i < 1)
+				return (free(str), i);
+			pid = fork();
+			if (pid == 0)
+			{
+				redirect(data->fd[0], data->fd[1]);
+				extra_cmd(data, str);
+				redirect(x, j);
+				exit(0);
+			}
+			else if (pid < 0)
+				ft_error("fork");
+			else
+				ft_parent();
+			free(str);
+		}
+		data = data->next;
 	}
-	free(str);
-	return (1);
+	return (i);
 }

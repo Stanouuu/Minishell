@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/07 12:46:19 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:42:27 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_add_env(char **cmd, char **envp, int j)
 		envp[i] = ft_strdup(cmd[j]);
 		if (!envp[i])
 		{
-			g_exitcode = 105;
+			g_exitcode = 1;
 			ft_error("malloc");
 			return (-1);
 		}
@@ -58,7 +58,7 @@ int	export_2(char **cmd, char **envp, int j)
 			envp[k] = ft_strdup(cmd[j]);
 			if (!envp[k])
 			{
-				g_exitcode = 104;
+				g_exitcode = 1;
 				ft_error("malloc");
 				return (-1);
 			}
@@ -104,7 +104,7 @@ int	export(char **cmd, char **envp)
 			i++;
 			if (cmd[j][i])
 			{
-				h = export_2(cmd, envp, j);	
+				h = export_2(cmd, envp, j);
 				if (h == -1)
 					return (h);
 				else if (!envp[h])
@@ -112,7 +112,7 @@ int	export(char **cmd, char **envp)
 					if(ft_add_env(cmd, envp, j) == -1)
 						return (-1);
 				}
-				else 
+				else
 					return (0);
 			}
 		}
