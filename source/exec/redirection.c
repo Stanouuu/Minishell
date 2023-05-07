@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/06 20:32:33 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 12:47:44 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int open_file(t_data *data)
 		if (data->fd[0] == -1)
 		{
 			str = ft_strjoin("Minishell: ", files->name);
+			if (!str)
+			{
+				ft_error("malloc");
+				g_exitcode = 109;
+				return (-1);
+			}
 			ft_error(str);
 			free(str);
 			return (0);

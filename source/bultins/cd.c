@@ -6,40 +6,43 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:05:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/06 11:39:38 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 16:52:06 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_pwd(char *str, char **envp)
+int	change_pwd(char *str, char **envp)
 {
 	char cwd[256];
 	char *tmp;
 	char **tmptab;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return ;
+		return (0);
 	tmp = ft_strjoin(str, cwd);
 	if (!tmp)
 	{
 		ft_error("malloc");
-		return ;
+		g_exitcode = 101;
+		return (-1);
 	}
 	tmptab = ft_split(tmp, ' ');
-	if (tmptab)
+	free(tmp);
+	if (!tmptab)
 	{
 		ft_error("malloc");
-		return ;
+		g_exitcode = 102;
+		return (-1);
 	}
 	export(tmptab, envp);
-	free(tmp);
-	free(tmptab);
+	return (1);
 }
 
-void	cd(char **cmd, char **envp)
+int	cd(char **cmd, char **envp)
 {
-	change_pwd("export OLDPWD=", envp);
+	if (change_pwd("export OLDPWD=", envp) == -1)
+		return (-1);
 	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
 	{
 		chdir(getenv("HOME"));
@@ -47,7 +50,9 @@ void	cd(char **cmd, char **envp)
 	else if (chdir(cmd[1]) == -1)
 	{
 		ft_printf("cd: %s: %s\n", strerror(errno), cmd[1]);
-		return ;
+		return (0);
 	}
-	change_pwd("export PWD=", envp);
+	if (change_pwd("export PWD=", envp) == -1)
+		return (-1);
+	return (0);
 }

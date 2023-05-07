@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/06 20:28:11 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:55:17 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -595,7 +595,7 @@ int	ft_lexing(char *str, t_token *begin, t_data *data)
 	i = 0;
 	n = 0;
 	if (ft_strlen(str) == 0)
-		return (-1);
+		return (0);
 	while (str[i])
 	{
 		tmp = ft_checktoken(str[i]);

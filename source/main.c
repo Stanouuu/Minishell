@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/06 20:49:23 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 16:58:23 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,16 @@ int	main(int ac, char **av, char **envp)
 	char	*str;
 	t_data	*data;
 
-	g_exitcode = 1;
+	g_exitcode = 0;
 	if (ac != 1 || !av)
 		return (0);
 	i = 0;
-	signal(SIGINT, &action);
 	signal(SIGQUIT, SIG_IGN);
 	while (i != -1)
 	{
+		signal(SIGINT, &action);
 		str = readline("\033[1;36mminishell> \033[0m");
+		// printf("here : %s\n", str);
 		if (!str)
 		{
 			write(1, "out\n", 4);

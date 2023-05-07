@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/04 16:06:52 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/07 11:50:44 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ extern int	g_exitcode;
 
 void	echo(char **cmd);
 void	pwd(char **cmd);
-void	cd(char **cmd, char **envp);
+int		cd(char **cmd, char **envp);
 void	unset(char **cmd, char **envp);
-void	export(char **cmd, char **envp);
-void	envp_prt_sort(char **envp);
+int		export(char **cmd, char **envp);
+int		envp_prt_sort(char **envp);
 void	env(char **cmd, char **envp);
 
 int		road(t_data *data);
@@ -53,7 +53,7 @@ int		open_file(t_data *data);
 int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);
 
-int		ft_error(char *str);
+void	ft_error(char *str);
 int		ft_check_error(t_data *data, char **str);
 
 #endif
