@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/08 16:44:40 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:36:11 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_exit(char **cmd)
 int ft_controller(t_data *data)
 {
 	if (data->command && ft_strcmp("exit", data->command[0]) == 0)
-		return (ft_exit(data->command));
+		return (close(data->fd[0]), close(data->fd[1]), ft_exit(data->command));
 	else if (data->command && ft_strcmp("echo", data->command[0]) == 0)
 		echo(data->command);
 	else if (data->command && ft_strcmp("pwd", data->command[0]) == 0)
@@ -125,7 +125,7 @@ int	ft_command(t_data *data)
 		return (-1);
 	i = open_file(data);
 	str = NULL;
-	while (data)
+	while (data && i > -1)
 	{
 		if (i == 1)
 		{
@@ -141,23 +141,30 @@ int	ft_command(t_data *data)
 				data = data->next;
 			}
 			i = ft_check_error(data, &str);
-			if (i < 1)
+			if (i == -1)
 				return (free(str), i);
-			pid = fork();
-			if (pid == 0)
+			if (i != 0)
 			{
-				redirect(data->fd[0], data->fd[1]);
-				extra_cmd(data, str);
-				redirect(x, j);
-				exit(0);
+				pid = fork();
+				if (pid == 0 && i == 1)
+				{
+					redirect(data->fd[0], data->fd[1]);
+					extra_cmd(data, str);
+					redirect(x, j);
+					exit(0);
+				}
+				else if (pid < 0)
+					ft_error("fork");
+				else
+					ft_parent();
+				if (data->next)
+					close (data->fd[1]);
+				free(str);
 			}
-			else if (pid < 0)
-				ft_error("fork");
-			else
-				ft_parent();
-			if (data->next)
-				close (data->fd[1]);
-			free(str);
+		}
+		if (data->next && i == 0)
+		{
+			i = 1;
 		}
 		data = data->next;
 	}

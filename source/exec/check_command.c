@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:52:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/07 22:36:56 by stan             ###   ########.fr       */
+/*   Updated: 2023/05/08 19:32:50 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,12 @@ int	ft_check_error_2(t_data *data, char **str)
 
 int	ft_check_error(t_data *data, char **str)
 {
+	if (!data->command[0][0])
+	{
+		ft_printf("%s: command not found here\n", data->command[0]);
+		g_exitcode = 127;
+		return (0);
+	}
 	if (data->command[0][0] == '.' && data->command[0][1] == '/')
 	{
 		if (access(data->command[0], X_OK) != 0)
