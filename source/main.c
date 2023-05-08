@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/04 16:46:32 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:34:32 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int ac, char **av, char **envp)
 			if (!data)
 				return (0);
 			begin = NULL;
-			begin = ft_lexing(str, begin, data);
+			i = ft_lexing(str, begin, data);
 			add_history(str);
 			free(str);
 			ft_dataclear(data);

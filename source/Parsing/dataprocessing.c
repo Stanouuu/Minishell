@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/04 16:33:44 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:42:35 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*ft_tokencreate(enum token e)
 {
 	t_token	*token;
 
-	token = calloc(1, sizeof(t_token));
+	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->enu = e;
@@ -584,7 +584,7 @@ int	ft_parse(t_token *begin, t_data data, int *i)
 }
 */
 
-t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
+int	ft_lexing(char *str, t_token *begin, t_data *data)
 {
 	int		i;
 	int		n;
@@ -595,22 +595,22 @@ t_token	*ft_lexing(char *str, t_token *begin, t_data *data)
 	i = 0;
 	n = 0;
 	if (ft_strlen(str) == 0)
-		return (NULL);
+		return (0);
 	while (str[i])
 	{
 		tmp = ft_checktoken(str[i]);
 		if (tmp != NULL)
 			begin = (tmp)(str, &i, &n, begin);
 		if (n != 0 && begin == NULL)
-			return (NULL);
+			return (-1);
 		i++;
 	}
 	if (begin == NULL && (ft_isespacelen(str) == (int)ft_strlen(str)))
 		g_exitcode = 0;
 	if (ft_parse(str, begin, data) == NULL)
-		return (NULL);
+		return (-1);
 	road(data);
-	return (begin);
+	return (1);
 }
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 23:28:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/06/01 15:25:31 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/30 11:32:51 by gfranque          #+#    #+#             */
+/*   Updated: 2022/06/14 16:51:04 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,59 @@
 
 char	*get_next_line(int fd)
 {
-	static char	buf[1024][BUFFER_SIZE + 1];
-	char		*str;
-	int			i;
+	static char	str[1024][BUFFER_SIZE + 1];
+	char		*buffer;
+	char		*sent;
 
-	i = 1;
-	str = NULL;
-	if (0 > fd || fd > 1023 || BUFFER_SIZE < 1)
+	if (fd < 0 || fd > 1023)
 		return (NULL);
-	if (*buf[fd])
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	buffer[0] = 0;
+	sent = ft_strjoin(str[fd], NULL, 0);
+	sent = ft_ultimate_read(fd, str[fd], buffer, sent);
+	free(buffer);
+	if (ft_strlen(sent) == 0)
 	{
-		ft_copy_buf(buf[fd]);
-		str = ft_strjoin(str, buf[fd]);
+		free(sent);
+		return (NULL);
 	}
-	while (i > 0 && ft_test_line(str))
-	{
-		i = read(fd, buf[fd], BUFFER_SIZE);
-		if (i < 1 && str && *str)
-			return (str);
-		buf[fd][i] = '\0';
-		str = ft_strjoin(str, buf[fd]);
-	}
-	if (!*str)
-		return (ft_nes(str));
-	return (ft_sep_line(str));
+	return (sent);
 }
 
-char	*ft_nes(char *str)
+int	ft_no_nl(char *str)
 {
-	free(str);
-	return (NULL);
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (i + 1);
+		i++;
+	}
+	return (0);
 }
 
-char	*ft_sep_line(char *str)
+char	*ft_ultimate_read(int fd, char *stat, char *buffer, char *sent)
 {
-	char	*dest;
-	int		i;
+	int	res;
 
-	i = 0;
-	while (str[i] && (str[i] != '\n' ))
-		i++;
-	if (str[i] == '\n')
-		i++;
-	dest = malloc(sizeof(char) * (i + 1));
-	if (!dest)
-		return (dest);
-	i = 0;
-	while (str[i] && str[i] != '\n' )
+	res = 1;
+	while (res != 0 && ft_no_nl(sent) == 0)
 	{
-		dest[i] = str[i];
-		i++;
+		res = read(fd, buffer, BUFFER_SIZE);
+		if (res == -1 || (res == 0 && ft_strlen(sent) == 0))
+			return (NULL);
+		buffer[res] = 0;
+		if (res != 0)
+			sent = ft_strjoin(sent, buffer, 1);
+		if (!sent)
+			return (NULL);
 	}
-	if (str[i] == '\n')
-	{
-		dest[i] = str[i];
-		i++;
-	}
-	free(str);
-	dest[i] = '\0';
-	return (dest);
+	ft_strcut(sent, stat);
+	return (sent);
 }

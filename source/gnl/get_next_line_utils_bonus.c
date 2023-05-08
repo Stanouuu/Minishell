@@ -3,81 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 23:29:17 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/31 23:31:30 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/30 14:01:01 by gfranque          #+#    #+#             */
+/*   Updated: 2022/06/14 16:51:15 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*ft_copy_buf(char *buf)
+size_t	ft_strlen(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (i);
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strjoin(char *start, char *end, int n)
+{
+	size_t	len;
+	char	*str;
+
+	if (ft_strlen(start) == 0 && end == NULL)
+		return (NULL);
+	len = ft_strlen(start) + ft_strlen(end);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	str[len] = 0;
+	ft_strcat(str, start, end);
+	if (n == 1)
+		free(start);
+	return (str);
+}
+
+void	ft_strcut(char *sent, char *stat)
+{
+	int	i;
+	int	j;
+	int	len;
+
+	if (ft_no_nl(sent) != 0)
+		len = ft_no_nl(sent);
+	else
+	{
+		stat[0] = 0;
+		return ;
+	}
+	i = len;
+	j = 0;
+	while (sent[i])
+	{
+		stat[j] = sent[i];
+		i++;
+		j++;
+	}
+	stat[j] = '\0';
+	sent[len] = '\0';
+	return ;
+}
+
+void	ft_strcat(char *str, char *start, char *end)
 {
 	int	i;
 	int	j;
 
+	i = 0;
 	j = 0;
-	i = 0;
-	while (buf && buf[i - 1] != '\n' && buf[i])
-		i++;
-	while (buf && buf[i])
-		buf[j++] = buf[i++];
-	buf[j] = '\0';
-	return (buf);
-}
-
-int	ft_test_line(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (1);
-	while (str[i])
+	if (start)
 	{
-		if (str[i] == '\n')
-			return (0);
-		i++;
+		while (start[i])
+		{
+			str[i] = start[i];
+			i++;
+		}
 	}
-	return (1);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*str;
-	int		i;
-	int		j;
-
-	str = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s1 && s1[i])
+	if (end)
 	{
-		str[i] = s1[i];
-		i++;
+		while (end[j])
+		{
+			str[i + j] = end[j];
+			j++;
+		}
 	}
-	free(s1);
-	j = 0;
-	while (s2 && s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
+	return ;
 }
