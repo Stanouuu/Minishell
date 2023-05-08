@@ -1,5 +1,0 @@
-DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path
-XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session8
-MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path
-PATH=/goinfre/sbarrage/miniconda3/bin:/mnt/nfs/homes/sbarrage/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
