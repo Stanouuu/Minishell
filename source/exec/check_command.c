@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:52:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/06 17:09:51 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:36:56 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ int	ft_check_error_3_bis(t_data *data, char **str)
 	{
 		*str = ft_strjoin("Minishell :", data->command[0]);
 		if (!*str)
-			return (ft_error("malloc"));
+		{
+			ft_error("malloc");
+			g_exitcode = 1;
+			return (-1);
+		}
 		ft_error(*str);
 		free(*str);
 	}
@@ -40,10 +44,10 @@ int	ft_check_error_3_bis(t_data *data, char **str)
 	{
 		ft_printf("%s: command not found\n", data->command[0]);
 		free(*str);
-		errno = 127;
+		g_exitcode = 127;
 	}
 	*str = NULL;
-	return (errno);
+	return (0);
 }
 
 int	ft_check_error_3(t_data *data, char **str, struct stat sb)
@@ -53,11 +57,16 @@ int	ft_check_error_3(t_data *data, char **str, struct stat sb)
 		errno = EISDIR;
 		*str = ft_strjoin("Minishell: ", data->command[0]);
 		if (!*str)
-			return (ft_error("malloc"));
-		ft_error(*str);
+		{
+			ft_error("malloc");
+			g_exitcode = 1;
+			return (-1);
+		}
+		ft_error("Minishell: ");
 		free(*str);
 		*str = NULL;
-		return (errno);
+		g_exitcode = 126;
+		return (0);
 	}
 	return (1);
 }
@@ -70,12 +79,24 @@ int	ft_check_error_2(t_data *data, char **str)
 		*str = data->command[0];
 	else
 		*str = ft_strjoin("/usr/bin/", data->command[0]);
+	if (!*str)
+	{
+		ft_error("malloc");
+		g_exitcode = 1;
+		return (-1);
+	}
 	if (access(*str, X_OK) != 0)
-		ft_check_error_3_bis(data, *(&str));
+		return (ft_check_error_3_bis(data, *(&str)));
 	else if (stat(*str, &sb) == 0)
 		return (ft_check_error_3(data, &(*str), sb));
 	else
-		return (ft_error("stat"));
+	{
+		free(str);
+		ft_error("stat");
+		g_exitcode = 2;
+		return (0);
+	}
+	free(str);
 	return (1);
 }
 
@@ -87,11 +108,15 @@ int	ft_check_error(t_data *data, char **str)
 		{
 			*str = ft_strjoin("Minishell: ", data->command[0]);
 			if (!str)
-				return (ft_error("malloc"));
+			{
+				g_exitcode = 1;
+				ft_error("malloc");
+				return (-1);
+			}
 			ft_error(*str);
 			free(*str);
 			*str = NULL;
-			return (errno);
+			return (0);
 		}
 	}
 	else

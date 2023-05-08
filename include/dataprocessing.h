@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dataprocessing.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/03 13:34:36 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/06 20:23:00 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		is_digitredir(char *str, int i, t_token *begin);
 void	printredirerror(char *str, int i, int *n);
 t_token	*is_word(char *str, int *i, int *n, t_token *begin);
 t_pf	ft_checktoken(char c);
-t_token	*ft_lexing(char *str, t_token *begin, t_data *data);
+int		ft_lexing(char *str, t_token *begin, t_data *data);
 
 /*######################*/
 /*	dataprocessing2.c	*/
