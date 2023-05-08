@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/07 23:22:03 by stan             ###   ########.fr       */
+/*   Updated: 2023/05/08 16:44:40 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	extra_cmd(t_data *data, char *str)
 	sigaction(SIGUSR1, &sa, NULL);
 	if (!str)
 	{
-		execv(data->command[0], data->command + 1);
+		execve(data->command[0], data->command + 1, data->envp);
 		return ;
 	}
 	else
@@ -105,7 +105,7 @@ int ft_controller(t_data *data)
 	else
 		return (1);
 	if (data->next)
-		return (1);
+		return (2);
 	return (0);
 }
 
@@ -133,8 +133,13 @@ int	ft_command(t_data *data)
 			i = ft_controller(data);
 			redirect(x, j);
 		}
-		if (i == 1)
+		if (i >= 1)
 		{
+			if (i == 2)
+			{		
+				close (data->fd[1]);
+				data = data->next;
+			}
 			i = ft_check_error(data, &str);
 			if (i < 1)
 				return (free(str), i);
@@ -150,6 +155,8 @@ int	ft_command(t_data *data)
 				ft_error("fork");
 			else
 				ft_parent();
+			if (data->next)
+				close (data->fd[1]);
 			free(str);
 		}
 		data = data->next;
