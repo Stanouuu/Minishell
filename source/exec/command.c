@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/08 19:36:11 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:16:02 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,5 +168,6 @@ int	ft_command(t_data *data)
 		}
 		data = data->next;
 	}
+	redirect(x, j);
 	return (i);
 }
