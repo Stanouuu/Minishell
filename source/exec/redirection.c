@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/09 17:57:43 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:18:05 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int open_file(t_data *data)
 		}
 		if (data->fd[0] == -1)
 			g_exitcode = 1;
-		ft_printf("%i\n", data->fd[0]);
+		// ft_printf("%i\n", data->fd[0]);
 		// ft_printf("%i\n", data->fd[1]);
 		data = data->next;
 	}
