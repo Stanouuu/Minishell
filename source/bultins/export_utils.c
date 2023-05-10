@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 19:58:17 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/05 17:29:05 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:36:21 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 void	printf_export(int *i, int j, char **envp)
 {
 	int	k;
-	
+
 	while (j > 0)
 	{
 		k = 0;
@@ -99,7 +99,7 @@ void	envp_prt_sort_2(char **envp, int *i, int j, int k)
 		i[j] = k;
 }
 
-void	envp_prt_sort(char **envp)
+int	envp_prt_sort(char **envp)
 {
 	int	*i;
 	int	k;
@@ -110,7 +110,11 @@ void	envp_prt_sort(char **envp)
 		k++;
 	i = malloc(sizeof(int) * k);
 	if (!i)
+	{
+		g_exitcode = 1;
 		ft_error("malloc");
+		return (-1);
+	}
 	j = 0;
 	while (envp[j])
 	{
@@ -121,4 +125,5 @@ void	envp_prt_sort(char **envp)
 		j++;
 	}
 	printf_export(i, j, envp);
+	return (1);
 }

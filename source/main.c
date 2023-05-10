@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/08 16:34:32 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:21:12 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,18 @@ int	main(int ac, char **av, char **envp)
 {
 	int		i;
 	char	*str;
-	t_token	*begin;
 	t_data	*data;
 
+	g_exitcode = 0;
 	if (ac != 1 || !av)
 		return (0);
 	i = 0;
-	signal(SIGINT, &action);
 	signal(SIGQUIT, SIG_IGN);
 	while (i != -1)
 	{
+		signal(SIGINT, &action);
 		str = readline("\033[1;36mminishell> \033[0m");
+		// printf("here : %s\n", str);
 		if (!str)
 		{
 			write(1, "out\n", 4);
@@ -73,13 +74,12 @@ int	main(int ac, char **av, char **envp)
 			data = ft_datacreate(envp);
 			if (!data)
 				return (0);
-			begin = NULL;
-			i = ft_lexing(str, begin, data);
+			i = ft_lexing(str, NULL, data);
 			add_history(str);
 			free(str);
 			ft_dataclear(data);
 		}
 	}
 	rl_clear_history();
-	return (1);
+	return (g_exitcode);
 }
