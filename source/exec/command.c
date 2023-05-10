@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/10 13:18:43 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:58:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ int ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-void	ft_parent(void)
-{
-	signal(SIGINT, SIG_IGN);
-	waitpid(-1, 0, 0);
-}
 
 void	extra_cmd(t_data *data, char *str)
 {
@@ -109,20 +104,50 @@ int ft_controller(t_data *data)
 	return (0);
 }
 
+int	all_data(t_data *data)
+{
+	int	i;
+
+	i = 1;
+	while (data)
+		data = data->next;
+	return (i);
+}
+
+void	ft_parent(int *pid, int y)
+{
+	int i;
+
+	i = 0;
+	signal(SIGINT, SIG_IGN);
+	ft_printf("y %d\n ", y);
+	while (i != y)
+	{
+		ft_printf("pid %i\n", i);
+		waitpid(pid[i++], 0, 0);
+	}
+}
+
 int	ft_command(t_data *data)
 {
-	pid_t	pid;
+	pid_t	*pid;
 	char	*str;
 	int		j;
+	int		y;
 	int 	x;
 	int 	i;
 
+	y = 0;
+	pid = malloc(sizeof(int) * all_data(data));
+	pid[0] = -1;
 	if (!data->command[0])
 		return (0);
 	j = dup(1);
 	x = dup(0);
 	if (ft_pipe(data, j, x) == -1)
 		return (-1);
+	// if (data->files->type == 4)
+	// 	ft_printf("\n%i\n",open(data->files->name, O_CREAT | O_WRONLY | O_TRUNC, 0644));
 	i = open_file(data);
 	str = NULL;
 	while (data && i > -1)
@@ -145,9 +170,10 @@ int	ft_command(t_data *data)
 				return (free(str), i);
 			if (i != 0)
 			{
-				pid = fork();
-				if (pid == 0 && i == 1)
+				pid[y] = fork();
+				if (pid[y] == 0 && i == 1)
 				{
+					free(pid);
 					ft_printf("x : %i\n", x);
 					ft_printf("j : %i\n", j);
 					ft_printf("fd[0] : %i\n", data->fd[0]);
@@ -159,21 +185,23 @@ int	ft_command(t_data *data)
 					extra_cmd(data, str); 
 					exit(0);
 				}
-				else if (pid < 0)
+				else if (pid[y] < 0)
 					ft_error("fork");
-				else
-					ft_parent();
 				if (data->next)
 					close (data->fd[1]);
+				// printf("hey");
 				free(str);
+				y++;
 			}
+			// free(str);
 		}
 		if (data->next && i == 0)
-		{
 			i = 1;
-		}
 		data = data->next;
 	}
+	if (pid[0] != -1)
+		ft_parent(pid, y);
+	free(pid);
 	redirect(x, j);
 	close (x);
 	close (j);

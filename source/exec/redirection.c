@@ -6,9 +6,39 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/09 17:57:43 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:10:54 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// itirai sur data 
+
+// itirer sur leur FILE
+
+// touver le type et oouvrir le fd 
+
+// check if __errordecl
+
+// close the pipe it replaced
+
+// move on
+
+// int	open_file(t_data *data)
+// {
+// 	t_file	*files;
+// 	char	*str;
+
+// 	while (data)
+// 	{
+// 		files = data->files
+// 		while (files)
+// 		{
+// 			if (files->type == 1)
+// 			else if (files)
+// 		}
+// 	}
+// }
+
+
 
 #include "minishell.h"
 
@@ -49,7 +79,7 @@ int open_file(t_data *data)
 		}
 		if (data->fd[0] == -1)
 			g_exitcode = 1;
-		ft_printf("%i\n", data->fd[0]);
+		// ft_printf("%i\n", data->fd[0]);
 		// ft_printf("%i\n", data->fd[1]);
 		data = data->next;
 	}
