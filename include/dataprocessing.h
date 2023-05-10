@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/10 12:59:54 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:22:08 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,24 +122,49 @@ t_token	*is_word(char *str, int *i, int *n, t_token *begin);
 void	ft_dataclear(t_data *data);
 t_data	*ft_datacreate(char **envp);
 t_data	*ft_dataadd(t_data *data, char **envp);
-int		ft_isespacelen(char *str);
-int		ft_isespace(char c);//still in dataprocessing.c
+t_data	*ft_parse(char *str, t_token *begin, t_data *data);
+
+/*######################*/
+/*	parsing1.c			*/
+/*######################*/
+
 char	*ft_tokenword(char *str, int *i, t_token **token, t_data *data);
 char	*ft_tokenexpand(char *str, int *i, t_token **token, t_data *data);//ajouter la condition alnum
+
+/*######################*/
+/*	parsing2.c			*/
+/*######################*/
+
 char	*ft_tokenwordindouble(char *str, int *i, t_token **token);
 char	*ft_tokenexpandindouble(char *str, int *i, t_token **token, t_data *data);//ajouter la condition alnum
+
+/*######################*/
+/*	parsing3.c			*/
+/*######################*/
+
 char	*ft_tokendouble(char *str, int *i, t_token **token, t_data *data);
 char	*ft_tokensingle(char *str, int *i, t_token **token, t_data *data);
-int		ft_rediradd(char *str, int *i, t_token **token, t_data *data);
+
+/*######################*/
+/*	parseur.c			*/
+/*######################*/
+
 int		ft_none(char *str, int *i, t_token **token);
 int		ft_pipeadd(char *str, int *i, t_token **token, t_data *data);
 int		ft_commandadd(char *str, int *i, t_token **token, t_data *data);
-t_data	*ft_parse(char *str, t_token *begin, t_data *data);
+
+/*######################*/
+/*	parseurredir.c		*/
+/*######################*/
+
+int		ft_rediradd(char *str, int *i, t_token **token, t_data *data);
 
 /*######################*/
 /*	textprocessing.c	*/
 /*######################*/
 
+int		ft_isespacelen(char *str);
+int		ft_isespace(char c);//still in dataprocessing.c
 char	*ft_strndup(char *str, int n);
 int		ft_findchar(char *str, char c);
 char	*ft_findinenvp(char *str, char **envp, int len);
