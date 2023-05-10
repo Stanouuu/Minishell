@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/08 16:36:48 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:59:54 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,62 @@ typedef t_token*(*t_pf)(char *, int *, int *, t_token *);
 # include <readline/history.h>
 # include <string.h>
 # include "minishell.h"
+# include "libft.h"
+
+# define NEWLINEERROR "bash: syntax error near unexpected token `newline'\n"
 
 /*######################*/
 /*	dataprocessing.c	*/
 /*######################*/
 
+int		is_digitredir(char *str, int i, t_token *begin);
+void	printredirerror(char *str, int i, int *n);
+t_pf	ft_checktoken(char c);
+int		ft_lexing(char *str, t_token *begin, t_data *data);
+
+/*######################*/
+/*	tokenhandling.c		*/
+/*######################*/
+
 t_token	*ft_tokencreate(enum token e);
 void	ft_tokenclear(t_token *begin);
 t_token	*ft_tokenadd(t_token *begin, enum token e, int *n);
-void	ft_putcharfd(char c, int fd);
-void	ft_putstrfd(char *str, int fd);
-void	printsyntax(char c, int *n);
-int		ft_charnextdoor(char *charset, char c);
-int		ft_isespace(char c);
-int		ft_whatsnext(char *str);
 int		ft_readsometoken(t_token *begin, enum token e);
 int		ft_readlasttoken(t_token *begin);
-t_token	*is_redir_1(char *str, int *i, int *n, t_token *begin);//pour les redirs <
-t_token	*is_redir_2(char *str, int *i, int *n, t_token *begin);//pour les redirs >
+
+/*######################*/
+/*	charstuff.c			*/
+/*######################*/
+
+void	printsyntax(char c, int *n);
+void	printsyntax1(char *str);
+int		ft_charnextdoor(char *charset, char c);
+int		ft_whatsnext(char *str);
+
+/*######################*/
+/*	lexing1.c			*/
+/*######################*/
+
+t_token	*is_redir_1(char *str, int *i, int *n, t_token *begin);
+int		is_redir_1_suite(char *str, int *i, int *n);
+t_token	*is_redir_2(char *str, int *i, int *n, t_token *begin);
+int		is_redir_2_suite(char *str, int *i, int *n);
 t_token	*is_pip(char *str, int *i, int *n, t_token *begin);
+
+/*######################*/
+/*	lexing2.c			*/
+/*######################*/
+
 t_token	*is_quote(char *str, int *i, int *n, t_token *begin);
-int		is_digit(char c);
-int		is_digitredir(char *str, int i, t_token *begin);
-void	printredirerror(char *str, int i, int *n);
+t_token	*is_expandindouble(char *str, int *i, int *n, t_token *begin);
+t_token	*is_wordindouble(char *str, int *i, int *n, t_token *begin);
+
+/*######################*/
+/*	lexing3.c			*/
+/*######################*/
+
+t_token	*is_expand(char *str, int *i, int *n, t_token *begin);
 t_token	*is_word(char *str, int *i, int *n, t_token *begin);
-t_pf	ft_checktoken(char c);
-int		ft_lexing(char *str, t_token *begin, t_data *data);
 
 /*######################*/
 /*	dataprocessing2.c	*/
@@ -93,10 +123,11 @@ void	ft_dataclear(t_data *data);
 t_data	*ft_datacreate(char **envp);
 t_data	*ft_dataadd(t_data *data, char **envp);
 int		ft_isespacelen(char *str);
+int		ft_isespace(char c);//still in dataprocessing.c
 char	*ft_tokenword(char *str, int *i, t_token **token, t_data *data);
-char	*ft_tokenexpand(char *str, int *i, t_token **token, t_data *data);
+char	*ft_tokenexpand(char *str, int *i, t_token **token, t_data *data);//ajouter la condition alnum
 char	*ft_tokenwordindouble(char *str, int *i, t_token **token);
-char	*ft_tokenexpandindouble(char *str, int *i, t_token **token, t_data *data);
+char	*ft_tokenexpandindouble(char *str, int *i, t_token **token, t_data *data);//ajouter la condition alnum
 char	*ft_tokendouble(char *str, int *i, t_token **token, t_data *data);
 char	*ft_tokensingle(char *str, int *i, t_token **token, t_data *data);
 int		ft_rediradd(char *str, int *i, t_token **token, t_data *data);

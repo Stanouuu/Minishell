@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:25:06 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/08 16:49:21 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:00:10 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_data	*ft_datacreate(char **envp)
 	data->envp = envp;
 	data->command = NULL;
 	data->files = NULL;
+	data->pipe[0] = -1;
+	data->pipe[1] = -1;
 	return (data);
 }
 
