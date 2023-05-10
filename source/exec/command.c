@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/09 15:16:02 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:18:43 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,15 @@ int	ft_command(t_data *data)
 				pid = fork();
 				if (pid == 0 && i == 1)
 				{
+					ft_printf("x : %i\n", x);
+					ft_printf("j : %i\n", j);
+					ft_printf("fd[0] : %i\n", data->fd[0]);
+					ft_printf("fd[1] : %i\n", data->fd[1]);
 					redirect(data->fd[0], data->fd[1]);
-					extra_cmd(data, str);
-					redirect(x, j);
+					close (x);
+					close (j);
+					close (data->fd[0]);
+					extra_cmd(data, str); 
 					exit(0);
 				}
 				else if (pid < 0)
@@ -169,5 +175,7 @@ int	ft_command(t_data *data)
 		data = data->next;
 	}
 	redirect(x, j);
+	close (x);
+	close (j);
 	return (i);
 }
