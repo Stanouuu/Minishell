@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/10 20:16:59 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:58:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,8 @@ int	ft_command(t_data *data)
 	x = dup(0);
 	if (ft_pipe(data, j, x) == -1)
 		return (-1);
+	// if (data->files->type == 4)
+	// 	ft_printf("\n%i\n",open(data->files->name, O_CREAT | O_WRONLY | O_TRUNC, 0644));
 	i = open_file(data);
 	str = NULL;
 	while (data && i > -1)
@@ -172,11 +174,11 @@ int	ft_command(t_data *data)
 				if (pid[y] == 0 && i == 1)
 				{
 					free(pid);
-					redirect(data->fd[0], data->fd[1]);
 					ft_printf("x : %i\n", x);
 					ft_printf("j : %i\n", j);
 					ft_printf("fd[0] : %i\n", data->fd[0]);
 					ft_printf("fd[1] : %i\n", data->fd[1]);
+					redirect(data->fd[0], data->fd[1]);
 					close (x);
 					close (j);
 					close (data->fd[0]);
