@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:25:06 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/07 14:55:11 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:20:53 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ t_data	*ft_datacreate(char **envp)
 {
 	t_data	*data;
 
-	data = calloc(1, sizeof(t_data));
+	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (NULL);
 	data->envp = envp;
 	data->command = NULL;
 	data->files = NULL;
+	data->pipe[0] = -1;
+	data->pipe[1] = -1;
 	return (data);
 }
 
@@ -218,7 +220,7 @@ char	*ft_tokendouble(char *str, int *i, t_token **token, t_data *data)
 	*token = (*token)->next;
 	if (str[j + 1])
 		j++;
-	newstr = ft_strndup("", strlen(""));
+	newstr = ft_strndup("", ft_strlen(""));
 	if (!newstr)
 		return (NULL);//avancer jusu'au
 	while (*token != NULL && (*token)->enu != douquo)

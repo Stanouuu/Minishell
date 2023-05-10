@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 21:12:37 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/03 12:38:20 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:43:18 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_file	*ft_filecreate(char *str, enum token token)
 {
 	t_file	*file;
 	
-	file = calloc(1, sizeof(t_file));
+	file = ft_calloc(1, sizeof(t_file));
 	if (!file)
 		return (NULL);
 	file->name = str;
@@ -63,7 +63,7 @@ char	**ft_newcommand(char *str)
 
 	if (!str)
 		return (NULL);
-	newstrs = calloc(2, sizeof(char *));
+	newstrs = ft_calloc(2, sizeof(char *));
 	if (!newstrs)
 		return (free(str), NULL);
 	newstrs[0] = str;
@@ -82,7 +82,7 @@ char	**ft_commandcreate(char **strs, char *str)
 	i = 0;
 	while (strs[i])
 		i++;
-	newstrs = calloc(i + 2, sizeof(char *));
+	newstrs = ft_calloc(i + 2, sizeof(char *));
 	if (!newstrs)
 		return (/*freestrs*/NULL);
 	i = -1;

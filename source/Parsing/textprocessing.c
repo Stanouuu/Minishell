@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:49 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/04 16:14:35 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:50:36 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,6 @@ typedef struct		s_txt
 }					t_txt;
 */
 //creation d'un maillon a assembler plus tard
-
-char	*ft_strnstr(const char *big, const char *little, size_t len)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	if (little == NULL || strlen(little) == 0)
-		return ((char *)big);
-	if (big == NULL)
-		return (NULL);
-	while (big[i] && i < len)
-	{
-		j = 0;
-		while (big[i + j] == little[j] && (i + j) < len)
-			j++;
-		if (j == strlen(little) || j == len)
-			return ((char *)big + i);
-		i++;
-	}
-	return (NULL);
-}
-
 
 // void	ft_txtclear(t_txt *begin)
 // {
@@ -89,7 +66,7 @@ char	*ft_strndup(char *str, int n)
 
 	if (!str)
 		return (NULL);
-	s = calloc(n + 1, sizeof(char));
+	s = ft_calloc(n + 1, sizeof(char));
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -159,7 +136,7 @@ char	*ft_strjoinandfree(char *start, char *end, int n)
 	if (!start || !end)
 		return (ft_additionnalfree(start, end, n));
 	len = strlen(start) + strlen(end);
-	str = calloc(len + 1, sizeof(char));
+	str = ft_calloc(len + 1, sizeof(char));
 	if (!str)
 		return (NULL);
 	while (start[++i])
@@ -181,7 +158,7 @@ char	*ft_expand(char *str, char **envp, int len)
 	p = ft_findchar(str, '$');
 	if (p == -1)
 	{
-		s = calloc(1, sizeof(char));
+		s = ft_calloc(1, sizeof(char));
 		if (!s)
 			return (NULL);
 	}
@@ -200,7 +177,7 @@ t_txt	*ft_txtcreate(char *str, int len, char **envp)
 {
 	t_txt	*text;
 
-	text = calloc(1, sizeof(t_txt));
+	text = ft_calloc(1, sizeof(t_txt));
 	if (!text)
 		return (NULL);
 	text->str = ft_strndup(str, len);
