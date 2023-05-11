@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/10 20:58:31 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:20:10 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_exit(char **cmd)
 	i = 0;
 	while (cmd[1] && cmd[1][i])
 	{
-		if (is_digit(cmd[1][i]) == 0)
+		if (isdigit(cmd[1][i]) == 0)
 		{
 			g_exitcode = 2;
 			ft_printf("Minishell: %s: numeric argument required\n", cmd[1]);
@@ -110,7 +110,10 @@ int	all_data(t_data *data)
 
 	i = 1;
 	while (data)
+	{
 		data = data->next;
+		i++;
+	}
 	return (i);
 }
 
@@ -138,6 +141,7 @@ int	ft_command(t_data *data)
 	int 	i;
 
 	y = 0;
+	ft_printf("special :  %d", all_data(data));
 	pid = malloc(sizeof(int) * all_data(data));
 	pid[0] = -1;
 	if (!data->command[0])
@@ -193,6 +197,7 @@ int	ft_command(t_data *data)
 				free(str);
 				y++;
 			}
+			close(data->fd[1]);
 			// free(str);
 		}
 		if (data->next && i == 0)
