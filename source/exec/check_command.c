@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:52:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/10 18:45:02 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:47:26 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,22 +138,20 @@ int	ft_check_error_2(t_data *data, char **str)
 		if (!tmpstr)
 		{
 			ft_printf("%s: command not found\n", data->command[0]);
-			// free(tmp);
 			g_exitcode = 127;
 			return (0);
 		}
-		tmp = ft_split(tmpstr, ':');
-		// free(tmpstr);
+		else
+			tmp = ft_split(tmpstr, ':');
 		if (!tmp)
 		{
 			ft_error("malloc");
 			g_exitcode = 1;
-			// free(tmp);
 			return (-1);
 		}
 		while (tmp[i])
 		{
-			if (strcpr(tmp, *(&str), i, data) == -1)
+			if (strcpr(tmp, &(*str), i, data) == -1)
 				return (free(tmp), -1);
 			j = check_error_tool(data , *(&str));
 			if (j == 1 || j == -1)
