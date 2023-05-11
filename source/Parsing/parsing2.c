@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:15:43 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/10 18:16:50 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:14:23 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_tokenwordindouble(char *str, int *i, t_token **token)
 	len = 0;
 	while (str[j] && ft_isespace(str[j]) == 1)
 		j++;
-	while (str[j + len] && ft_charnextdoor("\"", str[j+ len]) == 0
+	while (str[j + len] && ft_charnextdoor("\"", str[j + len]) == 0
 		&& ft_isespace(str[j + len]) == 0)
 		len++;
 	newstr = ft_strndup(str + j, len);
@@ -33,7 +33,8 @@ char	*ft_tokenwordindouble(char *str, int *i, t_token **token)
 	return (newstr);
 }
 
-char	*ft_tokenexpandindouble(char *str, int *i, t_token **token, t_data *data)
+char	*ft_tokenexpandindouble(char *str, int *i, t_token **token,
+	t_data *data)
 {
 	int		j;
 	int		len;
@@ -42,18 +43,7 @@ char	*ft_tokenexpandindouble(char *str, int *i, t_token **token, t_data *data)
 
 	j = *i;
 	len = 0;
-	while (str[j] && ft_isespace(str[j])== 1)
-		j++;
-	while (str[j + len] && ft_charnextdoor("\"$", str[j + len]) == 0
-		&& ft_isespace(str[j + len]) == 0)
-		len++;
-	if (str[j + len] == '$')
-	{
-		len++;
-		while (str[j + len] && ft_charnextdoor("\"$", str[j + len]) == 0
-		&& ft_isespace(str[j + len]) == 0)
-		len++;
-	}
+	ft_tokenexpandlen(str, &j, &len);
 	p = ft_findchar(str + j, '$');
 	newstr = ft_findinenvp(str + j + p, data->envp, len - p);
 	if (!newstr)

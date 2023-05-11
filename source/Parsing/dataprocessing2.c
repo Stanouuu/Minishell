@@ -6,19 +6,11 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:25:06 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/10 18:24:18 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:35:14 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dataprocessing.h"
-
-/*
-faire liste de fontions:
-	fonction mot -> retourne une string avec le mot avec check si join il faut
-	fonction exand ->  retourne l'expand
-	fonction single quote -> retourne strndup de la longueur entre les single quote
-	fonction double quote -> retourne un assemblage
-*/
 
 void	ft_dataclear(t_data *data)
 {
@@ -35,7 +27,7 @@ void	ft_dataclear(t_data *data)
 		if (temp->files != NULL)
 			ft_fileclear(temp->files);
 		free (temp);
-		temp = data;//penser a free les commandes et free les files
+		temp = data;
 	}
 }
 
@@ -67,18 +59,6 @@ t_data	*ft_dataadd(t_data *data, char **envp)
 	return (data);
 }
 
-int	ft_isespacelen(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (i);
-	while (str[i] && ft_isespace(str[i]) == 1)
-		i++;
-	return (i);
-}
-
 int	ft_checkdata(t_data *data)
 {
 	char	*newstr;
@@ -101,7 +81,7 @@ int	ft_checkdata(t_data *data)
 	return (1);
 }
 
-t_data	*ft_parse(char *str, t_token *begin, t_data *data)//malloquer le premier data et lui donner l'envp !!!!
+t_data	*ft_parse(char *str, t_token *begin, t_data *data)
 {
 	int		i;
 	int		res;
@@ -118,8 +98,8 @@ t_data	*ft_parse(char *str, t_token *begin, t_data *data)//malloquer le premier 
 			res = ft_rediradd(str, &i, &temp, data);
 		else if (temp->enu == pip)
 			res = ft_pipeadd(str, &i, &temp, data);
-		else if(temp->enu == none)
-			res = ft_none(str, &i, &temp);//doit avancer de 1 et faire temp = temp->next
+		else if (temp->enu == none)
+			res = ft_none(str, &i, &temp);
 		else
 			res = ft_commandadd(str, &i, &temp, data);
 		if (res == 0)
