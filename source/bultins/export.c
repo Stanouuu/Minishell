@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/07 22:42:27 by stan             ###   ########.fr       */
+/*   Updated: 2023/05/11 18:57:34 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	until_equal(char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
+	if (!str[i] && i != 0)
+		return (i - 1);
 	return (i);
 }
 
@@ -51,17 +53,18 @@ int	export_2(char **cmd, char **envp, int j)
 
 	k = 0;
 	i = until_equal(cmd[j]);
+	// printf("")
 	while (envp[k])
 	{
 		if (ft_strncmp(cmd[j], envp[k], i) == 0)
 		{
-			envp[k] = ft_strdup(cmd[j]);
-			if (!envp[k])
-			{
-				g_exitcode = 1;
-				ft_error("malloc");
-				return (-1);
-			}
+			envp[k] = cmd[j];
+			// if (!envp[k])
+			// {
+			// 	g_exitcode = 1;
+			// 	ft_error("malloc");
+			// 	return (-1);
+			// }
 			break ;
 		}
 		k++;
@@ -99,24 +102,17 @@ int	export(char **cmd, char **envp)
 		i = 0;
 		if (cmd[j][i] == '=')
 			return (1);
-		while (cmd[j][i])
+		h = export_2(cmd, envp, j);
+		if (h == -1)
+			return (h);
+		else if (!envp[h])
 		{
-			i++;
-			if (cmd[j][i])
-			{
-				h = export_2(cmd, envp, j);
-				if (h == -1)
-					return (h);
-				else if (!envp[h])
-				{
-					if(ft_add_env(cmd, envp, j) == -1)
-						return (-1);
-				}
-				else
-					return (0);
-			}
+		if(ft_add_env(cmd, envp, j) == -1)
+			return (-1);
 		}
+		else
+			return (0);
 		j++;
 	}
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/11 14:47:14 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:26:59 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,7 @@ void	extra_cmd(t_data *data, char *str)
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sa.sa_sigaction = &child_action;
 	sigaction(SIGUSR1, &sa, NULL);
-	if (!str)
-	{
-		execve(data->command[0], data->command + 1, data->envp);
-		return ;
-	}
-	else
-	{
-		execve(str, data->command, data->envp);
-		free(str);
-	}
+	execve(str, data->command, data->envp);
 	free(str);
 	ft_dataclear(data);
 	g_exitcode = 127;
@@ -194,7 +185,8 @@ int	ft_command(t_data *data)
 				if (data->next)
 					close (data->fd[1]);
 				// printf("hey");
-				free(str);
+				if (str)
+					free(str);
 				y++;
 			}
 			close(data->fd[1]);
