@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/11 14:45:49 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:32:09 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 # include <signal.h>
 # include <unistd.h>
 # include <errno.h>
-#include <fcntl.h>
-#include <sys/stat.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include "dataprocessing.h"
+# include "dataprocessing.h"
 
 extern int	g_exitcode;
 

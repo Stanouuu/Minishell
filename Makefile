@@ -6,7 +6,7 @@
 #    By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/05/10 18:26:08 by gfranque         ###   ########.fr        #
+#    Updated: 2023/05/12 14:27:42 by gfranque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/control
 		./Parsing/textprocessing.c ./Parsing/charstuff.c ./Parsing/lexing1.c\
 		./Parsing/lexing2.c ./Parsing/lexing3.c ./Parsing/tokenhandling.c\
 		./Parsing/parsing1.c ./Parsing/parsing2.c ./Parsing/parsing3.c\
-		./Parsing/parseur.c ./Parsing/parseurredir.c\
+		./Parsing/parseur.c ./Parsing/parseurredir.c\ ./redirection/here_doc.c
 
 PRINTF = ./source/Printf/libftprintf.a
 
