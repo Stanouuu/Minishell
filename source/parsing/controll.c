@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:11:06 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/07 14:38:08 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:05:03 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ int	road(t_data *data)
 {
 	if (ft_command(data) == -1)
 		return (-1);
-	if (data->fd[0] != dup(0))
+	while (data)
+	{
 		close(data->fd[0]);
-	if (data->fd[1] != dup(1))
-		close(data->fd[1]);
+		data = data->next;
+	}
+	// if (data->fd[1] != dup(1))
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:54:17 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/10 15:33:31 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:18:26 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	unset(char **cmd, char **envp)
 		{
 			if (ft_strncmp(cmd[j], envp[i], ft_strlen(cmd[j]) + 1) == -61)
 			{
-				ft_printf("%s", envp[i]);
+				ft_printf("%s\n", envp[i]);
 				while (envp[i + 1])
 				{
 					envp[i] = envp[i + 1];
