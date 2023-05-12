@@ -77,6 +77,7 @@ int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);
 
 void	ft_error(char *str);
+void	free_tab(char **tmp);
 int		ft_check_error(t_data *data, char **str);
 
 #endif
