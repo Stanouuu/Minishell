@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:51:02 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:03:33 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,11 @@ int	ft_lexing(char *str, t_token *begin, t_data *data)
 		i++;
 	}
 	if (begin == NULL && (ft_isespacelen(str) == (int)ft_strlen(str)))
-		g_exitcode = 0;
+		return (g_exitcode = 0, 0);
 	if (ft_parse(str, begin, data) == NULL)
 		return (-1);
 	if (ft_here_doc(data) == 0)
 		return (0);
+	g_exitcode = 0;
 	return (road(data));
 }

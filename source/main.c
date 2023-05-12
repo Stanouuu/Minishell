@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/10 14:21:12 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:56:35 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	main(int ac, char **av, char **envp)
 	{
 		signal(SIGINT, &action);
 		str = readline("\033[1;36mminishell> \033[0m");
-		// printf("here : %s\n", str);
 		if (!str)
 		{
 			write(1, "out\n", 4);

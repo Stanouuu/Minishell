@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:23:15 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 17:20:30 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:58:28 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_init_here_doc(t_data *data, int i)
 			name = ft_itoa(i);
 			if (!name)
 				return (0);
-			name = ft_strjoinandfree("/temp/.", name, 1);
+			name = ft_strjoinandfree("/tmp/.", name, 1);
 			if (!name)
 				return (0);
 			res = ft_new_here_doc(temp, name);
@@ -64,23 +64,39 @@ int	ft_new_here_doc(t_file *file, char *name)
 
 	eof = file->name;
 	file->name = name;
-	fd = open(name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		return (0);
-	str = get_next_line(0);
+	str = ft_get_gnl();
 	if (!str)
 		return (0);
-	while (str && ft_strncmp(str, eof, ft_strlen(str) -1) == 0
+	while (str && ft_strncmp(str, eof, ft_strlen(str)) != 0
 		&& g_exitcode != 130)
 	{
 		ft_putstr_fd(str, fd);
+		ft_putstr_fd("\n", fd);
 		free(str);
-		str = get_next_line(0);
+		str = ft_get_gnl();
 		if (!str)
 			return (0);
 	}
 	free(str);
-	free(eof);
 	close(fd);
-	return (1);
+	return (free(eof), 1);
+}
+
+char	*ft_get_gnl(void)
+{
+	int		i;
+	char	*str;
+
+	ft_putstr_fd("> ", 1);
+	str = get_next_line(0);
+	if (!str)
+		return (NULL);
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (str[i])
+		str[i] = '\0';
+	return (str);
 }
