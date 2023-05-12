@@ -6,13 +6,13 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 21:12:37 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/11 22:33:24 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 08:22:02 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dataprocessing.h"
 
-t_file	*ft_filecreate(char *str, enum token token)
+t_file	*ft_filecreate(char *str, enum e_token token)
 {
 	t_file	*file;
 
@@ -42,7 +42,7 @@ void	ft_fileclear(t_file *begin)
 	return ;
 }
 
-t_file	*ft_fileadd(char *str, enum token token, t_file *begin)
+t_file	*ft_fileadd(char *str, enum e_token token, t_file *begin)
 {
 	t_file	*temp;
 
