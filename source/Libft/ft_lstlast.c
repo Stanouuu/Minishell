@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 15:40:32 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/19 15:47:09 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/18 16:10:36 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/22 11:26:05 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*res;
-
-	res = lst;
-	while (res)
+	if (lst)
 	{
-		if (res->next)
-			res = res->next;
-		else
-			return (res);
+		while (lst->next != 0)
+			lst = lst->next;
 	}
-	return (0);
+	return (lst);
 }

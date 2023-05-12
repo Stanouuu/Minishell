@@ -6,13 +6,13 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:32:47 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/09 17:35:39 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dataprocessing.h"
+#include "minishell.h"
 
-t_token	*ft_tokencreate(enum token e)
+t_token	*ft_tokencreate(enum e_token e)
 {
 	t_token	*token;
 
@@ -41,7 +41,7 @@ void	ft_tokenclear(t_token *begin)
 	return ;
 }
 
-t_token	*ft_tokenadd(t_token *begin, enum token e, int *n)
+t_token	*ft_tokenadd(t_token *begin, enum e_token e, int *n)
 {	
 	t_token	*token;
 
@@ -57,7 +57,7 @@ t_token	*ft_tokenadd(t_token *begin, enum token e, int *n)
 	return (begin);
 }
 
-int	ft_readsometoken(t_token *begin, enum token e)
+int	ft_readsometoken(t_token *begin, enum e_token e)
 {
 	int		n;
 	t_token	*temp;

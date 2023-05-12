@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 19:58:17 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/11 18:44:10 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:18:54 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,5 @@ int	envp_prt_sort(char **envp)
 			envp_prt_sort_2(envp, i, j, k++);
 		j++;
 	}
-	printf_export(i, j, envp);
-	free(i);
-	return (1);
+	return (printf_export(i, j, envp), free(i), 1);
 }

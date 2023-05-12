@@ -3,60 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 15:55:06 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/09 01:13:39 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/03 19:50:51 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/17 15:04:26 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *string, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*str;
 
-	i = ft_strlen(string);
-	while (i >= 0)
-	{
-		if ((char)string[i] == (char)c)
-			return ((char *)string + i);
-		i--;
-	}
-	return (0);
+	str = (char *)s;
+	i = 0;
+	j = 0;
+	while (s[i])
+		i++;
+	while ((i - j) >= 0 && s[i - j] != (unsigned char)c)
+		j++;
+	if ((i - j) < 0)
+		return (NULL);
+	return (str + (i - j));
 }
-/*
-#include <string.h>
-#include <stdio.h>
-
-int	main()
-{
-	char *s;
-
-
-	s = "hello";
-	printf("%s\n", strrchr(s, 0));
-//	printf("%s\n", ft_strrchr(s, 0));
-//	printf("%s\n", strrchr(s, 'l'));
-//	printf("%s\n", ft_strrchr(s, 'l'));
-//	printf("%s\n", strrchr(s, 't' + 256));
-//	printf("%s\n", ft_strrchr(s, 't' + 256));
-//		printf("pas NULL\n");
-//	else
-//		printf("NULL\n");
-	if ( ft_strrchr(s, 't' + 256) == strrchr(s, 't' + 256))
-//	if ( strrchr(s, 't' + 256))
-		printf("OK\n");
-	else
-		printf("KO\n");
-//	if (strrchr(s, 'z'))
-//		printf("pas NULL\n");
-//	else
-//		printf("NULL\n");
-	if (ft_strrchr(s, 0) == strrchr(s, 0))
-		printf("OK\n");
-	else
-		printf("KO\n");
-//	printf("%s\n", strrchr(s, 'd'));
-//	printf("%s\n", ft_strrchr(s, 'd'));
-}*/

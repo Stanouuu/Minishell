@@ -3,57 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 18:46:35 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/09 03:07:20 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/04 17:57:03 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/10 14:11:22 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *source)
+char	*ft_strdup(const char *s)
 {
-	char		*dup;
-	size_t		n;
+	int		i;
+	size_t	slen;
+	char	*str;
 
-	n = 0;
-	dup = malloc(sizeof(char) * (ft_strlen(source) + 1));
-	if (!dup)
-		return (0);
-	while (n < ft_strlen(source))
+	i = 0;
+	slen = ft_strlen(s);
+	str = ft_calloc(slen + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	while (s[i])
 	{
-		dup[n] = source[n];
-		n++;
+		str[i] = s[i];
+		i++;
 	}
-	dup[n] = '\0';
-	return (dup);
+	return (str);
 }
-/*
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main() {
-
-    const char * original = "The original string.";
-
-    // On duplique la chaîne de caractères initiale.
-    char * copy = strdup( original );
-    
-    // On passe chaque lettre en majuscule.
-    char * ptr = copy;
-    while( *ptr != '\0' ) {
-        *ptr = toupper( *ptr );
-        ptr++;
-    }
-
-    // On affiche la chaîne finale
-    printf( "%s\n", copy );
-
-    // Sans oublier de libérer l'espace mémoire au final.
-    free( copy );
-
-    return EXIT_SUCCESS;
-}*/

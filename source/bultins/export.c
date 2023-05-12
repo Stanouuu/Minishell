@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 13:45:33 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:35:47 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,12 @@ int	export_2(char **cmd, char **envp, int j)
 	int	i;
 
 	k = 0;
-	// printf("")
 	while (envp[k])
 	{
 		i = until_equal(cmd[j]);
 		if (ft_strncmp(cmd[j], envp[k], i) == 0)
 		{
 			envp[k] = ft_strdup(cmd[j]);
-			// if (!envp[k])
-			// {
-			// 	g_exitcode = 1;
-			// 	ft_error("malloc");
-			// 	return (-1);
-			// }
 			break ;
 		}
 		k++;
@@ -72,11 +65,35 @@ int	export_2(char **cmd, char **envp, int j)
 	return (k);
 }
 
+int	export_1(char **cmd, char **envp, int j)
+{
+	int	i;
+	int	h;
+
+	while (cmd[j])
+	{
+		i = 0;
+		if (cmd[j][i] == '=')
+			return (1);
+		h = export_2(cmd, envp, j);
+		if (h == -1)
+			return (h);
+		else if (!envp[h])
+		{
+			if (ft_add_env(cmd, envp, j) == -1)
+				return (-1);
+		}
+		else
+			return (0);
+		j++;
+	}
+	return (0);
+}
+
 int	export(char **cmd, char **envp)
 {
 	int	i;
 	int	j;
-	int	h;
 
 	j = 1;
 	i = 0;
@@ -94,26 +111,9 @@ int	export(char **cmd, char **envp)
 			write(2, "bash: export: ", 14);
 			write(2, cmd[j], ft_strlen(cmd[j]));
 			write(2, ": not a valid identifier\n", 25);
+			return (0);
 		}
 		i++;
 	}
-	while (cmd[j])
-	{
-		i = 0;
-		if (cmd[j][i] == '=')
-			return (1);
-		h = export_2(cmd, envp, j);
-		if (h == -1)
-			return (h);
-		else if (!envp[h])
-		{
-		if(ft_add_env(cmd, envp, j) == -1)
-			return (-1);
-		}
-		else
-			return (0);
-		j++;
-	}
-	// printf("/");
-	return (0);
+	return (export_1(cmd, envp, j));
 }

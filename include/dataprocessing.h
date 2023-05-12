@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/11 22:48:51 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:50:02 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
-# include "minishell.h"
 # include "libft.h"
 
 enum e_token {
@@ -58,9 +57,9 @@ typedef struct s_data
 	struct s_data	*next;
 }					t_data;
 
-typedef t_token*	(*t_pf)(char *, int *, int *, t_token *);
+typedef t_token*	(*t_pfl)(char *, int *, int *, t_token *);
 
-typedef char*		(*t_pft)(char *, int *, t_token *, t_data *);
+typedef char*		(*t_pft)(char *, int *, t_token **, t_data *);
 
 # define NEWLINEERROR "bash: syntax error near unexpected token `newline'\n"
 
@@ -70,17 +69,17 @@ typedef char*		(*t_pft)(char *, int *, t_token *, t_data *);
 
 int		is_digitredir(char *str, int i, t_token *begin);
 void	printredirerror(char *str, int i, int *n);
-t_pf	ft_checktoken(char c);
+t_pfl	ft_checktoken(char c);
 int		ft_lexing(char *str, t_token *begin, t_data *data);
 
 /*######################*/
 /*	tokenhandling.c		*/
 /*######################*/
 
-t_token	*ft_tokencreate(enum token e);
+t_token	*ft_tokencreate(enum e_token e);
 void	ft_tokenclear(t_token *begin);
-t_token	*ft_tokenadd(t_token *begin, enum token e, int *n);
-int		ft_readsometoken(t_token *begin, enum token e);
+t_token	*ft_tokenadd(t_token *begin, enum e_token e, int *n);
+int		ft_readsometoken(t_token *begin, enum e_token e);
 int		ft_readlasttoken(t_token *begin);
 
 /*######################*/
@@ -193,10 +192,18 @@ char	*ft_expand(char *str, char **envp, int len);
 /*	datahandling.c		*/
 /*######################*/
 
-t_file	*ft_filecreate(char *str, enum token token);
+t_file	*ft_filecreate(char *str, enum e_token token);
 void	ft_fileclear(t_file *begin);
-t_file	*ft_fileadd(char *str, enum token token, t_file *begin);
+t_file	*ft_fileadd(char *str, enum e_token token, t_file *begin);
 char	**ft_newcommand(char *str);
 char	**ft_commandcreate(char **strs, char *str);
+
+/*######################*/
+/*	here_doc.c			*/
+/*######################*/
+
+int		ft_here_doc(t_data *data);
+int		ft_init_here_doc(t_data *data, int i);
+int		ft_new_here_doc(t_file *file, char *name);
 
 #endif

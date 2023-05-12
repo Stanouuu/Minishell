@@ -6,11 +6,11 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:06:46 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/11 15:59:48 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dataprocessing.h"
+#include "minishell.h"
 
 char	*ft_tokenword(char *str, int *i, t_token **token, t_data *data)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 16:06:59 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/19 16:12:46 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/18 17:27:45 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/22 11:26:49 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	del(lst->content);
-	free(lst);
+	if (lst)
+	{
+		(*del)(lst->content);
+		free(lst);
+	}
+	return ;
 }
