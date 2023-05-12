@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/11 18:57:34 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:45:33 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	export_2(char **cmd, char **envp, int j)
 	int	i;
 
 	k = 0;
-	i = until_equal(cmd[j]);
 	// printf("")
 	while (envp[k])
 	{
+		i = until_equal(cmd[j]);
 		if (ft_strncmp(cmd[j], envp[k], i) == 0)
 		{
-			envp[k] = cmd[j];
+			envp[k] = ft_strdup(cmd[j]);
 			// if (!envp[k])
 			// {
 			// 	g_exitcode = 1;
@@ -114,5 +114,6 @@ int	export(char **cmd, char **envp)
 			return (0);
 		j++;
 	}
+	// printf("/");
 	return (0);
 }
