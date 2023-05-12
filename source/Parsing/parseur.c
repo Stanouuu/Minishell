@@ -6,11 +6,11 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:20:44 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/10 18:22:45 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dataprocessing.h"
+#include "minishell.h"
 
 int	ft_none(char *str, int *i, t_token **token)
 {

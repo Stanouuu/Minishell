@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 15:49:20 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/19 16:06:17 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/18 16:21:55 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/22 11:26:45 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*jim;
+	t_list	*temp;
 
+	temp = *lst;
 	if (lst)
 	{
-		if (lst[0])
+		if (*lst)
 		{
-			jim = ft_lstlast(lst[0]);
-			jim->next = new;
+			while (temp->next != 0)
+				temp = temp->next;
+			temp->next = new;
 		}
 		else
-			lst[0] = new;
+			*lst = new;
 	}
+	return ;
 }

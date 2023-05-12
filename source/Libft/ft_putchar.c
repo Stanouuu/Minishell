@@ -3,16 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/23 15:48:18 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/25 21:28:01 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/27 15:04:26 by gfranque          #+#    #+#             */
+/*   Updated: 2022/09/06 12:55:39 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
-	write(1, &c, 1);
+	return (write(1, &c, 1));
+}
+
+int	ft_putstr(char *str)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while (str[i])
+	{
+		n = n + ft_putchar(str[i]);
+		i++;
+	}
+	return (n);
 }

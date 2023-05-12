@@ -6,13 +6,13 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:23:15 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 14:42:38 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:20:30 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dataprocessing.h"
+#include "minishell.h"
 
-int	here_doc(t_data *data)
+int	ft_here_doc(t_data *data)
 {
 	int		i;
 	t_data	*temp;
@@ -24,6 +24,7 @@ int	here_doc(t_data *data)
 		if (ft_init_here_doc(temp, i) == 0)
 			return (0);
 		i++;
+		temp = temp->next;
 	}
 	return (1);
 }
@@ -38,15 +39,15 @@ int	ft_init_here_doc(t_data *data, int i)
 	temp = data->files;
 	while (temp)
 	{
-		if (temp->enu == here_doc)
-		{	
+		if (temp->type == heredoc)
+		{
 			name = ft_itoa(i);
 			if (!name)
 				return (0);
-			name = ft_strjoinfree("/temp/.", name, 1);
+			name = ft_strjoinandfree("/temp/.", name, 1);
 			if (!name)
 				return (0);
-				res = ft_new_here_doc(temp, name);
+			res = ft_new_here_doc(temp, name);
 			if (res != 1)
 				return (0);
 		}
@@ -63,7 +64,7 @@ int	ft_new_here_doc(t_file *file, char *name)
 
 	eof = file->name;
 	file->name = name;
-	fd = open(name, O_CREATE | O_TRUNC | O_WRONLY, 0644);
+	fd = open(name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
 		return (0);
 	str = get_next_line(0);

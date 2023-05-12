@@ -6,25 +6,13 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:01:01 by gfranque          #+#    #+#             */
-/*   Updated: 2022/06/14 16:51:15 by gfranque         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:20:24 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "libft.h"
 
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str)
-		return (i);
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strjoin(char *start, char *end, int n)
+char	*ft_strjoinfree(char *start, char *end, int n)
 {
 	size_t	len;
 	char	*str;
@@ -39,6 +27,8 @@ char	*ft_strjoin(char *start, char *end, int n)
 	ft_strcat(str, start, end);
 	if (n == 1)
 		free(start);
+	if (n == 2)
+		free(end);
 	return (str);
 }
 

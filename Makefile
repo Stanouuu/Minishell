@@ -6,7 +6,7 @@
 #    By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/05/12 14:27:42 by gfranque         ###   ########.fr        #
+#    Updated: 2023/05/12 16:59:08 by gfranque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/control
 		./Parsing/textprocessing.c ./Parsing/charstuff.c ./Parsing/lexing1.c\
 		./Parsing/lexing2.c ./Parsing/lexing3.c ./Parsing/tokenhandling.c\
 		./Parsing/parsing1.c ./Parsing/parsing2.c ./Parsing/parsing3.c\
-		./Parsing/parseur.c ./Parsing/parseurredir.c\ ./redirection/here_doc.c
+		./Parsing/parseur.c ./Parsing/parseurredir.c ./redirection/here_doc.c\
+		./Parsing/expandprocessing.c\
 
 PRINTF = ./source/Printf/libftprintf.a
 
@@ -27,15 +28,13 @@ INCLUDES = -I ./include/
 
 LIBFTINC = -I ./source/Libft/
 
-PRINTFINC = -I ./source/Printf
-
 LIBFT = ./source/Libft/libft.a
 
 SRC_DIR = source
 
 OBJ_DIR = objet
 
-MORE_DIR = $(OBJ_DIR)/bultins $(OBJ_DIR)/parsing $(OBJ_DIR)/exec $(OBJ_DIR)/Parsing
+MORE_DIR = $(OBJ_DIR)/bultins $(OBJ_DIR)/parsing $(OBJ_DIR)/exec $(OBJ_DIR)/Parsing $(OBJ_DIR)/redirection $(OBJ_DIR)/gnl
 
 SRCS = $(SRC:%=$(SRC_DIR)/%)
 
@@ -89,17 +88,16 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(MKDIR) $(OBJ_DIR)
 	@$(MKDIR) $(MORE_DIR)
 	$(COLORCYAN)
-	$(GCC) $(FLAGS) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) -c $< -o $@
+	$(GCC) $(FLAGS) $(LIBFTINC) $(INCLUDES) -c $< -o $@
 	$(UNCOLOR)
 
 $(NAME):	$(OBJS)
 	@echo "$(BOLDCYAN) Minishell $(RESET)"
 	$(COLORGREEN)
 	make -C ./source/Libft
-	make -C ./source/Printf
 	$(UNCOLOR)
 	$(COLORCYAN)
-	$(GCC) $(FLAGS) -o $(NAME) $(LIBFTINC) $(PRINTFINC) $(INCLUDES) $(OBJS) $(LIBFT) $(PRINTF) $(READLINE)
+	$(GCC) $(FLAGS) -o $(NAME) $(LIBFTINC) $(INCLUDES) $(OBJS) $(LIBFT) $(READLINE)
 	$(UNCOLOR)
 	@echo "$(BOLDCYAN) Compilation completed $(RESET)"
 
@@ -112,7 +110,6 @@ clean:
 fclean:	clean
 	$(COLORYELLOW)
 	@make fclean -C ./source/Libft
-	@make fclean -C ./source/Printf
 	$(UNCOLOR)
 	$(COLORYELLOW)
 	$(RM) $(NAME) $(NAMEBONUS)

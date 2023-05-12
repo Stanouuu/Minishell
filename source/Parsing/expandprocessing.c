@@ -6,11 +6,11 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 22:26:58 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/11 22:27:34 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dataprocessing.h"
+#include "minishell.h"
 
 char	*ft_findinenvp(char *str, char **envp, int len)
 {

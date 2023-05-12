@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 03:50:03 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/16 16:25:57 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/08/30 11:01:20 by gfranque          #+#    #+#             */
+/*   Updated: 2022/09/27 15:47:56 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,26 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
+	int		i;
+	int		j;
+	char	*newstr;
+	size_t	l;
 
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (0);
-	str[0] = '\0';
-	ft_strlcat(str, s1, ft_strlen(s1) + 1);
-	ft_strlcat(str, s2, (ft_strlen(s1) + ft_strlen(s2) + 1));
-	return (str);
+	i = 0;
+	j = 0;
+	l = ft_strlen(s1) + ft_strlen(s2) + 1;
+	newstr = (char *)ft_calloc((l + 1), sizeof(char));
+	if (!newstr)
+		return (NULL);
+	while (s1[i])
+	{
+		newstr[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		newstr[i + j] = s2[j];
+		j++;
+	}
+	return (newstr);
 }
-/*
-int	main()
-{
-	printf("%s\n", ft_strjoin("tripouille", "42"));
-}*/

@@ -1,38 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 16:41:31 by gfranque          #+#    #+#             */
-/*   Updated: 2022/09/06 13:02:44 by gfranque         ###   ########.fr       */
+/*   Created: 2022/05/27 23:32:42 by gfranque          #+#    #+#             */
+/*   Updated: 2022/09/06 12:55:25 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_putnb(long int nb, int fd)
+static void	ft_putnbrneg(int nb, int *ptr)
 {
-	if (nb > 9)
+	if (nb < -9)
 	{
-		ft_putnb(nb / 10, fd);
-		ft_putnb(nb % 10, fd);
+		ft_putnbrneg(nb / 10, ptr);
+		ft_putnbrneg(nb % 10, ptr);
 	}
 	else
-		ft_putchar_fd(nb + 48, fd);
+	{
+		nb = -nb;
+		*ptr = *ptr + ft_putchar(nb + '0');
+	}
+	return ;
 }
 
-void	ft_putnbr_fd(int n, int fd)
+static void	ft_putnbrpos(int nb, int *ptr)
 {
-	long int	nb;
-
-	nb = (long int)n;
 	if (nb < 0)
 	{
-		nb = nb * -1;
-		write(fd, "-", 1);
+		ft_putnbrneg(nb, ptr);
+		return ;
 	}
-	ft_putnb(nb, fd);
+	if (nb > 9)
+	{
+		ft_putnbrpos(nb / 10, ptr);
+		ft_putnbrpos(nb % 10, ptr);
+	}
+	else
+		*ptr = *ptr + ft_putchar(nb + '0');
 	return ;
+}
+
+int	ft_putnbr(int nb)
+{
+	int	ptr;
+
+	ptr = 0;
+	ft_putnbrpos(nb, &ptr);
+	return (ptr);
 }
