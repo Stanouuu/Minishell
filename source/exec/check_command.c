@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:52:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/11 14:47:26 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:10:57 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	ft_check_error_3_bis(t_data *data, char **str)
 			return (-1);
 		}
 		ft_error(*str);
-		free(*str);
 	}
+	free(*str);
 	*str = NULL;
 	return (0);
 }
@@ -62,6 +62,7 @@ int	ft_check_error_3(t_data *data, char **str, struct stat sb)
 		g_exitcode = 126;
 		return (0);
 	}
+	// free(*str);
 	return (1);
 }
 
@@ -122,6 +123,16 @@ char	*getenv_but_better(t_data *data)
 	return (0);
 }
 
+void	free_tab(char **tmp)
+{
+	int	i;
+
+	i = 0;
+	while (tmp[i])
+		free(tmp[i++]);
+	free(tmp);
+}
+
 int	ft_check_error_2(t_data *data, char **str)
 {
 	char **tmp;
@@ -131,7 +142,7 @@ int	ft_check_error_2(t_data *data, char **str)
 
 	i = 0;
 	if (has_slash(data->command[0]) == 1)
-		*str = data->command[0];
+		*str = ft_strdup(data->command[0]);
 	else
 	{
 		tmpstr = getenv_but_better(data);
@@ -151,15 +162,20 @@ int	ft_check_error_2(t_data *data, char **str)
 		}
 		while (tmp[i])
 		{
+			// if (!*str)
+			// 	ft_printf("str still NULL\n");
+			// else
+			// 	ft_printf("str = to %s\n", *str);
 			if (strcpr(tmp, &(*str), i, data) == -1)
-				return (free(tmp), -1);
+				return (free_tab(tmp), -1);
 			j = check_error_tool(data , *(&str));
 			if (j == 1 || j == -1)
-				return (free(tmp), j);
+				return (free_tab(tmp), j);
 			i++;
 			free(*str);
+
 		}
-		free(tmp);
+		free_tab(tmp);
 		ft_printf("%s: command not found\n", data->command[0]);
 		g_exitcode = 127;
 		return (0);
