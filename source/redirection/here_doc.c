@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:23:15 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 14:22:20 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:42:38 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	here_doc(t_data *data)
 			return (0);
 		i++;
 	}
-	return (1);	
+	return (1);
 }
 
 int	ft_init_here_doc(t_data *data, int i)
@@ -39,7 +39,8 @@ int	ft_init_here_doc(t_data *data, int i)
 	while (temp)
 	{
 		if (temp->enu == here_doc)
-		{	name = ft_itoa(i);
+		{	
+			name = ft_itoa(i);
 			if (!name)
 				return (0);
 			name = ft_strjoinfree("/temp/.", name, 1);
