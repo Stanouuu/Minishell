@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 14:32:09 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:48:20 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include "libft.h"
-# include "ft_printf.h"
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
@@ -28,6 +27,29 @@
 # include "dataprocessing.h"
 
 extern int	g_exitcode;
+
+// typedef struct s_token
+// {
+// 	enum e_token	enu;
+// 	struct s_token	*next;
+// }					t_token;
+
+// typedef struct s_file
+// {
+// 	char			*name;
+// 	enum e_token	type;
+// 	struct s_file	*next;
+// }					t_file;
+
+// typedef struct s_data
+// {
+// 	char			**command;
+// 	char			**envp;
+// 	int				fd[2];
+// 	int				pipe[2];
+// 	struct s_file	*files;
+// 	struct s_data	*next;
+// }					t_data;
 
 /*##############*/
 /*	BULT-INS	*/

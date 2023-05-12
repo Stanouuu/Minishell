@@ -6,11 +6,11 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 21:12:37 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 08:22:02 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dataprocessing.h"
+#include "minishell.h"
 
 t_file	*ft_filecreate(char *str, enum e_token token)
 {

@@ -3,84 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 05:00:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/19 18:28:10 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/05 12:25:47 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/22 13:38:26 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	size(long int n)
+static int	ft_numbsize(long int nb)
 {
-	size_t	i;
+	int	size;
 
-	i = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
+	size = 1;
+	while (nb > 9)
 	{
-		n *= -1;
-		i++;
+		nb = nb / 10;
+		size++;
 	}
-	while (n > 0)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
+	return (size);
 }
 
-unsigned int	square(int n, size_t i)
+static char	*ft_supermem(int size, int sign)
 {
-	size_t	h;
+	char	*str;
 
-	h = 1;
-	while (i > 0)
+	str = ft_calloc(size + sign + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	return (str);
+}
+
+static void	ft_putntr(char *str, long int n, int size, int sign)
+{
+	int	i;
+
+	i = size + sign - 1;
+	while (n > 9)
 	{
-		h = h * n;
+		str[i] = n % 10 + '0';
+		n = n / 10;
 		i--;
 	}
-	return (h);
+	str[i] = n + '0';
+	if (sign == 1)
+		str[0] = '-';
+	return ;
 }
 
 char	*ft_itoa(int n)
 {
-	char	*str;
-	size_t	i;
-	size_t	j;
+	long int	nb;
+	int			size;
+	int			sign;
+	char		*str;
 
-	i = 0;
-	n = (long int)n;
-	j = size(n);
-	str = malloc(sizeof(char) * (j + 1));
-	if (!str)
-		return (0);
-	if (n < 0)
+	nb = (long int)n;
+	if (nb < 0)
 	{
-		str[i++] = '-';
-		n = n * -1;
-		j--;
+		nb = nb * -1;
+		sign = 1;
 	}
-	while (j > 0)
-	{
-		str[i] = ((n / square(10, --j)) % 10) + '0' ;
-		i++;
-	}
-	str[i] = '\0';
+	else
+		sign = 0;
+	size = ft_numbsize(nb);
+	str = ft_supermem(size, sign);
+	ft_putntr(str, nb, size, sign);
 	return (str);
 }
-
-// #include <stdio.h>
-
-// int	main()
-
-// {
-// 	printf("%s\n", ft_itoa(2147483648));
-// 	printf("%s\n", ft_itoa(0));
-// 	printf("%s\n", ft_itoa(-10));
-// 	printf("%s\n", ft_itoa(10));
-// 	printf("%s\n", ft_itoa(2147483647));
-
-// }

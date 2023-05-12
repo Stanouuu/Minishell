@@ -3,48 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 19:07:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/09 20:45:34 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/03 09:27:10 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/10 15:39:41 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlcpy(char *dest, const char *src, size_t n)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
+	size_t	srclen;
 	size_t	i;
 
 	i = 0;
-	if (n != 0)
+	srclen = 0;
+	while (src[srclen])
+		srclen++;
+	if (size <= 0)
+		return (srclen);
+	while (src[i] && i < (size - 1))
 	{
-		while (i < n - 1 && src[i])
-		{
-			dest[i] = src[i];
-			i++;
-		}
-		dest[i] = '\0';
+		dst[i] = src[i];
+		i++;
 	}
-	return (ft_strlen(src));
+	dst[i] = '\0';
+	return (srclen);
 }
-
-// #include <bsd/string.h>
-// #include <stdio.h>
-
-// int	main()
-// {	
-// 	char	*str = "BBBB";
-// 	char	buff1[0xF00];
-// 	char	buff2[0xF00];
-
-// 	memset(buff1, 'A', 20);
-// 	memset(buff2, 'A', 20);
-	// printf("real : %li\n", strlcpy(NULL, NULL, 10));
-	// printf("real : %s\n", buff2);
-	// printf("real : %s\n", str);
-	// str = "BBBB";
-	// printf("stan : %i\n", ft_strlcpy(NULL, NULL, 10));
-	// printf("stan : %s\n", buff1);
-	// printf("stan : %s\n",  str);
-// }

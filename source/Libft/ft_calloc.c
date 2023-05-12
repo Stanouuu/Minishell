@@ -3,49 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 18:09:11 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/17 17:32:21 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/04 14:16:41 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/17 14:41:30 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdint.h>
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*str;
+	void	*array;
 
-	str = malloc(nmemb * size);
-	if (!str)
+	if (nmemb > (SIZE_MAX / 2) && (size > (SIZE_MAX / 2)))
 		return (NULL);
-	ft_bzero(str, nmemb * size);
-	return (str);
+	array = malloc(size * nmemb);
+	if (!array)
+		return (NULL);
+	ft_bzero(array, size * nmemb);
+	return (array);
 }
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <assert.h>
-// #include <stdint.h>
-
-// int main() {
-//     // if (ft_calloc(2147483647, 2147483647) == NULL)
-//     //     printf("yeas");
-//     // else
-//     //     printf("nooo");
-//     // return 0;
-
-// 	int size = 8539;
-
-// 	void * d1 = ft_calloc(size, sizeof(int));
-// 	void * d2 = calloc(size, sizeof(int));
-
-// 	if (d1 == d2)
-// 		printf("sucess");
-// 	if (!d1)
-// 		printf("d1 NULL");
-// 	if (!d2)
-// 		printf("d2 NULL");
-// 	free(d1);
-// 	free(d2);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 17:00:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2022/05/06 22:52:49 by sbarrage         ###   ########.fr       */
+/*   Created: 2022/05/03 10:43:55 by gfranque          #+#    #+#             */
+/*   Updated: 2022/05/03 19:38:24 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 
 int	ft_toupper(int c)
 {
-	if (c <= 'z' && c >= 'a')
+	if (97 <= c && c <= 122)
 		return (c - 32);
 	return (c);
 }
-/*
-#include <stdio.h>
-
-int main()
-{
-	printf("%c\n", ft_toupper('a'));
-	printf("%c\n", ft_toupper('\n'));
-}*/

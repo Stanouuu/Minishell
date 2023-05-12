@@ -6,11 +6,11 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:32:51 by gfranque          #+#    #+#             */
-/*   Updated: 2022/06/14 16:51:04 by gfranque         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:20:00 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "libft.h"
 
 char	*get_next_line(int fd)
 {
@@ -24,7 +24,7 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	buffer[0] = 0;
-	sent = ft_strjoin(str[fd], NULL, 0);
+	sent = ft_strjoinfree(str[fd], NULL, 0);
 	sent = ft_ultimate_read(fd, str[fd], buffer, sent);
 	free(buffer);
 	if (ft_strlen(sent) == 0)
@@ -63,7 +63,7 @@ char	*ft_ultimate_read(int fd, char *stat, char *buffer, char *sent)
 			return (NULL);
 		buffer[res] = 0;
 		if (res != 0)
-			sent = ft_strjoin(sent, buffer, 1);
+			sent = ft_strjoinfree(sent, buffer, 1);
 		if (!sent)
 			return (NULL);
 	}
