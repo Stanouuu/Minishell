@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+         #
+#    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/05/12 16:59:08 by gfranque         ###   ########.fr        #
+#    Updated: 2023/05/12 17:38:14 by sbarrage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = minishell
 
 SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/controll.c\
 		./bultins/env.c ./bultins/unset.c ./bultins/export.c ./bultins/export_utils.c\
-		./exec/command.c ./exec/redirection.c error.c ./exec/./check_command.c\
+		./exec/command.c ./exec/redirection.c error.c ./exec/check_command.c\
+		./exec/check_command_utils.c ./exec/fork.c ./exec/fork_2.c ./exec/fork_3.c\
 		./Parsing/datahandling.c ./Parsing/dataprocessing.c ./Parsing/dataprocessing2.c\
 		./Parsing/textprocessing.c ./Parsing/charstuff.c ./Parsing/lexing1.c\
 		./Parsing/lexing2.c ./Parsing/lexing3.c ./Parsing/tokenhandling.c\
