@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:14:18 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/11 19:23:10 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:47:07 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	has_equal(char *str)
 	{
 		if (str[i] == '=')
 			return (1);
-		else
-			printf("str[i] : %c\n", str[i]);
 		i++;
 	}
 	return (0);
