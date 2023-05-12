@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 21:12:37 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/08 16:43:18 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:33:24 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_file	*ft_filecreate(char *str, enum token token)
 {
 	t_file	*file;
-	
+
 	file = ft_calloc(1, sizeof(t_file));
 	if (!file)
 		return (NULL);
@@ -28,7 +28,7 @@ t_file	*ft_filecreate(char *str, enum token token)
 void	ft_fileclear(t_file *begin)
 {
 	t_file	*temp;
-	
+
 	temp = begin;
 	if (!begin)
 		return ;
@@ -45,7 +45,7 @@ void	ft_fileclear(t_file *begin)
 t_file	*ft_fileadd(char *str, enum token token, t_file *begin)
 {
 	t_file	*temp;
-	
+
 	if (!begin)
 		return (ft_filecreate(str, token));
 	temp = begin;
@@ -70,13 +70,14 @@ char	**ft_newcommand(char *str)
 	return (newstrs);
 }
 
+	/*freestrs, //pertinent ? en cas d erreur pour newstrs et strs*/
 char	**ft_commandcreate(char **strs, char *str)
 {
 	int		i;
 	char	**newstrs;
 
 	if (!str)
-		return (/*free strs*/NULL);//pertinent ?
+		return (NULL);
 	if (!strs)
 		return (ft_newcommand(str));
 	i = 0;
@@ -84,26 +85,11 @@ char	**ft_commandcreate(char **strs, char *str)
 		i++;
 	newstrs = ft_calloc(i + 2, sizeof(char *));
 	if (!newstrs)
-		return (/*freestrs*/NULL);
+		return (NULL);
 	i = -1;
 	while (strs[++i])
 		newstrs[i] = strs[i];
 	newstrs[i] = str;
 	free(strs);
 	return (newstrs);
-}
-
-void	ft_free_strs(char **strs)
-{
-	int	i;
-
-	i = 0;
-	if (!strs)
-		return ;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
 }

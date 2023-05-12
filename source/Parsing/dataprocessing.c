@@ -3,27 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   dataprocessing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/10 14:22:06 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:48:05 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dataprocessing.h"
 
-int	ft_isespace(char c)
-{
-	if (9 <= c && c <= 13)
-		return (1);
-	if (c == ' ')
-		return (1);
-	return (0);
-}
-
 int	is_digitredir(char *str, int i, t_token *begin)
 {
-	if ((ft_readsometoken(begin, sinquo) % 2) != 0 || (ft_readsometoken(begin, douquo) % 2) != 0)
+	if ((ft_readsometoken(begin, sinquo) % 2) != 0
+		|| (ft_readsometoken(begin, douquo) % 2) != 0)
 		return (0);
 	while (str[i] && str[i] != '<' && str[i] != '>')
 	{
@@ -53,7 +45,7 @@ t_pf	ft_checktoken(char c)
 	t_pf	*tab;
 
 	tab = (t_pf[128]){
-		NULL, 
+		NULL,
 	['<'] = &is_redir_1,
 	['>'] = &is_redir_2,
 	['|'] = &is_pip,
@@ -73,7 +65,7 @@ int	ft_lexing(char *str, t_token *begin, t_data *data)
 	int		i;
 	int		n;
 	t_pf	tmp;
-	
+
 	i = 0;
 	n = 0;
 	if (ft_strlen(str) == 0)
@@ -93,19 +85,3 @@ int	ft_lexing(char *str, t_token *begin, t_data *data)
 		return (-1);
 	return (road(data));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
