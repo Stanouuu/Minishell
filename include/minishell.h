@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 12:40:57 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:54:37 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ extern int	g_exitcode;
 
 void	echo(char **cmd);
 void	pwd(char **cmd);
-int		cd(char **cmd, char **envp, int *pwd);
+int		cd(char **cmd, char **envp);
 void	unset(char **cmd, char **envp);
-int		export(char **cmd, char **envp);
+int		export(char **cmd, char ***envp);
 int		envp_prt_sort(char **envp);
 void	env(char **cmd, char **envp);
 

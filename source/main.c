@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 13:05:48 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:45:42 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,59 @@ void	free_pwd(char **envp)
 	}
 }
 
+char	**cpytab(char **envp)
+{
+	char	**envpcpy;
+	int		i;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	envpcpy = malloc(sizeof(char *) * (i + 1));
+	if (!envpcpy)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		envpcpy[i] = ft_strdup(envp[i]);
+		if (!envpcpy[i])
+		{
+			while (i != 0)
+				free(envpcpy[--i]);
+			return (NULL);
+		}
+		i++;
+	}
+	envpcpy[i] = NULL;
+	return (envpcpy);
+}
+
+void	free_matrix(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+		free(envp[i++]);
+	free(envp);
+}
+
 int	g_exitcode = 0;
 
 int	main(int ac, char **av, char **envp)
 {
 	int		i;
-	int		pwd;
 	char	*str;
+	char	**envpcpy[1];
 	t_data	*data;
 
 	g_exitcode = 0;
 	if (ac != 1 || !av)
 		return (0);
 	i = 0;
+	*envpcpy = cpytab(envp);
+	if (!*envpcpy)
+		return (1);
 	signal(SIGQUIT, SIG_IGN);
 	while (i != -1)
 	{
@@ -61,18 +101,16 @@ int	main(int ac, char **av, char **envp)
 		}
 		else
 		{
-			data = ft_datacreate(envp);
+			data = ft_datacreate(*envpcpy);
 			if (!data)
 				return (0);
 			i = ft_lexing(str, NULL, data);
-			pwd = *(data->pwd);
+			*envpcpy = data->envp;
 			add_history(str);
 			free(str);
 
 			ft_dataclear(data);
 		}
 	}
-	if (pwd > 0)
-		free_pwd(envp);
-	return (rl_clear_history(), g_exitcode);
+	return (free_matrix(*envpcpy), rl_clear_history(), g_exitcode);
 }

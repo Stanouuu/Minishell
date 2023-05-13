@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:25:06 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/13 12:52:27 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:52:02 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_dataclear(t_data *data)
 t_data	*ft_datacreate(char **envp)
 {
 	t_data		*data;
-	static int	pwd;
 
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
@@ -44,7 +43,6 @@ t_data	*ft_datacreate(char **envp)
 	data->files = NULL;
 	data->pipe[0] = -1;
 	data->pipe[1] = -1;
-	data->pwd = &pwd;
 	return (data);
 }
 

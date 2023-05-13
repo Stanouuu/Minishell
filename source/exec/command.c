@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 12:40:20 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:05:27 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int	ft_controller(t_data *data)
 	else if (data->command && ft_strcmp("pwd", data->command[0]) == 0)
 		pwd(data->command);
 	else if (data->command && ft_strcmp("cd", data->command[0]) == 0)
-		return (cd(data->command, data->envp, data->pwd));
+		return (cd(data->command, data->envp));
 	else if (data->command && ft_strcmp("env", data->command[0]) == 0)
 		env(data->command, data->envp);
 	else if (data->command && ft_strcmp("unset", data->command[0]) == 0)
 		unset(data->command, data->envp);
 	else if (data->command && ft_strcmp("export", data->command[0]) == 0)
-		return (export(data->command, data->envp));
+		return (export(data->command, &(data->envp)));
 	else
 		return (1);
 	if (data->next)

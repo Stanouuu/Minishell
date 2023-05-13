@@ -6,32 +6,67 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 20:35:47 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:48:36 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_add_env(char **cmd, char **envp, int j)
+int	cpytab_to_another(char **envp, char ***envpcpy)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (envp[i + 1])
+	while (envp[i])
 		i++;
-	envp[i + 1] = envp[i];
-	if (cmd[1])
+	*envpcpy = malloc(sizeof(char *) * (i + 1));
+	if (!*envpcpy)
+		return (-1);
+	i = 0;
+	while (envp[i])
 	{
-		envp[i] = ft_strdup(cmd[j]);
-		if (!envp[i])
+		(*envpcpy)[i] = ft_strdup(envp[i]);
+		free(envp[i]);
+		if (!(*envpcpy)[i])
 		{
-			g_exitcode = 1;
-			ft_error("malloc");
+			while (i != 0)
+				free((*envpcpy)[--i]);
 			return (-1);
 		}
+		i++;
 	}
-	envp[i + 2] = NULL;
+	free(envp);
+	(*envpcpy)[i] = NULL;
 	return (1);
+}
+
+int	ft_add_env(char **cmd, char ***envp, int j, char **envpcpy)
+{
+	int		i;
+
+	i = 0;
+	while ((*envp)[i])
+		i++;
+	envpcpy = malloc(sizeof(char *) * (i + 2));
+	if (!envpcpy)
+		return (-1);
+	i = 0;
+	while ((*envp)[i])
+	{
+		envpcpy[i] = ft_strdup((*envp)[i]);
+		free((*envp)[i]);
+		if (!envpcpy[i])
+		{
+			while (i != 0)
+				free(envpcpy[--i]);
+			return (-1);
+		}
+		i++;
+	}
+	free(*envp);
+	envpcpy[i] = ft_strdup(cmd[j]);
+	envpcpy[i + 1] = NULL;
+	return (cpytab_to_another(envpcpy, envp));
 }
 
 int	until_equal(char *str)
@@ -55,8 +90,9 @@ int	export_2(char **cmd, char **envp, int j)
 	while (envp[k])
 	{
 		i = until_equal(cmd[j]);
-		if (ft_strncmp(cmd[j], envp[k], i) == 0)
+		if (ft_strncmp(cmd[j], envp[k], i + 1) == 0)
 		{
+			free(envp[k]);
 			envp[k] = ft_strdup(cmd[j]);
 			break ;
 		}
@@ -65,7 +101,7 @@ int	export_2(char **cmd, char **envp, int j)
 	return (k);
 }
 
-int	export_1(char **cmd, char **envp, int j)
+int	export_1(char **cmd, char ***envp, int j)
 {
 	int	i;
 	int	h;
@@ -75,12 +111,12 @@ int	export_1(char **cmd, char **envp, int j)
 		i = 0;
 		if (cmd[j][i] == '=')
 			return (1);
-		h = export_2(cmd, envp, j);
+		h = export_2(cmd, *envp, j);
 		if (h == -1)
 			return (h);
-		else if (!envp[h])
+		else if (!(*envp)[h])
 		{
-			if (ft_add_env(cmd, envp, j) == -1)
+			if (ft_add_env(cmd, envp, j, NULL) == -1)
 				return (-1);
 		}
 		else
@@ -90,7 +126,7 @@ int	export_1(char **cmd, char **envp, int j)
 	return (0);
 }
 
-int	export(char **cmd, char **envp)
+int	export(char **cmd, char ***envp)
 {
 	int	i;
 	int	j;
@@ -99,7 +135,7 @@ int	export(char **cmd, char **envp)
 	i = 0;
 	if (!cmd[1])
 	{
-		if (envp_prt_sort(envp) == -1)
+		if (envp_prt_sort(*envp) == -1)
 			return (-1);
 	}
 	while (cmd[j] && cmd[j][i] && !(cmd[j][i] == '=' && i != 0))
