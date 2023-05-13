@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:32:47 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:07:34 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_token	*ft_tokenadd(t_token *begin, enum e_token e, int *n)
 {	
 	t_token	*token;
 
-	*n = 1;
+	*n = 2;
 	if (begin == NULL)
 		return (ft_tokencreate(e));
 	token = begin;
@@ -53,7 +53,10 @@ t_token	*ft_tokenadd(t_token *begin, enum e_token e, int *n)
 		token = token->next;
 	token->next = ft_tokencreate(e);
 	if (token->next == NULL)
+	{
+		*n = -1;
 		return (ft_tokenclear(begin), NULL);
+	}
 	return (begin);
 }
 

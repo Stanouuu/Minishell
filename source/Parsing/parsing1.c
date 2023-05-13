@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:06:46 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:26:39 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,24 @@ void	ft_tokenexpandlen(char *str, int *j, int *len)
 {
 	while (str[*j] && ft_isespace(str[*j]) == 1)
 		*j = *j + 1;
-	while (str[*j + *len] && ft_charnextdoor("<>|\"\'$", str[*j + *len]) == 0
-		&& ft_isespace(str[*j + *len]) == 0)
+	if (str[*j] != '$')
+	{
+		while (str[*j + *len] && ft_isespace(str[*j + *len]) == 0
+			&& ft_charnextdoor("<>|\"\'$", str[*j + *len]) == 0)
+			*len = *len + 1;
 		*len = *len + 1;
-	if (str[*j + *len] == '$')
+	}
+	else
+		*len = *len + 1;
+	if (str[*j + *len] == '?')
 	{
 		*len = *len + 1;
-		while (str[*j + *len] && ft_isalnum(str[*j + *len]) == 1
-			&& ft_charnextdoor("\"$", str[*j + *len]) == 0
-			&& ft_isespace(str[*j + *len]) == 0)
-			*len = *len + 1;
+		return ;
 	}
+	while (str[*j + *len] && ft_isalnum(str[*j + *len]) == 1
+		&& ft_charnextdoor("<>|\"\'$", str[*j + *len]) == 0
+		&&ft_isespace(str[*j + *len]) == 0)
+		*len = *len + 1;
 }
 
 char	*ft_tokenexpand(char *str, int *i, t_token **token, t_data *data)

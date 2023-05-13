@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 22:26:58 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:11:44 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_findinenvp(char *str, char **envp, int len)
 	i = 0;
 	if (!str || !envp)
 		return (NULL);
-	if (ft_strnstr("$?", str + 1, len) != NULL)
+	if (str[1] && ft_strnstr("?", str + 1, len - 1) != NULL)
 		return (ft_itoa(g_exitcode));
 	while (envp[i])
 	{
