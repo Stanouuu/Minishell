@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:05:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 21:48:36 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 11:19:17 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	change_pwd(char *str, char **envp)
 {
 	char		cwd[256];
-	char	*join[2];
+	char		*join;
 	int			i;
 
 	i = 0;
