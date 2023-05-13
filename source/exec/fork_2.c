@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:55:12 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 21:06:39 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:08:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_data	*next_data(t_data *data)
 
 void	forkgive_n_forkget(t_data *data, int *pid, int *j, char **str)
 {
+	ft_printf("I : %d - %d\n", data->fd[0], data->fd[1]);
+	ft_printf("pipe : %d - %d\n", data->pipe[0], data->pipe[1]);
 	forkland(data, pid, j);
 	extra_cmd(data, *str);
 	exit(0);

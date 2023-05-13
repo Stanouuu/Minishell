@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 18:17:16 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:58:23 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	ft_pipe(t_data *data, int j, int x)
 			g_exitcode = 141;
 			return (-1);
 		}
-		data->pipe[0] = pip[0];
-		data->pipe[1] = pip[1];
+		data->next->pipe[0] = pip[0];
+		data->next->pipe[1] = pip[1];
 		data->fd[1] = pip[1];
 		data->next->fd[0] = pip[0];
 		data = data->next;

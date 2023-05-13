@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:58:36 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 13:09:54 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:32:27 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ void	forkland(t_data *data, int *pid, int *j)
 	redirect(data->fd[0], data->fd[1]);
 	close (j[0]);
 	close (j[1]);
+	// close (data->next->fd[0]);
+	while (data)
+	{
+		if (data->pipe[0] != -1)
+		{
+			close (data->fd[0]);
+			close (data->fd[1]);
+			close (data->pipe[1]);
+			if (data->next)
+				close (data->pipe[0]);
+		}
+		data = data->next;
+	}
 }
 
 void	guns_n_forks(int x, int j, int *pid)
