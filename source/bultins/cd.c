@@ -15,7 +15,7 @@
 int	change_pwd(char *str, char **envp, int pwd)
 {
 	char		cwd[256];
-	char	*join;
+	char		*join;
 	int			i;
 
 	i = 0;
