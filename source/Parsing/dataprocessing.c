@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:51:02 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:15:01 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_digitredir(char *str, int i, t_token *begin)
 
 void	printredirerror(char *str, int i, int *n)
 {
-	*n = 1;
+	*n = 0;
 	ft_putstr_fd("bash: syntax error near unexpected token `", 2);
 	while (str[i] && ft_isdigit(str[i]) == 1)
 	{
@@ -67,7 +67,7 @@ int	ft_lexing(char *str, t_token *begin, t_data *data)
 	t_pfl	tmp;
 
 	i = 0;
-	n = 0;
+	n = 1;
 	if (ft_strlen(str) == 0)
 		return (0);
 	while (str[i])
@@ -75,15 +75,16 @@ int	ft_lexing(char *str, t_token *begin, t_data *data)
 		tmp = ft_checktoken(str[i]);
 		if (tmp != NULL)
 			begin = (tmp)(str, &i, &n, begin);
-		if (n != 0 && begin == NULL)
-			return (-1);
+		if (n != 1 && begin == NULL)
+			return (n);//donner la bonne valeur a n (0 ou -1)
 		i++;
 	}
 	if (begin == NULL && (ft_isespacelen(str) == (int)ft_strlen(str)))
-		g_exitcode = 0;
+		return (g_exitcode = 0, 0);
 	if (ft_parse(str, begin, data) == NULL)
 		return (-1);
 	if (ft_here_doc(data) == 0)
 		return (0);
+	g_exitcode = 0;
 	return (road(data));
 }

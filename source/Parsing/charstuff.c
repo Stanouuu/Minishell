@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:36:14 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:15:08 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	printsyntax(char c, int *n)
 {
-	*n = 1;
+	*n = 0;
 	ft_putstr_fd("bash: syntax error near unexpected token `", 2);
 	ft_putchar_fd(c, 2);
 	ft_putstr_fd("'\n", 2);

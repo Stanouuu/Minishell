@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
 /*   Updated: 2023/05/13 21:45:42 by sbarrage         ###   ########.fr       */
@@ -114,3 +114,4 @@ int	main(int ac, char **av, char **envp)
 	}
 	return (free_matrix(*envpcpy), rl_clear_history(), g_exitcode);
 }
+

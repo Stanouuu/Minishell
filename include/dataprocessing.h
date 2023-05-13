@@ -205,5 +205,6 @@ char	**ft_commandcreate(char **strs, char *str);
 int		ft_here_doc(t_data *data);
 int		ft_init_here_doc(t_data *data, int i);
 int		ft_new_here_doc(t_file *file, char *name);
+int		ft_get_here_doc(char *str, char *eof, int fd);
 
 #endif
