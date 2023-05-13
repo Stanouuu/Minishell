@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 18:01:22 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:40:20 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_controller(t_data *data)
 	else if (data->command && ft_strcmp("pwd", data->command[0]) == 0)
 		pwd(data->command);
 	else if (data->command && ft_strcmp("cd", data->command[0]) == 0)
-		return (cd(data->command, data->envp));
+		return (cd(data->command, data->envp, data->pwd));
 	else if (data->command && ft_strcmp("env", data->command[0]) == 0)
 		env(data->command, data->envp);
 	else if (data->command && ft_strcmp("unset", data->command[0]) == 0)
@@ -103,7 +103,7 @@ int	ft_command(t_data *data)
 		return (-1);
 	y = forkland_2_the_forkening(data, pid, j, NULL);
 	if (y == -1)
-		return (-1);
+		return (free(pid), -1);
 	if (pid[0] != -1)
 		ft_parent(pid, y);
 	return (guns_n_forks(j[0], j[1], pid), 1);

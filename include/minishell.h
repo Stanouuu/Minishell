@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 18:59:38 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:40:57 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ extern int	g_exitcode;
 
 void	echo(char **cmd);
 void	pwd(char **cmd);
-int		cd(char **cmd, char **envp);
+int		cd(char **cmd, char **envp, int *pwd);
 void	unset(char **cmd, char **envp);
 int		export(char **cmd, char **envp);
 int		envp_prt_sort(char **envp);

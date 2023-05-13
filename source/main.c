@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/10 14:21:12 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:05:48 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,27 @@ void	action()
 	g_exitcode = 130;
 }
 
-// ft_free_str(char **str)
-// (
-// 	str = data->command;
-// 	while (str && str[i])
-// 	{
-// 		free(str[i++]);
-// 	}
+void	free_pwd(char **envp)
+{
+	int			i;
 
-// )
-
-// void	ft_free_data(t_data *data)
-// {
-// 	int i;
-// 	char **str;
-
-// 	i = 0;
-// 	str = data->command;
-// 	while (str && str[i])
-// 	{
-// 		free(str[i++]);
-// 	}
-// 	free(str);
-// 	free (data);
-// }
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PWD=", 4) == 0)
+			free(envp[i]);
+		else if (ft_strncmp(envp[i], "OLDPWD=", 7) == 0)
+			free(envp[i]);
+		i++;
+	}
+}
 
 int	g_exitcode = 0;
 
 int	main(int ac, char **av, char **envp)
 {
 	int		i;
+	int		pwd;
 	char	*str;
 	t_data	*data;
 
@@ -63,7 +54,6 @@ int	main(int ac, char **av, char **envp)
 	{
 		signal(SIGINT, &action);
 		str = readline("\033[1;36mminishell> \033[0m");
-		// printf("here : %s\n", str);
 		if (!str)
 		{
 			write(1, "out\n", 4);
@@ -75,11 +65,14 @@ int	main(int ac, char **av, char **envp)
 			if (!data)
 				return (0);
 			i = ft_lexing(str, NULL, data);
+			pwd = *(data->pwd);
 			add_history(str);
 			free(str);
+
 			ft_dataclear(data);
 		}
 	}
-	rl_clear_history();
-	return (g_exitcode);
+	if (pwd > 0)
+		free_pwd(envp);
+	return (rl_clear_history(), g_exitcode);
 }

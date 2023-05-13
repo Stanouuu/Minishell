@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 14:45:32 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 21:06:36 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:07:07 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	extra_cmd(t_data *data, char *str)
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sa.sa_sigaction = &child_action;
 	sigaction(SIGUSR1, &sa, NULL);
-	// signal(SIGQUIT, SIGQUIT);
+	signal(SIGQUIT, SIG_DFL);
 	execve(str, data->command, data->envp);
 	free(str);
 	ft_dataclear(data);
