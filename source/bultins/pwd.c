@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:48:11 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/16 16:58:35 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:03:07 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	pwd(char **cmd)
 	char	cwd[256];
 	int		i;
 
+	i = 0;
 	while (cmd[0][i])
 	{
 		if (cmd[1])

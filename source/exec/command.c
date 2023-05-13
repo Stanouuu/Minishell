@@ -6,44 +6,11 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 13:47:56 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:40:20 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	child_action(int num, siginfo_t	*info, void *content)
-{
-	if (num == SIGINT && content)
-		kill(info->si_pid, SIGTERM);
-}
-
-
-int ft_strcmp(const char *s1, const char *s2)
-{
-	while (*s1 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
-}
-
-
-void	extra_cmd(t_data *data, char *str)
-{
-	struct sigaction	sa;
-
-	sigemptyset(&sa.sa_mask);
-	sigaddset(&sa.sa_mask, SIGINT);
-	sa.sa_flags = SA_RESTART | SA_SIGINFO;
-	sa.sa_sigaction = &child_action;
-	sigaction(SIGUSR1, &sa, NULL);
-	execve(str, data->command, data->envp);
-	free(str);
-	ft_dataclear(data);
-	g_exitcode = 127;
-}
 
 int	ft_exit(char **cmd)
 {
@@ -62,7 +29,6 @@ int	ft_exit(char **cmd)
 	}
 	if (cmd[1] && cmd[2])
 	{
-
 		g_exitcode = 1;
 		ft_printf("bash: exit: too many arguments\n");
 		return (0);
@@ -72,7 +38,7 @@ int	ft_exit(char **cmd)
 	return (-1);
 }
 
-int ft_controller(t_data *data)
+int	ft_controller(t_data *data)
 {
 	if (data->command && ft_strcmp("exit", data->command[0]) == 0)
 		return (close(data->fd[0]), close(data->fd[1]), ft_exit(data->command));
@@ -81,7 +47,7 @@ int ft_controller(t_data *data)
 	else if (data->command && ft_strcmp("pwd", data->command[0]) == 0)
 		pwd(data->command);
 	else if (data->command && ft_strcmp("cd", data->command[0]) == 0)
-		return (cd(data->command, data->envp));
+		return (cd(data->command, data->envp, data->pwd));
 	else if (data->command && ft_strcmp("env", data->command[0]) == 0)
 		env(data->command, data->envp);
 	else if (data->command && ft_strcmp("unset", data->command[0]) == 0)
@@ -110,7 +76,7 @@ int	all_data(t_data *data)
 
 void	ft_parent(int *pid, int y)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	signal(SIGINT, SIG_IGN);
@@ -121,75 +87,24 @@ void	ft_parent(int *pid, int y)
 int	ft_command(t_data *data)
 {
 	pid_t	*pid;
-	char	*str;
-	int		j;
+	int		j[2];
 	int		y;
-	int 	x;
-	int 	i;
 
-	y = 0;
-	pid = malloc(sizeof(int) * all_data(data));
-	pid[0] = -1;
 	if (!data->command[0])
 		return (0);
-	j = dup(1);
-	x = dup(0);
-	if (ft_pipe(data, j, x) == -1)
+	y = 0;
+	pid = malloc(sizeof(int) * all_data(data));
+	if (!pid)
+		return (malloc_error());
+	pid[0] = -1;
+	j[1] = dup(1);
+	j[0] = dup(0);
+	if (ft_pipe(data, j[1], j[0]) == -1)
 		return (-1);
-	i = open_file(data);
-	str = NULL;
-	while (data && i > -1)
-	{
-		if (i == 1)
-		{
-			redirect(data->fd[0], data->fd[1]);
-			i = ft_controller(data);
-			redirect(x, j);
-		}
-		if (i >= 1)
-		{
-			if (i == 2)
-			{		
-				close (data->fd[1]);
-				data = data->next;
-			}
-			i = ft_check_error(data, &str);
-			if (i == -1)
-				return (free(str), i);
-			if (i != 0)
-			{
-				pid[y] = fork();
-				if (pid[y] == 0 && i == 1)
-				{
-					free(pid);
-					redirect(data->fd[0], data->fd[1]);
-					close (x);
-					close (j);
-					close (data->fd[0]);
-					extra_cmd(data, str); 
-					exit(0);
-				}
-				else if (pid[y] < 0)
-					ft_error("fork");
-				if (data->next)
-					close (data->fd[1]);
-				// printf("hey");
-				if (str)
-					free(str);
-				y++;
-			}
-			close(data->fd[1]);
-			// free(str);
-		}
-		if (data->next && i == 0)
-			i = 1;
-		data = data->next;
-	}
+	y = forkland_2_the_forkening(data, pid, j, NULL);
+	if (y == -1)
+		return (free(pid), -1);
 	if (pid[0] != -1)
 		ft_parent(pid, y);
-	free(pid);
-	redirect(x, j);
-	close (x);
-	close (j);
-	return (i);
+	return (guns_n_forks(j[0], j[1], pid), 1);
 }
