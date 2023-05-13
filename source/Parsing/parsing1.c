@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:06:46 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 18:54:46 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:26:39 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,6 @@ void	ft_tokenexpandlen(char *str, int *j, int *len)
 		&& ft_charnextdoor("<>|\"\'$", str[*j + *len]) == 0
 		&&ft_isespace(str[*j + *len]) == 0)
 		*len = *len + 1;
-	// while (str[*j + *len] && ft_charnextdoor("<>|\"\'$", str[*j + *len]) == 0
-	// 	&& ft_isespace(str[*j + *len]) == 0)
-	// 	*len = *len + 1;
-	// if (str[*j + *len] == '$')
-	// {
-	// 	*len = *len + 1;
-	// 	while (str[*j + *len] && ft_isalnum(str[*j + *len]) == 1
-	// 		&& ft_charnextdoor("\"$", str[*j + *len]) == 0
-	// 		&& ft_isespace(str[*j + *len]) == 0)
-	// 		*len = *len + 1;
-	// }
 }
 
 char	*ft_tokenexpand(char *str, int *i, t_token **token, t_data *data)

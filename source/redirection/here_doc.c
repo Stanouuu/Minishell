@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:23:15 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 21:58:28 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:06:11 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,36 +67,30 @@ int	ft_new_here_doc(t_file *file, char *name)
 	fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		return (0);
-	str = ft_get_gnl();
+	ft_putstr_fd("> ", 1);
+	str = get_next_line(0);
 	if (!str)
 		return (0);
-	while (str && ft_strncmp(str, eof, ft_strlen(str)) != 0
-		&& g_exitcode != 130)
-	{
-		ft_putstr_fd(str, fd);
-		ft_putstr_fd("\n", fd);
-		free(str);
-		str = ft_get_gnl();
-		if (!str)
-			return (0);
-	}
+	if (ft_get_here_doc(str, eof, fd) == 0)
+		return (0);
 	free(str);
 	close(fd);
 	return (free(eof), 1);
 }
 
-char	*ft_get_gnl(void)
+int	ft_get_here_doc(char *str, char *eof, int fd)
 {
-	int		i;
-	char	*str;
-
-	ft_putstr_fd("> ", 1);
-	str = get_next_line(0);
-	if (!str)
-		return (NULL);
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (str[i])
-		str[i] = '\0';
-	return (str);
+	while (str && g_exitcode != 130)
+	{
+		if (ft_strlen(str) > 1
+			&& ft_strncmp(str, eof, ft_strlen(str) -1) == 0)
+			break;
+		ft_putstr_fd(str, fd);
+		free(str);
+		ft_putstr_fd("> ", 1);
+		str = get_next_line(0);
+		if (!str)
+			return (0);
+	}
+	return (1);
 }

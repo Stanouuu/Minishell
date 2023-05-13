@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 21:52:55 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:06:33 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,6 @@ char	**ft_commandcreate(char **strs, char *str);
 int		ft_here_doc(t_data *data);
 int		ft_init_here_doc(t_data *data, int i);
 int		ft_new_here_doc(t_file *file, char *name);
-char	*ft_get_gnl(void);
+int		ft_get_here_doc(char *str, char *eof, int fd);
 
 #endif
