@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:55:12 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 23:15:14 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:45:09 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	the_fork_outa_names(t_data *data, int x, int j)
 {
 	int	i;
 
-	printf("\n\nx%dj%d\n\n", x, j);
 	redirect(data->fd[0], data->fd[1]);
 	i = ft_controller(data);
 	redirect(x, j);
@@ -37,9 +36,13 @@ int	the_fork_outa_names(t_data *data, int x, int j)
 t_data	*next_data(t_data *data)
 {
 	// close(data->fd[0]);
-	printf("\nje suis dans next data\n%s\nfd[0] = %d fd[1] = %d\n", data->command[0], data->fd[0], data->fd[1]);
-	fflush(stdin);
-	close(data->fd[1]);
+	// close(data->fd[1]);
+	if (data->index == 0)
+		firstcommandclose(data, 0);
+	else if (data->next == NULL && data->index != 0)
+		lastcommandclose(data, 0);
+	else
+		middlecommandclose(data, 0);
 	return (data->next);
 }
 

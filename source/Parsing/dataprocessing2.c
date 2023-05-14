@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dataprocessing2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:25:06 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 19:03:15 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:49:53 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_data	*ft_datacreate(char **envp)
 	data->envp = envp;
 	data->command = NULL;
 	data->files = NULL;
+	data->fd[0] = -2;
+	data->fd[1] = -2;
 	data->pipe[0] = -1;
 	data->pipe[1] = -1;
 	data->pwd = &pwd;
@@ -63,12 +65,15 @@ t_data	*ft_dataadd(t_data *data, char **envp)
 
 int	ft_checkdata(t_data *data)
 {
+	int		i;
 	char	*newstr;
 	t_data	*temp;
 
+	i = 0;
 	temp = data;
 	while (temp != NULL)
 	{
+		temp->index = i;
 		if (temp->command == NULL)
 		{
 			newstr = ft_strndup("", 0);
@@ -78,6 +83,7 @@ int	ft_checkdata(t_data *data)
 			if (temp->command == NULL)
 				return (0);
 		}
+		i++;
 		temp = temp->next;
 	}
 	return (1);
