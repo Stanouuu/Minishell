@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 21:45:42 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:13:43 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ int	main(int ac, char **av, char **envp)
 			i = ft_lexing(str, NULL, data);
 			*envpcpy = data->envp;
 			add_history(str);
-			free(str);
 
+			free(str);
 			ft_dataclear(data);
 		}
 	}
