@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   fork_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:58:36 by sbarrage          #+#    #+#             */
 /*   Updated: 2023/05/13 23:16:19 by sbarrage         ###   ########.fr       */
@@ -20,26 +20,19 @@ void	the_fork_before_forks(int *pid, t_data *data, int x, int j)
 	close (j);
 }
 
-void	forkland(t_data *data, int *pid, int *j)
+void    forkland(t_data *data, int *pid, int *j)
 {
 	free(pid);
 	// ft_printf("%s\n", data->command[1]);
 	redirect(data->fd[0], data->fd[1]);
 	close (j[0]);
 	close (j[1]);
-	// close (data->next->fd[0]);
-	while (data)
-	{
-		if (data->pipe[0] != -1)
-		{
-			close (data->fd[0]);
-			close (data->fd[1]);
-			close (data->pipe[1]);
-			if (data->next)
-				close (data->pipe[0]);
-		}
-		data = data->next;
-	}
+	if (data->index == 0)
+		firstcommandclose(data, 1);
+	else if (data->next == NULL && data->index != 0)
+		lastcommandclose(data, 1);
+	else
+		middlecommandclose(data, 1);
 }
 
 void	guns_n_forks(int x, int j, int *pid)

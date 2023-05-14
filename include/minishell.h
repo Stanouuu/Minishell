@@ -119,4 +119,8 @@ int		forkland_2_the_forkening(t_data *data, int	*pid, int *j, char *str);
 void	extra_cmd(t_data *data, char *str);
 t_data	*next_data(t_data *data);
 
+void	firstcommandclose(t_data *data, int n);
+void	lastcommandclose(t_data *data, int n);
+void	middlecommandclose(t_data *data, int n);
+
 #endif

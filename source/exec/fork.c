@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 14:45:32 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 13:07:07 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:01:07 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	extra_cmd(t_data *data, char *str)
 	execve(str, data->command, data->envp);
 	free(str);
 	ft_dataclear(data);
-	g_exitcode = 127;
 }
 
 int	forkland_2_the_forkening(t_data *data, int	*pid, int *j, char *str)
@@ -40,9 +39,10 @@ int	forkland_2_the_forkening(t_data *data, int	*pid, int *j, char *str)
 	int		y;
 
 	y = 0;
-	i = open_file(data);
+	i = 1;
 	while (data && i > -1)
 	{
+		i = open_file(data);
 		i = straight_outta_forkton(i, data, j);
 		if (i == -1)
 			return (-1);
@@ -53,7 +53,6 @@ int	forkland_2_the_forkening(t_data *data, int	*pid, int *j, char *str)
 				return (free(str), i);
 			if (i != 0)
 			{
-				printf("%s", str);
 				pid[y] = fork();
 				if (pid[y] == 0 && i == 1)
 					forkgive_n_forkget(data, pid, j, &str);
