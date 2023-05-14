@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 17:58:23 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:12:15 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	open_them_all(t_data *data, t_file *files)
 		data->fd[1] = open(files->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (files->type == 3)
 		data->fd[1] = open(files->name, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (files->type == 2)
+		data->fd[0] = open(files->name, O_RDONLY);
 	if (files->type == 1)
 		data->fd[0] = open(files->name, O_RDONLY);
 	if (data->fd[0] == -1)

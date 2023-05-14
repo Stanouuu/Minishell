@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:58:36 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 21:32:27 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:16:19 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	the_fork_before_forks(int *pid, t_data *data, int x, int j)
 void	forkland(t_data *data, int *pid, int *j)
 {
 	free(pid);
+	// ft_printf("%s\n", data->command[1]);
 	redirect(data->fd[0], data->fd[1]);
 	close (j[0]);
 	close (j[1]);
