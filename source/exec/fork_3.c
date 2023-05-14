@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:58:36 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 13:09:54 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:20:55 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,31 @@ void	the_fork_before_forks(int *pid, t_data *data, int x, int j)
 	close (j);
 }
 
-void	forkland(t_data *data, int *pid, int *j)
+void    forkland(t_data *data, int *pid, int *j)
 {
 	free(pid);
 	redirect(data->fd[0], data->fd[1]);
+	printf("\nje suis dans forkland\n%s\nfd[0] = %d fd[1] = %d\n", data->command[0], data->fd[0], data->fd[1]);
+	fflush(stdin);
+	printf("\nje suis dans forkland\nj[0] = %d j[1] = %d\n", j[0], j[1]);
+	fflush(stdin);
 	close (j[0]);
 	close (j[1]);
+	// close (data->next->fd[0]);
+	// while (data)
+	// {
+		close (data->fd[0]);
+		close (data->fd[1]);
+		if (data->next && data->next->pipe[0] != -1)
+		{
+			close (data->next->pipe[0]);
+			// if (data->next)
+			//     close (data->pipe[0]);
+		}
+	// 	data = data->next;
+	// }
 }
+
 
 void	guns_n_forks(int x, int j, int *pid)
 {

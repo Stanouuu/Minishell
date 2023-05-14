@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:52:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 20:32:10 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 22:18:35 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_check_error_2(t_data *data, char **str)
 		}
 		else
 			tmp = ft_split(tmpstr, ':');
-		ft_check_error_21(tmp, &(*str), data);
+		return (ft_check_error_21(tmp, &(*str), data));
 	}
 	return (check_error_tool(data, str));
 }

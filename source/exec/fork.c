@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 14:45:32 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 13:07:07 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/13 22:23:55 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	extra_cmd(t_data *data, char *str)
 	execve(str, data->command, data->envp);
 	free(str);
 	ft_dataclear(data);
-	g_exitcode = 127;
 }
 
 int	forkland_2_the_forkening(t_data *data, int	*pid, int *j, char *str)
