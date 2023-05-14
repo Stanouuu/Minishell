@@ -48,6 +48,8 @@ t_data	*next_data(t_data *data)
 
 void	forkgive_n_forkget(t_data *data, int *pid, int *j, char **str)
 {
+	ft_printf("I : %d - %d\n", data->fd[0], data->fd[1]);
+	ft_printf("pipe : %d - %d\n", data->pipe[0], data->pipe[1]);
 	forkland(data, pid, j);
 	extra_cmd(data, *str);
 	exit(127);

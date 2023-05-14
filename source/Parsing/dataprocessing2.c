@@ -34,7 +34,6 @@ void	ft_dataclear(t_data *data)
 t_data	*ft_datacreate(char **envp)
 {
 	t_data		*data;
-	static int	pwd;
 
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
@@ -46,7 +45,6 @@ t_data	*ft_datacreate(char **envp)
 	data->fd[1] = -2;
 	data->pipe[0] = -1;
 	data->pipe[1] = -1;
-	data->pwd = &pwd;
 	return (data);
 }
 

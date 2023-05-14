@@ -54,7 +54,6 @@ typedef struct s_data
 	int				index;
 	int				fd[2];
 	int				pipe[2];
-	int				*pwd;
 	struct s_file	*files;
 	struct s_data	*next;
 }					t_data;
