@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 23:12:15 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:20:50 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,19 @@ int	open_file(t_data *data)
 {
 	t_file	*files;
 
-	// while (data)
-	// {
-		files = data->files;
-		while (files)
-		{
-			if (open_them_all(data, files) == 0)
-				return (0);
-			// close_pip(data, files);
-			files = files->next;
-		}
-		// if (data->fd[0] == -1)
-		// 	g_exitcode = 1;
-	// 	data = data->next;
-	// }
+	files = data->files;
+	while (files)
+	{
+		if (open_them_all(data, files) == 0)
+			return (0);
+		if (files->next && files->next->type > 2 
+			&& files->type > 2)
+			close (data->fd[1]);
+		if (files->next && files->next->type <= 2 
+			&& files->type <= 2)
+			close (data->fd[1]);
+		files = files->next;
+	}
 	return (1);
 }
 

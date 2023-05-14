@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 13:12:30 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:56:56 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ void	forkland(t_data *data, int *pid, int *j);
 void	the_fork_before_forks(int *pid, t_data *data, int x, int j);
 int		forkland_2_the_forkening(t_data *data, int	*pid, int *j, char *str);
 void	extra_cmd(t_data *data, char *str);
-t_data	*next_data(t_data *data);
+t_data	*next_data(t_data *data, int x);
 
-void	firstcommandclose(t_data *data, int n);
+void	firstcommandclose(t_data *data, int n, int x);
 void	lastcommandclose(t_data *data, int n);
 void	middlecommandclose(t_data *data, int n);
 

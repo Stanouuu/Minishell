@@ -6,15 +6,16 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 13:16:14 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/14 15:35:25 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:57:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	firstcommandclose(t_data *data, int n)
+void	firstcommandclose(t_data *data, int n, int x)
 {
-	// close(data->fd[0]);
+	if (data->fd[0] != x)
+		close(data->fd[0]);
 	if (data->next)
 	{
 		if (n == 1)

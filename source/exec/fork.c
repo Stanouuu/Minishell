@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 14:45:32 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 15:30:45 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:56:48 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	forkland_2_the_forkening(t_data *data, int	*pid, int *j, char *str)
 			}
 		}
 		i = the_forkiest_fork(data, i);
-		data = next_data(data);
+		data = next_data(data, j[0]);
 		// data = data->next;
 	}
 	return (y);
