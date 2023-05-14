@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 17:58:23 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:51:12 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,46 +18,41 @@ int	open_them_all(t_data *data, t_file *files)
 		data->fd[1] = open(files->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (files->type == 3)
 		data->fd[1] = open(files->name, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	if (files->type == 1)
+	if (files->type == 1 || files->type == 2)
 		data->fd[0] = open(files->name, O_RDONLY);
-	if (data->fd[0] == -1)
-		return (-1);
+	if (data->fd[0] == -1 || data->fd[1] == -1)
+		return (0);
 	return (1);
 }
 
 void	close_pip(t_data *data, t_file *files)
 {
-	if (data->pipe[1] != -1 && (files->type == 4 || files->type == 3))
-		close (data->pipe[1]);
-	else if (data->pipe[0] != -1 && \
-			(files->type == 1 || files->type == 2))
+	if (data->next && data->next->pipe[1] != -1
+		&& (files->type == 4 || files->type == 3))
+		close (data->next->pipe[1]);
+	else if (data->pipe[0] != -1
+		&& (files->type == 1 || files->type == 2))
 		close (data->pipe[0]);
 }
 
 int	open_file(t_data *data)
 {
 	t_file	*files;
-	char	*str;
 
-	while (data)
-	{
+	// while (data)
+	// {
 		files = data->files;
 		while (files)
 		{
 			if (open_them_all(data, files) == 0)
-			{
-				str = ft_strjoin("Minishell: ", files->name);
-				if (!str)
-					return (malloc_error());
-				return (ft_error(str), free(str), 0);
-			}
-			close_pip(data, files);
+				return (0);
+			// close_pip(data, files);
 			files = files->next;
 		}
-		if (data->fd[0] == -1)
-			g_exitcode = 1;
-		data = data->next;
-	}
+		// if (data->fd[0] == -1)
+		// 	g_exitcode = 1;
+	// 	data = data->next;
+	// }
 	return (1);
 }
 

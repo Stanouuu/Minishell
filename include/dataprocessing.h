@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dataprocessing.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/13 18:35:48 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:33:21 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 {
 	char			**command;
 	char			**envp;
+	int				index;
 	int				fd[2];
 	int				pipe[2];
 	struct s_file	*files;
