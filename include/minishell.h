@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 13:45:56 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:12:30 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int 	ft_strcmp(const char *s1, const char *s2);
 void	action();
 int		open_file(t_data *data);
 int		ft_pipe(t_data *data, int j, int x);
+int		until_equal(char *str);
 
 int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);

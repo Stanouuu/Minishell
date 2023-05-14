@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 21:48:36 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:29:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	until_equal(char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	if (!str[i] && i != 0)
-		return (i - 1);
+		return (i);
 	return (i);
 }
 
@@ -90,7 +90,7 @@ int	export_2(char **cmd, char **envp, int j)
 	while (envp[k])
 	{
 		i = until_equal(cmd[j]);
-		if (ft_strncmp(cmd[j], envp[k], i + 1) == 0)
+		if (ft_strncmp(cmd[j], envp[k], i) == 0)
 		{
 			free(envp[k]);
 			envp[k] = ft_strdup(cmd[j]);
@@ -106,23 +106,21 @@ int	export_1(char **cmd, char ***envp, int j)
 	int	i;
 	int	h;
 
-	while (cmd[j])
+
+	i = 0;
+	if (cmd[j][i] == '=')
+		return (1);
+	h = export_2(cmd, *envp, j);
+	if (h == -1)
+		return (h);
+	else if (!(*envp)[h])
 	{
-		i = 0;
-		if (cmd[j][i] == '=')
-			return (1);
-		h = export_2(cmd, *envp, j);
-		if (h == -1)
-			return (h);
-		else if (!(*envp)[h])
-		{
-			if (ft_add_env(cmd, envp, j, NULL) == -1)
-				return (-1);
-		}
-		else
-			return (0);
-		j++;
+		if (ft_add_env(cmd, envp, j, NULL) == -1)
+			return (-1);
 	}
+	else
+		return (0);
+	j++;
 	return (0);
 }
 
@@ -132,24 +130,30 @@ int	export(char **cmd, char ***envp)
 	int	j;
 
 	j = 1;
-	i = 0;
 	if (!cmd[1])
 	{
 		if (envp_prt_sort(*envp) == -1)
 			return (-1);
 	}
-	while (cmd[j] && cmd[j][i] && !(cmd[j][i] == '=' && i != 0))
+	while (cmd[j])
 	{
-		if ((cmd[j][i] == '=' && i != 0))
-			ft_printf("the statement : = and i not 0 is true");
-		if (ft_isalpha(cmd[j][i]) == 0)
+		i = 0;
+		while (cmd[j][i] && !(cmd[j][i] == '=' && i != 0))
 		{
-			write(2, "bash: export: ", 14);
-			write(2, cmd[j], ft_strlen(cmd[j]));
-			write(2, ": not a valid identifier\n", 25);
-			return (0);
+			if ((cmd[j][i] == '=' && i != 0))
+				ft_printf("the statement : = and i not 0 is true");
+			if (ft_isalpha(cmd[j][i]) == 0)
+			{
+				write(2, "bash: export: ", 14);
+				write(2, cmd[j], ft_strlen(cmd[j]));
+				write(2, ": not a valid identifier\n", 25);
+				break ;
+			}
+			else if (export_1(cmd, envp, j) == -1)
+				return (-1);
+			i++;
 		}
-		i++;
+		j++;
 	}
-	return (export_1(cmd, envp, j));
+	return (0);
 }
