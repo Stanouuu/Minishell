@@ -84,7 +84,7 @@ int	ft_lexing(char *str, t_token *begin, t_data *data)
 	if (ft_parse(str, begin, data) == NULL)
 		return (-1);
 	if (ft_here_doc(data) == 0)
-		return (0);
+		return (-1);
 	g_exitcode = 0;
 	return (road(data));
 }

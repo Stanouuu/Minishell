@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:25:06 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/14 12:49:53 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:43:31 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_data	*ft_datacreate(char **envp)
 
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
-		return (NULL);
+		return (malloc_error(), NULL);
 	data->envp = envp;
 	data->command = NULL;
 	data->files = NULL;
@@ -76,7 +76,7 @@ int	ft_checkdata(t_data *data)
 		{
 			newstr = ft_strndup("", 0);
 			if (!newstr)
-				return (0);
+				return (malloc_error(), 0);
 			temp->command = ft_commandcreate(temp->command, newstr);
 			if (temp->command == NULL)
 				return (0);
@@ -109,9 +109,9 @@ t_data	*ft_parse(char *str, t_token *begin, t_data *data)
 		else
 			res = ft_commandadd(str, &i, &temp, data);
 		if (res == 0)
-			return (ft_dataclear(data), NULL);
+			return (ft_tokenclear(begin), NULL);
 	}
-	ft_checkdata(data);
-	ft_tokenclear(begin);
+	if (ft_tokenclear(begin) == 0 || ft_checkdata(data) == 0)
+		return (NULL);
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:23:15 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/15 20:20:51 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:10:18 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ int	ft_new_here_doc(t_file *file, char *name)
 	ft_putstr_fd("> ", 1);
 	str = get_next_line(0);
 	if (!str)
+	{
+		malloc_error();
+		free(eof);
 		return (close(fd), 0);
+	}
 	if (ft_get_here_doc(str, eof, fd) == 0)
 		return (close(fd), 0);
 	close(fd);
@@ -89,7 +93,10 @@ int	ft_get_here_doc(char *str, char *eof, int fd)
 		ft_putstr_fd("> ", 1);
 		str = get_next_line(0);
 		if (!str)
-			return (0);
+		{
+			free(eof);
+			return (malloc_error(), 0);
+		}
 	}
 	return (1);
 }

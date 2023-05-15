@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:20:44 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:49:38 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_commandadd(char *str, int *i, t_token **token, t_data *data)
 	else if ((*token)->enu == douquo)
 		newstr = ft_tokendouble(str, i, token, data);
 	if (!newstr)
-		return (printf("error command\n"), 0);
+		return (0);
 	temp = data;
 	while (temp->next != NULL)
 		temp = temp->next;

@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:23:29 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:58:52 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_rediradd(char *str, int *i, t_token **token, t_data *data)
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->files = ft_fileadd(newstr, enu, temp->files);
+	if (temp->files == NULL)
+		return (free(newstr), 0);
 	return (1);
 }
 

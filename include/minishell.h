@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
 /*   Updated: 2023/05/15 20:49:11 by sbarrage         ###   ########.fr       */
@@ -43,6 +43,7 @@ int		cpytab_to_another(char **envp, char ***envpcpy);
 int		conca_export(char **cmd, char ***envp, int j);
 int		export_1(char **cmd, char ***envp, int j);
 void	env(char **cmd, char **envp);
+int		ft_exit(char **cmd);
 
 int		malloc_error(void);
 int		road(t_data *data);
@@ -55,8 +56,10 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	action(int signum);
 int		open_file(t_data *data);
 int		ft_pipe(t_data *data, int j, int x);
-int		until_equal(char *str, int k);
-void	free_matrix(char **envp);
+int		until_equal(char *str);
+int		ft_is_numeric(char *str);
+int		ft_exit_code(char *str);
+int		ft_atollcheck(char *str);
 
 int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);

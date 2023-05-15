@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:06:46 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/13 12:26:39 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:29:51 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_tokenword(char *str, int *i, t_token **token, t_data *data)
 		len++;
 	newstr = ft_strndup(str + j, len);
 	if (!newstr)
-		return (NULL);
+		return (malloc_error(), NULL);
 	*token = (*token)->next;
 	*i = j + len;
 	if (*token != NULL && (*token)->enu > 4 && (*token)->enu < 9

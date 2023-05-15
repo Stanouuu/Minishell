@@ -6,7 +6,7 @@
 #    By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/05/15 21:54:40 by sbarrage         ###   ########.fr        #
+#    Updated: 2023/05/15 17:44:14 by gfranque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = ./main.c ./bultins/echo.c ./bultins/cd.c ./bultins/pwd.c ./parsing/control
 		./Parsing/lexing2.c ./Parsing/lexing3.c ./Parsing/tokenhandling.c\
 		./Parsing/parsing1.c ./Parsing/parsing2.c ./Parsing/parsing3.c\
 		./Parsing/parseur.c ./Parsing/parseurredir.c ./redirection/here_doc.c\
-		./Parsing/expandprocessing.c ./exec/commandclose.c\
+		./Parsing/expandprocessing.c ./exec/commandclose.c ./bultins/exit.c\
 
 PRINTF = ./source/Printf/libftprintf.a
 
@@ -76,9 +76,11 @@ BACKCYAN = \033[46m
 
 BACKYELLOW = \033[43m
 
-BOLDCYAN = \033[1;34m
+BACKGREEN = \033[42m
 
-BOLDBLUE = \033[1;36m
+BOLDCYAN = \033[1;36m
+
+BOLDBLUE = \033[1;34m
 
 ###############
 ###	RULES	###

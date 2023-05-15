@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
 /*   Updated: 2023/05/15 21:56:51 by sbarrage         ###   ########.fr       */
@@ -65,21 +65,24 @@ char	**cpytab(char **envp)
 
 int	main_2_electric_boogaloo(char *str, int i, char ***envpcpy)
 {
-	t_data	*data;
+		if (!str)
+			i = -1;
+		else
+		{
+			data = ft_datacreate(*envpcpy);
+			if (!data)
+			{
+				if (*envpcpy)
+					free_matrix(*envpcpy);
+				return (rl_clear_history(), g_exitcode);
+			}
+			i = ft_lexing(str, NULL, data);
+			*envpcpy = data->envp;
+			add_history(str);
 
-	if (!str)
-		i = -1;
-	else
-	{
-		data = ft_datacreate(*envpcpy);
-		if (!data)
-			return (0);
-		i = ft_lexing(str, NULL, data);
-		*envpcpy = data->envp;
-		add_history(str);
-		free(str);
-		ft_dataclear(data);
-	}
+			free(str);
+			ft_dataclear(data);
+		}
 	return (i);
 }
 
