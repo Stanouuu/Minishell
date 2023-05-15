@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 13:43:15 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:01:40 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,43 +39,7 @@ int	cpytab_to_another(char **envp, char ***envpcpy)
 	return (1);
 }
 
-int	ft_add_env(char **cmd, char ***envp, int j, char **envpcpy)
-{
-	int		i;
-
-	i = 0;
-	while ((*envp)[i])
-		i++;
-	envpcpy = malloc(sizeof(char *) * (i + 2));
-	if (!envpcpy)
-		return (malloc_error());
-	i = 0;
-	while ((*envp)[i])
-	{
-		envpcpy[i] = ft_strdup((*envp)[i]);
-		if (!envpcpy[i])
-		{
-			while (i != 0)
-				free(envpcpy[--i]);
-			free(envpcpy);
-			return (malloc_error());
-		}
-		i++;
-	}
-	envpcpy[i] = ft_strdup(cmd[j]);
-	if (!envpcpy[i])
-	{
-		while (i != 0)
-			free(envpcpy[--i]);
-		free(envpcpy);
-		return (malloc_error());
-	}
-	envpcpy[i + 1] = NULL;
-	ft_free_strs(*envp);
-	return (cpytab_to_another(envpcpy, envp));
-}
-
-int	until_equal(char *str)
+int	until_equal(char *str, int k)
 {
 	int	i;
 
@@ -83,7 +47,7 @@ int	until_equal(char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	if (!str[i] && i != 0)
-		return (i);
+		return (i + k);
 	return (i);
 }
 
@@ -95,7 +59,7 @@ int	export_2(char **cmd, char **envp, int j)
 	k = 0;
 	while (envp[k])
 	{
-		i = until_equal(cmd[j]);
+		i = until_equal(envp[k], 0);
 		if (ft_strncmp(cmd[j], envp[k], i) == 0)
 		{
 			free(envp[k]);
@@ -113,7 +77,6 @@ int	export_1(char **cmd, char ***envp, int j)
 {
 	int	i;
 	int	h;
-
 
 	i = 0;
 	if (cmd[j][i] == '=')
@@ -136,21 +99,24 @@ int	export(char **cmd, char ***envp)
 {
 	int	i;
 	int	j;
+	int	h;
 
-	j = 1;
-	if (!cmd[1])
-	{
-		if (envp_prt_sort(*envp) == -1)
-			return (-1);
-	}
-	while (cmd[j])
+	j = 0;
+	if (!cmd[1] && envp_prt_sort(*envp) == -1)
+		return (-1);
+	while (cmd[++j])
 	{
 		i = 0;
 		while (cmd[j][i] && !(cmd[j][i] == '=' && i != 0))
 		{
+			h = conca_export(cmd, envp, j);
+			if (h == -1)
+				return (-1);
+			else if (h == 1)
+				break ;
 			if ((cmd[j][i] == '=' && i != 0))
 				ft_printf("the statement : = and i not 0 is true");
-			if (ft_isalpha(cmd[j][i]) == 0)
+			if (ft_isalpha(cmd[j][i]) == 0 && !(cmd[j][i] == '='))
 			{
 				write(2, "bash: export: ", 14);
 				write(2, cmd[j], ft_strlen(cmd[j]));
@@ -161,7 +127,6 @@ int	export(char **cmd, char ***envp)
 				return (-1);
 			i++;
 		}
-		j++;
 	}
 	return (0);
 }
