@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:52:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 11:36:49 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:30:35 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_check_error_3_bis(t_data *data, char **str)
 {
 	if (has_slash(data->command[0]) == 1)
 	{
+		free(*str);
 		*str = ft_strjoin("Minishell :", data->command[0]);
 		if (!*str)
 			return (malloc_error());
@@ -31,6 +32,7 @@ int	ft_check_error_3(t_data *data, char **str, struct stat sb)
 	if (S_ISDIR(sb.st_mode))
 	{
 		errno = EISDIR;
+		free(*str);
 		*str = ft_strjoin("Minishell: ", data->command[0]);
 		if (!*str)
 			return (malloc_error());

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:05:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 18:49:20 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:46:57 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ int	change_pwd(char *str, char **envp)
 		if (ft_strncmp(envp[i], str, ft_strlen(str)) == 0)
 		{
 			join = ft_strjoin(str, cwd);
-			if (!envp[i])
+			if (!join)
 			{
-				ft_error("malloc");
 				g_exitcode = 1;
 				return (-1);
 			}
@@ -44,7 +43,7 @@ int	change_pwd(char *str, char **envp)
 int	cd(char **cmd, char **envp)
 {
 	if (change_pwd("OLDPWD=", envp) == -1)
-		return (-1);
+		return (malloc_error());
 	if (!cmd[1])
 	{
 		chdir(getenv("HOME"));

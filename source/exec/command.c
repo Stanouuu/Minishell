@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 16:56:14 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:57:03 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_controller(t_data *data)
 	else if (data->command && ft_strcmp("env", data->command[0]) == 0)
 		env(data->command, data->envp);
 	else if (data->command && ft_strcmp("unset", data->command[0]) == 0)
-		unset(data->command, data->envp);
+		return (unset(data->command, &(data->envp)));
 	else if (data->command && ft_strcmp("export", data->command[0]) == 0)
 		return (export(data->command, &(data->envp)));
 	else
