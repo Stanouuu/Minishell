@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:18:50 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/02/13 14:47:19 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:53:09 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	echo(char **cmd)
 	rall = 0;
 	i = 0;
 	j = 1;
-	while (cmd[j] && cmd[j][i] && (strncmp("-n", cmd[j], 2) == 0))
+	while (cmd[j] && cmd[j][i] && (ft_strncmp("-n", cmd[j], 2) == 0))
 	{
 		i++;
 		while (cmd[j][i] == 'n')

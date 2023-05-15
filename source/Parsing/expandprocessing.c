@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 22:26:58 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 19:11:44 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:51:54 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_findinenvp(char *str, char **envp, int len)
 		if (ft_findchar(envp[i], '=') == len - 1)
 		{
 			if (ft_strnstr(envp[i], str + 1, len - 1) != NULL)
-				return (ft_strndup(envp[i] + len, strlen(envp[i] + len)));
+				return (ft_strndup(envp[i] + len, ft_strlen(envp[i] + len)));
 		}
 		i++;
 	}
@@ -53,7 +53,7 @@ char	*ft_strjoinandfree(char *start, char *end, int n)
 	j = -1;
 	if (!start || !end)
 		return (ft_additionnalfree(start, end, n));
-	len = strlen(start) + strlen(end);
+	len = ft_strlen(start) + ft_strlen(end);
 	str = ft_calloc(len + 1, sizeof(char));
 	if (!str)
 		return (NULL);
