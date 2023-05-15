@@ -6,7 +6,7 @@
 #    By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/28 12:52:13 by gfranque          #+#    #+#              #
-#    Updated: 2023/05/14 14:41:21 by gfranque         ###   ########.fr        #
+#    Updated: 2023/05/15 16:23:57 by gfranque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,9 +75,11 @@ BACKCYAN = \033[46m
 
 BACKYELLOW = \033[43m
 
-BOLDCYAN = \033[1;34m
+BACKGREEN = \033[42m
 
-BOLDBLUE = \033[1;36m
+BOLDCYAN = \033[1;36m
+
+BOLDBLUE = \033[1;34m
 
 ###############
 ###	RULES	###

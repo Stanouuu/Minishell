@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 15:24:52 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/14 12:33:21 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:05:01 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int		ft_lexing(char *str, t_token *begin, t_data *data);
 /*	tokenhandling.c		*/
 /*######################*/
 
-t_token	*ft_tokencreate(enum e_token e);
-void	ft_tokenclear(t_token *begin);
+t_token	*ft_tokencreate(enum e_token e, int *n);
+int		ft_tokenclear(t_token *begin);
 t_token	*ft_tokenadd(t_token *begin, enum e_token e, int *n);
 int		ft_readsometoken(t_token *begin, enum e_token e);
 int		ft_readlasttoken(t_token *begin);

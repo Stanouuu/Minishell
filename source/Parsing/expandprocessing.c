@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 22:26:58 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/15 11:51:54 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:37:25 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_strjoinandfree(char *start, char *end, int n)
 	len = ft_strlen(start) + ft_strlen(end);
 	str = ft_calloc(len + 1, sizeof(char));
 	if (!str)
-		return (NULL);
+		return (malloc_error(), ft_additionnalfree(start, end, n));
 	while (start[++i])
 		str[i] = start[i];
 	while (end[++j])
@@ -78,7 +78,7 @@ char	*ft_expand(char *str, char **envp, int len)
 	{
 		s = ft_calloc(1, sizeof(char));
 		if (!s)
-			return (NULL);
+			return (malloc_error(), NULL);
 	}
 	else
 	{

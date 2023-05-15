@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 21:12:37 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:59:43 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_file	*ft_filecreate(char *str, enum e_token token)
 
 	file = ft_calloc(1, sizeof(t_file));
 	if (!file)
-		return (NULL);
+		return (malloc_error(), NULL);
 	file->name = str;
 	file->type = token;
 	file->next = NULL;
@@ -65,12 +65,14 @@ char	**ft_newcommand(char *str)
 		return (NULL);
 	newstrs = ft_calloc(2, sizeof(char *));
 	if (!newstrs)
+	{
+		malloc_error();
 		return (free(str), NULL);
+	}
 	newstrs[0] = str;
 	return (newstrs);
 }
 
-	/*freestrs, //pertinent ? en cas d erreur pour newstrs et strs*/
 char	**ft_commandcreate(char **strs, char *str)
 {
 	int		i;
@@ -85,7 +87,11 @@ char	**ft_commandcreate(char **strs, char *str)
 		i++;
 	newstrs = ft_calloc(i + 2, sizeof(char *));
 	if (!newstrs)
-		return (NULL);
+	{
+		free(str);
+		ft_free_strs(strs);
+		return (malloc_error(), NULL);
+	}
 	i = -1;
 	while (strs[++i])
 		newstrs[i] = strs[i];
