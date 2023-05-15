@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 21:12:37 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:19 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:17:33 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_file	*ft_filecreate(char *str, enum e_token token)
 
 	file = ft_calloc(1, sizeof(t_file));
 	if (!file)
-		return (NULL);
+		return (malloc_error(), NULL);
 	file->name = str;
 	file->type = token;
 	file->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:50:22 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/13 12:15:01 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:30:49 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_lexing(char *str, t_token *begin, t_data *data)
 		if (tmp != NULL)
 			begin = (tmp)(str, &i, &n, begin);
 		if (n != 1 && begin == NULL)
-			return (n);//donner la bonne valeur a n (0 ou -1)
+			return (ft_dataclear(data), n);
 		i++;
 	}
 	if (begin == NULL && (ft_isespacelen(str) == (int)ft_strlen(str)))

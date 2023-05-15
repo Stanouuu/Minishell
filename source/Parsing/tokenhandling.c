@@ -6,19 +6,22 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:32:47 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/13 13:07:34 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:31:12 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*ft_tokencreate(enum e_token e)
+t_token	*ft_tokencreate(enum e_token e, int *n)
 {
 	t_token	*token;
 
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
-		return (NULL);
+	{
+		*n = -1;
+		return (malloc_error(), NULL);
+	}
 	token->enu = e;
 	token->next = NULL;
 	return (token);
@@ -47,16 +50,13 @@ t_token	*ft_tokenadd(t_token *begin, enum e_token e, int *n)
 
 	*n = 2;
 	if (begin == NULL)
-		return (ft_tokencreate(e));
+		return (ft_tokencreate(e, n));
 	token = begin;
 	while (token->next != NULL)
 		token = token->next;
-	token->next = ft_tokencreate(e);
+	token->next = ft_tokencreate(e, n);
 	if (token->next == NULL)
-	{
-		*n = -1;
 		return (ft_tokenclear(begin), NULL);
-	}
 	return (begin);
 }
 
