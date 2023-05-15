@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 21:54:04 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 21:55:29 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:10:08 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	cpytab_to_another(char **envp, char ***envpcpy)
 	return (1);
 }
 
-int	until_equal(char *str, int k)
+int	until_equal(char *str)
 {
 	int	i;
 
@@ -47,6 +47,6 @@ int	until_equal(char *str, int k)
 	while (str[i] && str[i] != '=' && str[i] != '+')
 		i++;
 	if (!str[i] && i != 0)
-		return (i + k);
+		return (i);
 	return (i);
 }

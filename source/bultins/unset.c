@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:54:17 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 17:15:11 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:00:19 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	unset_error(char ***envp, int i)
 
 int	unset_2(char **cmd, int j, char ***envp, int i)
 {
-	if ((int)ft_strlen(cmd[j]) != until_equal((*envp)[i], 0))
+	if ((int)ft_strlen(cmd[j]) != until_equal((*envp)[i]))
 	{
 	}
-	else if (ft_strncmp(cmd[j], (*envp)[i], until_equal((*envp)[i], 0)) == 0)
+	else if (ft_strncmp(cmd[j], (*envp)[i], until_equal((*envp)[i])) == 0)
 	{
 		ft_printf("%s\n", (*envp)[i]);
 		while ((*envp)[i + 1])

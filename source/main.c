@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 21:56:51 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:59:55 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ char	**cpytab(char **envp)
 
 int	main_2_electric_boogaloo(char *str, int i, char ***envpcpy)
 {
+	t_data	*data;
+
 		if (!str)
 			i = -1;
 		else
@@ -73,7 +75,7 @@ int	main_2_electric_boogaloo(char *str, int i, char ***envpcpy)
 			if (!data)
 			{
 				if (*envpcpy)
-					free_matrix(*envpcpy);
+					ft_free_strs(*envpcpy);
 				return (rl_clear_history(), g_exitcode);
 			}
 			i = ft_lexing(str, NULL, data);
@@ -107,6 +109,6 @@ int	main(int ac, char **av, char **envp)
 		i = main_2_electric_boogaloo(str, i, envpcpy);
 	}
 	if (*envpcpy)
-		free_matrix(*envpcpy);
+		ft_free_strs(*envpcpy);
 	return (rl_clear_history(), g_exitcode);
 }
