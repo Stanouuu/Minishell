@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 14:28:16 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 20:31:59 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 09:56:19 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	strcpr(char **tmp, char **str, int i, t_data *data)
 	join = ft_strjoin(tmp[i], "/");
 	if (!join)
 	{
+		i = i +1;
 		ft_error("malloc");
 		g_exitcode = 1;
 		free(tmp);
