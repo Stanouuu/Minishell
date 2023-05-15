@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:18:19 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 16:54:43 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:57:01 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,27 @@ int	malloc_error(void)
 	return (-1);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	free_matrix(char **envp)
 {
-	while (*s1 && *s1 == *s2)
+	int	i;
+
+	i = 0;
+	while (envp && envp[i])
+		free(envp[i++]);
+	free(envp);
+}
+
+void	free_pwd(char **envp)
+{
+	int			i;
+
+	i = 0;
+	while (envp[i])
 	{
-		s1++;
-		s2++;
+		if (ft_strncmp(envp[i], "PWD=", 4) == 0)
+			free(envp[i]);
+		else if (ft_strncmp(envp[i], "OLDPWD=", 7) == 0)
+			free(envp[i]);
+		i++;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
