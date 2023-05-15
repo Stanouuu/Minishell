@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:23:15 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/13 17:02:28 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:13:34 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	ft_new_here_doc(t_file *file, char *name)
 	ft_putstr_fd("> ", 1);
 	str = get_next_line(0);
 	if (!str)
-		return (0);
+		return (close(fd), 0);
 	if (ft_get_here_doc(str, eof, fd) == 0)
-		return (0);
+		return (close(fd), 0);
 	close(fd);
 	return (free(eof), 1);
 }
