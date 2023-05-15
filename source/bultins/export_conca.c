@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 19:01:19 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 20:01:25 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:52:41 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,20 @@ int	conca_export_2(char ***envp, char *str)
 		i = until_equal((*envp)[k], 0);
 		if (ft_strncmp(str, (*envp)[k], i) == 0)
 		{
-			while ((*envp)[k][i] != '=')
+			while ((*envp)[k][i] && (*envp)[k][i] != '='
+				&& until_equal((*envp)[k], 0) == until_equal(str, 0))
 				i++;
+			if (!(*envp)[k][i])
+				(*envp)[k] = ft_strjoinandfree((*envp)[k], "=", 0);
 			(*envp)[k] = ft_strjoinandfree((*envp)[k], str + i + 1, 0);
 			free(str);
+			return (1);
 		}
 		k++;
 	}
-	return (1);
+	if (export_1(&str, envp, 0) == -1)
+		return (free(str), -1);
+	return (free(str), 1);
 }
 
 int	check_conca(char *str, int i)
@@ -74,9 +80,11 @@ int	conca_export(char **cmd, char ***envp, int j)
 	int	i;
 
 	i = 0;
-	while (cmd[j][i] != '=')
+	if (ft_isalpha(cmd[j][i]) == 0)
+		return (0);
+	while (cmd[j][i] && cmd[j][i] != '=')
 		i++;
-	if (!(cmd[j][i - 1] == '+'))
+	if (!(cmd[j][i - 1] == '+') || !cmd[j][i])
 		return (0);
 	if (check_conca(cmd[j], i - 2) == 0)
 		return (1);

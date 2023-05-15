@@ -6,34 +6,34 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 13:00:47 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:56:51 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	action()
+int	g_exitcode = 0;
+
+void	action(int signum)
 {
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_exitcode = 130;
+	if (signum)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_exitcode = 130;
+	}
 }
 
-void	free_pwd(char **envp)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int			i;
-
-	i = 0;
-	while (envp[i])
+	while (*s1 && *s1 == *s2)
 	{
-		if (ft_strncmp(envp[i], "PWD=", 4) == 0)
-			free(envp[i]);
-		else if (ft_strncmp(envp[i], "OLDPWD=", 7) == 0)
-			free(envp[i]);
-		i++;
+		s1++;
+		s2++;
 	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
 char	**cpytab(char **envp)
@@ -63,24 +63,31 @@ char	**cpytab(char **envp)
 	return (envpcpy);
 }
 
-void	free_matrix(char **envp)
+int	main_2_electric_boogaloo(char *str, int i, char ***envpcpy)
 {
-	int	i;
+	t_data	*data;
 
-	i = 0;
-	while (envp && envp[i])
-		free(envp[i++]);
-	free(envp);
+	if (!str)
+		i = -1;
+	else
+	{
+		data = ft_datacreate(*envpcpy);
+		if (!data)
+			return (0);
+		i = ft_lexing(str, NULL, data);
+		*envpcpy = data->envp;
+		add_history(str);
+		free(str);
+		ft_dataclear(data);
+	}
+	return (i);
 }
-
-int	g_exitcode = 0;
 
 int	main(int ac, char **av, char **envp)
 {
 	int		i;
 	char	*str;
 	char	**envpcpy[1];
-	t_data	*data;
 
 	g_exitcode = 0;
 	if (ac != 1 || !av)
@@ -94,26 +101,9 @@ int	main(int ac, char **av, char **envp)
 	{
 		signal(SIGINT, &action);
 		str = readline("\033[1;36mminishell> \033[0m");
-		if (!str)
-		{
-			write(1, "out\n", 4);
-			i = -1;
-		}
-		else
-		{
-			data = ft_datacreate(*envpcpy);
-			if (!data)
-				return (0);
-			i = ft_lexing(str, NULL, data);
-			*envpcpy = data->envp;
-			add_history(str);
-
-			free(str);
-			ft_dataclear(data);
-		}
+		i = main_2_electric_boogaloo(str, i, envpcpy);
 	}
 	if (*envpcpy)
 		free_matrix(*envpcpy);
 	return (rl_clear_history(), g_exitcode);
 }
-
