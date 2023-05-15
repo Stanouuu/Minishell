@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 11:22:04 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:44:49 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ int	open_file(t_data *data)
 	{
 		if (open_them_all(data, files) == 0)
 			return (0);
-		if (files->next && files->next->type > 2 
+		if (files->next && files->next->type > 2
 			&& files->type > 2)
 			close (data->fd[1]);
-		if (files->next && files->next->type <= 2 
+		if (files->next && files->next->type <= 2
 			&& files->type <= 2)
 			close (data->fd[0]);
 		files = files->next;

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:58:36 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 16:43:02 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:46:03 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	the_fork_before_forks(int *pid, t_data *data, int x, int j)
 	close (j);
 }
 
-void    forkland(t_data *data, int *pid, int *j)
+void	forkland(t_data *data, int *pid, int *j)
 {
 	free(pid);
 	redirect(data->fd[0], data->fd[1]);
@@ -50,6 +50,7 @@ void	guns_n_forks(int x, int j, int *pid)
 
 int	straight_outta_forkton(int i, t_data *data, int *j)
 {
+	i = open_file(data);
 	if (i >= 1)
 		i = the_fork_outa_names(data, j[0], j[1]);
 	return (i);

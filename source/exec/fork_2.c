@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:55:12 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 16:24:47 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:04:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	the_fork_outa_names(t_data *data, int x, int j)
 	return (i);
 }
 
-t_data	*next_data(t_data *data, int x)
+t_data	*next_data(t_data *data, int x, int *i)
 {
+	if (data->next && i == 0)
+		*i = 1;
 	if (data->index == 0)
 		firstcommandclose(data, 0, x);
 	else if (data->next == NULL && data->index != 0)
