@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 15:13:43 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:00:47 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	free_matrix(char **envp)
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (envp && envp[i])
 		free(envp[i++]);
 	free(envp);
 }
@@ -112,6 +112,8 @@ int	main(int ac, char **av, char **envp)
 			ft_dataclear(data);
 		}
 	}
-	return (free_matrix(*envpcpy), rl_clear_history(), g_exitcode);
+	if (*envpcpy)
+		free_matrix(*envpcpy);
+	return (rl_clear_history(), g_exitcode);
 }
 

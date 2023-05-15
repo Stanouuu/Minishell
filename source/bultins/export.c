@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 12:29:31 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:43:15 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,21 @@ int	cpytab_to_another(char **envp, char ***envpcpy)
 		i++;
 	*envpcpy = malloc(sizeof(char *) * (i + 1));
 	if (!*envpcpy)
-		return (-1);
+		return (ft_free_strs(envp), malloc_error());
 	i = 0;
 	while (envp[i])
 	{
 		(*envpcpy)[i] = ft_strdup(envp[i]);
-		free(envp[i]);
 		if (!(*envpcpy)[i])
 		{
 			while (i != 0)
 				free((*envpcpy)[--i]);
-			return (-1);
+			return (ft_free_strs(envp), malloc_error());
 		}
 		i++;
 	}
-	free(envp);
 	(*envpcpy)[i] = NULL;
+	ft_free_strs(envp);
 	return (1);
 }
 
@@ -49,23 +48,30 @@ int	ft_add_env(char **cmd, char ***envp, int j, char **envpcpy)
 		i++;
 	envpcpy = malloc(sizeof(char *) * (i + 2));
 	if (!envpcpy)
-		return (-1);
+		return (malloc_error());
 	i = 0;
 	while ((*envp)[i])
 	{
 		envpcpy[i] = ft_strdup((*envp)[i]);
-		free((*envp)[i]);
 		if (!envpcpy[i])
 		{
 			while (i != 0)
 				free(envpcpy[--i]);
-			return (-1);
+			free(envpcpy);
+			return (malloc_error());
 		}
 		i++;
 	}
-	free(*envp);
 	envpcpy[i] = ft_strdup(cmd[j]);
+	if (!envpcpy[i])
+	{
+		while (i != 0)
+			free(envpcpy[--i]);
+		free(envpcpy);
+		return (malloc_error());
+	}
 	envpcpy[i + 1] = NULL;
+	ft_free_strs(*envp);
 	return (cpytab_to_another(envpcpy, envp));
 }
 
@@ -94,6 +100,8 @@ int	export_2(char **cmd, char **envp, int j)
 		{
 			free(envp[k]);
 			envp[k] = ft_strdup(cmd[j]);
+			if (!envp[k])
+				return (malloc_error());
 			break ;
 		}
 		k++;
