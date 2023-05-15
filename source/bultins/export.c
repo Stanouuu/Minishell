@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 21:56:24 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:01:08 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	export_2(char **cmd, char **envp, int j)
 	k = 0;
 	while (envp[k])
 	{
-		i = until_equal(envp[k], 0);
+		i = until_equal(envp[k]);
 		if (ft_strncmp(cmd[j], envp[k], i) == 0
-			&& until_equal(envp[k], 0) == until_equal(cmd[j], 0))
+			&& until_equal(envp[k]) == until_equal(cmd[j]))
 		{
 			free(envp[k]);
 			envp[k] = ft_strdup(cmd[j]);
