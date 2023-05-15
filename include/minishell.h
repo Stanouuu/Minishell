@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 12:57:25 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:18:48 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		unset(char **cmd, char ***envp);
 int		export(char **cmd, char ***envp);
 int		envp_prt_sort(char **envp);
 void	env(char **cmd, char **envp);
-
+int		ft_exit(char **cmd);
 
 int		malloc_error(void);
 int		road(t_data *data);
@@ -76,6 +76,9 @@ void	action();
 int		open_file(t_data *data);
 int		ft_pipe(t_data *data, int j, int x);
 int		until_equal(char *str);
+int		ft_is_numeric(char *str);
+int		ft_exit_code(char *str);
+int		ft_atollcheck(char *str);
 
 int		parsing(char *rd, t_data **data, char **envp);
 char	*parsing_2(char *str);

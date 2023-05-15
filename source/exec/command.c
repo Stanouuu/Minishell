@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 12:57:03 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:43:18 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_exit(char **cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[1] && cmd[1][i])
-	{
-		if (isdigit(cmd[1][i]) == 0)
-		{
-			g_exitcode = 2;
-			ft_printf("Minishell: %s: numeric argument required\n", cmd[1]);
-			return (-1);
-		}
-		i++;
-	}
-	if (cmd[1] && cmd[2])
-	{
-		g_exitcode = 1;
-		ft_printf("bash: exit: too many arguments\n");
-		return (0);
-	}
-	if (cmd[1])
-		g_exitcode = ft_atoi(cmd[1]);
-	return (-1);
-}
 
 int	ft_controller(t_data *data)
 {
