@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 17:43:18 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:57:21 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,16 @@ int	all_data(t_data *data)
 void	ft_parent(int *pid, int y)
 {
 	int	i;
+	int	status;
 
 	i = 0;
 	signal(SIGINT, SIG_IGN);
 	while (i != y)
-		waitpid(pid[i++], 0, 0);
+	{
+		if (waitpid(-1, &status, WUNTRACED) == pid[y - 1])
+			g_exitcode = status / 256;
+		i++;
+	}
 }
 
 int	ft_command(t_data *data)
