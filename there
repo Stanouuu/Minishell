@@ -1,0 +1,2 @@
+LIBVIRT_DEFAULT_URI=qemu:///system
+DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path
