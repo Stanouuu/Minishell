@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:52:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 09:57:01 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:36:49 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int	ft_check_error_21(char **tmp, char **str, t_data *data)
 	while (tmp[i])
 	{
 		if (strcpr(tmp, &(*str), i, data) == -1)
-			return (free_tab(tmp), -1);
+			return (ft_free_strs(tmp), -1);
 		j = check_error_tool(data, *(&str));
 		if (j == 1 || j == -1)
-			return (free_tab(tmp), j);
+			return (ft_free_strs(tmp), j);
 		i++;
 		free(*str);
 	}
-	free_tab(tmp);
+	ft_free_strs(tmp);
 	ft_printf("%s: command not found\n", data->command[0]);
 	g_exitcode = 127;
 	return (0);
