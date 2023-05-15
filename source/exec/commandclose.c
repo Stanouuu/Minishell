@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 13:16:14 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/14 14:41:39 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 09:09:31 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	lastcommandclose(t_data *data, int n)
 	close(data->fd[1]);
 	close(data->pipe[1]);
 	if (data->pipe[0] != data->fd[0])
-			close(data->pipe[0]);
+		close(data->pipe[0]);
 	close(data->fd[0]);
 }
 

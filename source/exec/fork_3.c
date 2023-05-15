@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:58:36 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 14:40:37 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 09:05:57 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	the_fork_before_forks(int *pid, t_data *data, int x, int j)
 	close (j);
 }
 
-void    forkland(t_data *data, int *pid, int *j)
+void	forkland(t_data *data, int *pid, int *j)
 {
 	free(pid);
 	redirect(data->fd[0], data->fd[1]);

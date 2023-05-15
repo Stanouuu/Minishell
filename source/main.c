@@ -6,13 +6,13 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/13 21:45:42 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 09:04:23 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	action()
+void	action(void)
 {
 	write(1, "\n", 1);
 	rl_on_new_line();
@@ -108,10 +108,8 @@ int	main(int ac, char **av, char **envp)
 			*envpcpy = data->envp;
 			add_history(str);
 			free(str);
-
 			ft_dataclear(data);
 		}
 	}
 	return (free_matrix(*envpcpy), rl_clear_history(), g_exitcode);
 }
-

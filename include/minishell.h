@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 13:45:56 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 09:03:30 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,6 @@
 
 extern int	g_exitcode;
 
-// typedef struct s_token
-// {
-// 	enum e_token	enu;
-// 	struct s_token	*next;
-// }					t_token;
-
-// typedef struct s_file
-// {
-// 	char			*name;
-// 	enum e_token	type;
-// 	struct s_file	*next;
-// }					t_file;
-
-// typedef struct s_data
-// {
-// 	char			**command;
-// 	char			**envp;
-// 	int				fd[2];
-// 	int				pipe[2];
-// 	struct s_file	*files;
-// 	struct s_data	*next;
-// }					t_data;
-
 /*##############*/
 /*	 BULT-INS	*/
 /*##############*/
@@ -63,7 +40,6 @@ int		export(char **cmd, char ***envp);
 int		envp_prt_sort(char **envp);
 void	env(char **cmd, char **envp);
 
-
 int		malloc_error(void);
 int		road(t_data *data);
 int		ft_command(t_data *data);
@@ -71,8 +47,8 @@ int		redirection(t_data *data);
 void	controller(t_data *data);
 int		ft_controller(t_data *data);
 void	redirect(int x, int j);
-int 	ft_strcmp(const char *s1, const char *s2);
-void	action();
+int		ft_strcmp(const char *s1, const char *s2);
+void	action(void);
 int		open_file(t_data *data);
 int		ft_pipe(t_data *data, int j, int x);
 
@@ -110,7 +86,7 @@ void	comewithmeifyouwanttofork(int *pid, int y, t_data *data, char **str);
 int		the_fork_outa_names(t_data *data, int x, int j);
 void	forkgive_n_forkget(t_data *data, int *pid, int *j, char **str);
 int		the_forkiest_fork(t_data *data, int i);
-int		straight_outta_forkton(int	i, t_data *data, int *j);
+int		straight_outta_forkton(int i, t_data *data, int *j);
 void	guns_n_forks(int x, int j, int *pid);
 void	forkland(t_data *data, int *pid, int *j);
 void	the_fork_before_forks(int *pid, t_data *data, int x, int j);

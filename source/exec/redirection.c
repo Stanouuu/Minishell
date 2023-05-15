@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:00:46 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 14:51:12 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/15 09:08:54 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ int	open_file(t_data *data)
 
 	// while (data)
 	// {
-		files = data->files;
-		while (files)
-		{
-			if (open_them_all(data, files) == 0)
-				return (0);
-			// close_pip(data, files);
-			files = files->next;
-		}
-		// if (data->fd[0] == -1)
-		// 	g_exitcode = 1;
+	files = data->files;
+	while (files)
+	{
+		if (open_them_all(data, files) == 0)
+			return (0);
+		// close_pip(data, files);
+		files = files->next;
+	}
+	// if (data->fd[0] == -1)
+	// 	g_exitcode = 1;
 	// 	data = data->next;
 	// }
 	return (1);
