@@ -6,7 +6,7 @@
 /*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 23:01:08 by stan             ###   ########.fr       */
+/*   Updated: 2023/05/15 23:42:20 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	export_11(char **cmd, char ***envp, int i, int j)
 			return (-1);
 		i++;
 	}
-	return (1);
+	return (h);
 }
 
 int	export(char **cmd, char ***envp)

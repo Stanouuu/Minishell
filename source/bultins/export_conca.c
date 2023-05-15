@@ -6,7 +6,7 @@
 /*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 19:01:19 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 23:15:22 by stan             ###   ########.fr       */
+/*   Updated: 2023/05/16 00:16:02 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	conca_export_2(char ***envp, char *str)
 		{
 			while ((*envp)[k][i] && (*envp)[k][i] != '=')
 				i++;
-			if (!(*envp)[k][i])
-				(*envp)[k] = ft_strjoinandfree((*envp)[k], "=", 0);
 			(*envp)[k] = ft_strjoinandfree((*envp)[k], str + i + 1, 0);
+			if (!(*envp)[k])
+				return (free(str), unset_error(envp, k), malloc_error());
 			free(str);
 			return (1);
 		}
@@ -60,6 +60,8 @@ int	conca_str(char ***envp, char **cmd, int j, int i)
 	char	*str;
 
 	str = malloc(sizeof(char) * i);
+	if (!str)
+		return (-1);
 	i = 0;
 	while (cmd[j][i] != '+')
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:25:37 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 20:49:11 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:30:06 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	echo(char **cmd);
 void	pwd(char **cmd);
 int		cd(char **cmd, char **envp);
 int		unset(char **cmd, char ***envp);
+void	unset_error(char ***envp, int i);
 int		export(char **cmd, char ***envp);
 int		envp_prt_sort(char **envp);
 int		ft_add_env(char **cmd, char ***envp, int j, char **envpcpy);
