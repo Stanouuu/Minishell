@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 14:45:32 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 15:56:48 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:30:11 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,29 @@ void	extra_cmd(t_data *data, char *str)
 
 int	forkland_2_the_forkening(t_data *data, int	*pid, int *j, char *str)
 {
-	int		i;
-	int		y;
+	int		i[2];
 
-	y = 0;
-	i = 1;
-	while (data && i > -1)
+	i[1] = 0;
+	i[0] = 1;
+	while (data && i[0] > -1)
 	{
-		i = open_file(data);
-		i = straight_outta_forkton(i, data, j);
-		if (i == -1)
+		i[0] = straight_outta_forkton(i[0], data, j);
+		if (i[0] == -1)
 			return (-1);
-		if (i == 1)
+		if (i[0] == 1)
 		{
-			i = ft_check_error(data, &str);
-			if (i == -1)
-				return (free(str), i);
-			if (i != 0)
+			i[0] = ft_check_error(data, &str);
+			if (i[0] == -1)
+				return (free(str), i[0]);
+			if (i[0] != 0)
 			{
-				pid[y] = fork();
-				if (pid[y] == 0 && i == 1)
+				pid[i[1]] = fork();
+				if (pid[i[1]] == 0 && i[0] == 1)
 					forkgive_n_forkget(data, pid, j, &str);
-				comewithmeifyouwanttofork(pid, y++, data, &str);
+				comewithmeifyouwanttofork(pid, i[1]++, data, &str);
 			}
 		}
-		i = the_forkiest_fork(data, i);
-		data = next_data(data, j[0]);
-		// data = data->next;
+		data = next_data(data, j[0], &(i[0]));
 	}
-	return (y);
+	return (i[1]);
 }
