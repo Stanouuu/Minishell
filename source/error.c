@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:18:19 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/12 18:00:34 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:54:43 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	free_tab(char **tmp)
 	int	i;
 
 	i = 0;
+	if (tmp)
+		return ;
 	while (tmp[i])
 		free(tmp[i++]);
 	free(tmp);

@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/14 13:00:16 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:56:14 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ int	ft_command(t_data *data)
 	j[1] = dup(1);
 	j[0] = dup(0);
 	if (ft_pipe(data, j[1], j[0]) == -1)
-		return (-1);
+		return (close (j[1]), close(j[0]), -1);
 	y = forkland_2_the_forkening(data, pid, j, NULL);
 	if (y == -1)
-		return (free(pid), -1);
+		return (close(j[1]), close(j[0]), free(pid), -1);
 	if (pid[0] != -1)
 		ft_parent(pid, y);
 	return (guns_n_forks(j[0], j[1], pid), 1);
