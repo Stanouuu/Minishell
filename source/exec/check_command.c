@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:52:39 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 16:22:06 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/16 12:06:59 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_check_error_3_bis(t_data *data, char **str)
 	if (has_slash(data->command[0]) == 1)
 	{
 		free(*str);
-		*str = ft_strjoin("Minishell :", data->command[0]);
+		*str = ft_strjoin("Minishell: ", data->command[0]);
 		if (!*str)
 			return (malloc_error());
 		ft_error(*str);
