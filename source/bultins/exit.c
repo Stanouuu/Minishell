@@ -6,7 +6,7 @@
 /*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:43:09 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/15 18:24:39 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/16 12:03:09 by gfranque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_exit(char **cmd)
 {
-	if (ft_is_numeric(cmd[1]) == 0)
+	if (cmd[1] && ft_is_numeric(cmd[1]) == 0)
 	{
 		g_exitcode = 2;
 		ft_printf("Minishell: %s: numeric argument required\n", cmd[1]);
