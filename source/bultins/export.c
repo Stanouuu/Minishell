@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/16 12:05:27 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:59:09 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	export_11(char **cmd, char ***envp, int i, int j)
 	h = conca_export(cmd, envp, j);
 	while (cmd[j][i] && !(cmd[j][i] == '=' && i != 0))
 	{
-		ft_printf("%d", h);
 		if (h == -1)
 			return (-1);
 		else if (h == 1)

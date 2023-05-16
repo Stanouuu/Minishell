@@ -6,7 +6,7 @@
 /*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:05:30 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 13:46:57 by sbarrage         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:57:28 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ int	cd(char **cmd, char **envp)
 	}
 	if (change_pwd("PWD=", envp) == -1)
 		return (-1);
-	ft_printf("cd : %d\n", *pwd);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:54:17 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 23:00:19 by stan             ###   ########.fr       */
+/*   Updated: 2023/05/16 15:59:18 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	unset_2(char **cmd, int j, char ***envp, int i)
 	}
 	else if (ft_strncmp(cmd[j], (*envp)[i], until_equal((*envp)[i])) == 0)
 	{
-		ft_printf("%s\n", (*envp)[i]);
 		while ((*envp)[i + 1])
 		{
 			free((*envp)[i]);
