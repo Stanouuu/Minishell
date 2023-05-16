@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:43:09 by gfranque          #+#    #+#             */
-/*   Updated: 2023/05/16 12:03:09 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:54:31 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	ft_exit_code(char *str)
 int	ft_atollcheck(char *str)
 {
 	double	n;
-	int					i;
-	int					signe;
+	int		i;
+	int		signe;
 
 	i = 0;
 	n = 0;

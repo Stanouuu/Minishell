@@ -3,30 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 14:45:32 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 17:54:39 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:47:16 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	child_action(int num, siginfo_t	*info, void *content)
+void	child_action(int num)
 {
-	if (num == SIGINT && content)
-		kill(info->si_pid, SIGTERM);
+	if (num == SIGINT)
+	{
+		g_exitcode = 130;
+		exit(g_exitcode);
+	}
 }
 
 void	extra_cmd(t_data *data, char *str)
 {
-	struct sigaction	sa;
-
-	sigemptyset(&sa.sa_mask);
-	sigaddset(&sa.sa_mask, SIGINT);
-	sa.sa_flags = SA_RESTART | SA_SIGINFO;
-	sa.sa_sigaction = &child_action;
-	sigaction(SIGUSR1, &sa, NULL);
+	signal(SIGINT, &child_action);
 	signal(SIGQUIT, SIG_DFL);
 	execve(str, data->command, data->envp);
 	free(str);

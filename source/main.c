@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:23:38 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 22:59:55 by stan             ###   ########.fr       */
+/*   Updated: 2023/05/16 14:53:25 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,23 @@ int	main_2_electric_boogaloo(char *str, int i, char ***envpcpy)
 {
 	t_data	*data;
 
-		if (!str)
-			i = -1;
-		else
+	if (!str)
+		i = -1;
+	else
+	{
+		data = ft_datacreate(*envpcpy);
+		if (!data)
 		{
-			data = ft_datacreate(*envpcpy);
-			if (!data)
-			{
-				if (*envpcpy)
-					ft_free_strs(*envpcpy);
-				return (rl_clear_history(), g_exitcode);
-			}
-			i = ft_lexing(str, NULL, data);
-			*envpcpy = data->envp;
-			add_history(str);
-
-			free(str);
-			ft_dataclear(data);
+			if (*envpcpy)
+				ft_free_strs(*envpcpy);
+			return (rl_clear_history(), g_exitcode);
 		}
+		i = ft_lexing(str, NULL, data);
+		*envpcpy = data->envp;
+		add_history(str);
+		free(str);
+		ft_dataclear(data);
+	}
 	return (i);
 }
 

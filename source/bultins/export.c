@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <stan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:33:51 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 23:42:20 by stan             ###   ########.fr       */
+/*   Updated: 2023/05/16 12:05:27 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,14 @@ int	export_11(char **cmd, char ***envp, int i, int j)
 	h = conca_export(cmd, envp, j);
 	while (cmd[j][i] && !(cmd[j][i] == '=' && i != 0))
 	{
+		ft_printf("%d", h);
 		if (h == -1)
 			return (-1);
 		else if (h == 1)
 			break ;
-		if ((cmd[j][i] == '=' && i != 0))
+		else if ((cmd[j][i] == '=' && i != 0))
 			ft_printf("the statement : = and i not 0 is true");
-		if ((ft_isalpha(cmd[j][i]) == 0 && !(cmd[j][i] == '='))
+		else if ((ft_isalpha(cmd[j][i]) == 0 && !(cmd[j][i] == '='))
 			|| (ft_isalpha(cmd[j][i]) == 0))
 		{
 			ft_printf("bash: export: %s: not a valid identifier\n", cmd[j]);

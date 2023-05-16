@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranque <gfranque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbarrage <sbarrage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:37:56 by sbarrage          #+#    #+#             */
-/*   Updated: 2023/05/15 18:57:21 by gfranque         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:53:41 by sbarrage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,21 @@ void	ft_parent(int *pid, int y)
 	int	status;
 
 	i = 0;
-	signal(SIGINT, SIG_IGN);
 	while (i != y)
 	{
 		if (waitpid(-1, &status, WUNTRACED) == pid[y - 1])
-			g_exitcode = status / 256;
+		{
+			if (status == 2)
+				g_exitcode = 130;
+			else if (status > 256)
+				g_exitcode = status / 256;
+			else
+				g_exitcode = status;
+		}
 		i++;
 	}
+	if (g_exitcode == 130 || g_exitcode == 131)
+		write(1, "\n", 1);
 }
 
 int	ft_command(t_data *data)
@@ -80,6 +88,7 @@ int	ft_command(t_data *data)
 	j[0] = dup(0);
 	if (ft_pipe(data, j[1], j[0]) == -1)
 		return (close (j[1]), close(j[0]), -1);
+	signal(SIGINT, SIG_IGN);
 	y = forkland_2_the_forkening(data, pid, j, NULL);
 	if (y == -1)
 		return (close(j[1]), close(j[0]), free(pid), -1);
